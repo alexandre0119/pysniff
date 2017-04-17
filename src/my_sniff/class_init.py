@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 # Author: Alex Wang
 
-import pyshark
 from src.my_misc.my_logging import create_logger
 log_init = create_logger()
 
@@ -14,44 +13,27 @@ class Init(object):
 		:param capture_dir: sniff capture file directory
 		:param capture_name: sniff capture file name
 		"""
+		import os
 		self.capture_dir = capture_dir
 		self.capture_name = capture_name
+		self.capture_file_path = os.path.join(self.capture_dir, self.capture_name)
 
+	def file_capture(self, capture_file):
+		"""
+		Generate file capture handle object
+		:param capture_file: capture file (PCAP, PCAPNG)
+		:return: capture file object
+		"""
+		import pyshark
+		cap = pyshark.FileCapture(capture_file)
+		return cap
 
-cap = pyshark.FileCapture('capture.pcapng')
-# cap_summary = pyshark.FileCapture('capture.pcapng', only_summaries=True)
-cap_list = []
-for i_pkt in [cap[0], cap[1]]:
-	cap_list.append(i_pkt)
-# print(cap_list[0])
-print(cap_list[0].highest_layer)
-print(cap_list[0].captured_length)
-print(cap_list[0].layers)
-print(cap_list[0].sniff_time)
-print(cap_list[0].frame_info)
-print(cap_list[0].length)
-print(cap_list[0].sniff_timestamp)
-print('\n')
-print(cap_list[0][cap_list[0].highest_layer].get_field_value)
-print(cap_list[0][cap_list[0].highest_layer].DATA_LAYER)
-print(cap_list[0][cap_list[0].highest_layer].layer_name)
-print(cap_list[0][cap_list[0].highest_layer].get_field)
-print(cap_list[0][cap_list[0].highest_layer].pretty_print)
-print('\n')
-# print(dir(cap))
-
-pkt_1 = cap[0]
-print(pkt_1.pretty_print())
-print(pkt_1['RADIOTAP'].pretty_print())
-print(pkt_1['WLAN'].pretty_print())
-print(pkt_1['WLAN'].get_field_by_showname('Transmitter address'))
-print(str(pkt_1['WLAN'].get_field_by_showname('Transmitter address')))
-print(str(pkt_1['WLAN'].get_field('duration')))
-print(str(pkt_1['WLAN'].get_field('ba.control.ackpolicy')))
-print(str(pkt_1['WLAN'].get_field_value('duration')))
-print(str(pkt_1['WLAN'].get_field_value('ba.control')))
-print(str(pkt_1['WLAN'].get_field_value('ba.control.ackpolicy')))
-
-# for pkt in cap:
-# 	print(pkt.layer)
-# 	print(pkt.highest_layer)
+	def get_pkt_count(self, capture_file):
+		import pyshark
+		cap = pyshark.FileCapture(self.capture_file_path, only_summaries=True)
+		log_init.info('Calculating capture file packet count. This may take a while depends on capture size...')
+		pkt_count = len([packet for packet in cap])
+		log_init.info('Finished calculation for capture file packet count')
+		# There seems a bug that use only summary option will not include the 1st packet, so + 1 here
+		pkt_count = pkt_count + 1
+		return pkt_count
