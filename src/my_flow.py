@@ -8,6 +8,7 @@ import src.my_sniff.class_init as class_init
 import src.my_sniff.class_group as class_group
 import src.my_sniff.mgt.beacon.frame as beacon_frame
 import src.my_sniff.mgt.beacon.radiotap as beacon_radiotab
+import src.my_sniff.mgt.beacon.wlan_radio as beacon_wlan_radio
 from src.my_misc.my_logging import create_logger
 log_flow = create_logger(logger_name=__name__, fmt='%(message)s')
 
@@ -21,7 +22,8 @@ def main_flow():
 	init = class_init.Init(capture_dir, capture_file)
 	group = class_group.Group(capture_dir, capture_file, role)
 	beacon_frame_0 = beacon_frame.Frame(capture_dir, capture_file, role, device, interface, 'Frame')
-	beacon_radiotab_0 = beacon_radiotab.Radiotap(capture_dir, capture_file, role, device, interface, 'RADIOTAP')
+	beacon_radiotab_0 = beacon_radiotab.Radiotap(capture_dir, capture_file, role, device, interface, 'radiotap')
+	beacon_wlan_radio_0 = beacon_wlan_radio.WLANRadio(capture_dir, capture_file, role, device, interface, 'wlan_radio')
 
 	capture = init.capture_file_path
 
@@ -29,8 +31,9 @@ def main_flow():
 	print(beacon_frame_0.protocols(cap[0]))
 	# print(init.get_pkt_count_all(cap))
 	# print(group.get_pkt_count_filter(cap))
-	beacon_frame_0.display_frame(cap[0], 0)
-	beacon_radiotab_0.display_radiotap(cap[0], 0)
+	# beacon_frame_0.display_frame(cap[0], 0)
+	# beacon_radiotab_0.display_radiotap(cap[0], 0)
+	beacon_wlan_radio_0.display_wlan_radio(cap[0], 0)
 
 	# print(beacon_frame_0.cap_len(cap[0]))
 	# counter = 1

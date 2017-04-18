@@ -657,7 +657,7 @@ class Radiotap(Basic):
 			str_value = str(value)
 			return str_value
 		elif option == '0':
-			frame_str = """
+			radiotap_str = """
 ======================================================================
 ---------------------------- Layer: {9} ----------------------------
 01. Header revision: {0}
@@ -681,11 +681,11 @@ class Radiotap(Basic):
 			                       Radiotap.dbm_antnoise(self, packet),
 			                       Radiotap.antenna(self, packet),
 			                       self.layer_name.upper())
-			log_beacon_radiotap.info(frame_str)
+			log_beacon_radiotap.info(radiotap_str)
 			Radiotap.display_radiotap_present(self, packet)
 			Radiotap.display_radiotap_flags(self, packet)
 			Radiotap.display_radiotap_channel_flags(self, packet)
-		# return frame_str
+		# return radiotap_str
 		else:
 			import sys
 			log_beacon_radiotap('Something wrong with beacon frame display setting. Exiting...')
