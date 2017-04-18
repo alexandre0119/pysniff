@@ -36,3 +36,18 @@ def capture_file():
 	config = load_config()
 	capture_file_name = str(config['File'].get('Capture_File'))
 	return capture_file_name
+
+def role():
+	config = load_config()
+	role_name = str(config['Role'].get('Role'))
+	return role_name
+
+def device():
+	config = load_config()
+	device_name = str(config['Device'].get('Device_Name'))
+	return device_name
+
+def interface():
+	config = load_config()
+	interface_name = str(config['Interface'].get('Wireshark'))
+	return interface_name
