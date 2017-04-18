@@ -13,3 +13,14 @@ class Group(Init):
 		self.role = str(role).lower()
 
 
+	def get_pkt_count_filter(self, capture_file, filter):
+		import pyshark
+		cap = pyshark.FileCapture(self.capture_file_path,
+		                          only_summaries=False,
+		                          display_filter=filter)
+		log_group.info('Calculating capture file packet count. This may take a while depends on capture size...')
+		pkt_count = len([packet for packet in cap])
+		log_group.info('Finished calculation for capture file packet count')
+		# There seems a bug that use only summary option will not include the 1st packet, so + 1 here
+		# pkt_count = pkt_count + 1
+		return pkt_count

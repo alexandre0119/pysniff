@@ -28,12 +28,13 @@ class Init(object):
 		cap = pyshark.FileCapture(capture_file)
 		return cap
 
-	def get_pkt_count(self, capture_file):
+	def get_pkt_count_all(self, capture_file):
 		import pyshark
-		cap = pyshark.FileCapture(self.capture_file_path, only_summaries=True)
+		cap = pyshark.FileCapture(self.capture_file_path,
+		                          only_summaries=False)
 		log_init.info('Calculating capture file packet count. This may take a while depends on capture size...')
 		pkt_count = len([packet for packet in cap])
 		log_init.info('Finished calculation for capture file packet count')
 		# There seems a bug that use only summary option will not include the 1st packet, so + 1 here
-		pkt_count = pkt_count + 1
+		# pkt_count = pkt_count + 1
 		return pkt_count

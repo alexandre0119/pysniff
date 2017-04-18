@@ -5,6 +5,7 @@
 import pyshark
 import src.my_config.config_basic as config_basic
 import src.my_sniff.class_init as class_init
+import src.my_sniff.class_group as class_group
 import src.my_sniff.mgt.beacon.frame as beacon_frame
 import src.my_sniff.mgt.beacon.radiotap as beacon_radiotab
 from src.my_misc.my_logging import create_logger
@@ -18,6 +19,7 @@ def main_flow():
 	device = config_basic.device()
 	interface = config_basic.interface()
 	init = class_init.Init(capture_dir, capture_file)
+	group = class_group.Group(capture_dir, capture_file, role)
 	beacon_frame_0 = beacon_frame.Frame(capture_dir, capture_file, role, device, interface, 'Frame')
 	beacon_radiotab_0 = beacon_radiotab.Radiotap(capture_dir, capture_file, role, device, interface, 'RADIOTAP')
 
@@ -25,10 +27,9 @@ def main_flow():
 
 	cap = init.file_capture(capture)
 	print(beacon_frame_0.protocols(cap[0]))
+	# print(init.get_pkt_count_all(cap))
+	# print(group.get_pkt_count_filter(cap))
 	beacon_frame_0.display_frame(cap[0], 0)
-	beacon_radiotab_0.display_radiotap_present(cap[0])
-	beacon_radiotab_0.display_radiotap_flags(cap[0])
-	beacon_radiotab_0.display_radiotap_channel_flags(cap[0])
 	beacon_radiotab_0.display_radiotap(cap[0], 0)
 
 	# print(beacon_frame_0.cap_len(cap[0]))
