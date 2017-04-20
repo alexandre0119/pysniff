@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # Author: Alex Wang
 
-import pyshark
+from collections import Counter
 import src.my_config.config_basic as config_basic
 import src.my_sniff.class_init as class_init
 import src.my_sniff.class_group as class_group
@@ -41,18 +41,38 @@ def main_flow():
 	print(beacon_wlan_0.sa_resolved(cap[0]))
 	print(beacon_wlan_0.sa(cap[0]))
 
+	list_wlan_cap = []
+	counter_all = 0
+	counter_wlan = 0
+	list_wlan_cap_beacon = []
+	counter_wlan_cap_beacon = 0
+	list_wlan_beacon_sa = []
 
-	# bssid_list = []
-	# for i_cap in cap:
-	# 	if 'wlan' in i_cap:
-	# 		if beacon_wlan_0.fc_type_subtype(i_cap) == '8':
-	# 			bssid_list.append(beacon_wlan_0.sa_resolved(i_cap))
-	# 			print('running')
-	# 		else:
-	# 			print('skip')
-	# 	else:
-	# 		print('malformed')
-	# print(bssid_list)
+	for i_cap in cap:
+		counter_all += 1
+		if 'wlan' in i_cap:
+			# list_wlan_cap.append(i_cap)
+			counter_wlan += 1
+			if beacon_wlan_0.fc_type_subtype(i_cap) == config_basic.beacon_type_value()[0]:
+				list_wlan_cap_beacon.append(i_cap)
+				counter_wlan_cap_beacon += 1
+				list_wlan_beacon_sa.append(beacon_wlan_0.sa(i_cap))
+				print(str(counter_wlan_cap_beacon) + ' :Running')
+				if beacon_wlan_0.sa(i_cap) == 'None':
+					import sys
+					print('!!!!!!!!!!!!!!')
+					sys.exit()
+			else:
+				print(str(counter_wlan) + ' :Skip')
+		else:
+			print('Others or Malformed')
+		print(counter_all)
+
+	print(counter_wlan)
+	print(counter_wlan_cap_beacon)
+
+	list_wlan_beacon_sa_set = dict(Counter(list_wlan_beacon_sa))
+	print(list_wlan_beacon_sa_set)
 
 
 	# print(beacon_frame_0.cap_len(cap[0]))

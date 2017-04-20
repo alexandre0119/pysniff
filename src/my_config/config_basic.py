@@ -51,3 +51,9 @@ def interface():
 	config = load_config()
 	interface_name = str(config['Interface'].get('Wireshark'))
 	return interface_name
+
+def beacon_type_value():
+	config = load_config()
+	beacon_type_subtype_json = str(config['Frame_Management'].get('Subtype_Beacon_Json'))
+	beacon_type_subtype_wsdf = str(config['Frame_Management'].get('Subtype_Pro_Res_WSDF'))
+	return beacon_type_subtype_json, beacon_type_subtype_wsdf
