@@ -68,6 +68,7 @@ def main_flow():
 			print('Others or Malformed')
 		print(counter_all)
 
+
 	print(counter_wlan)
 	print(counter_wlan_cap_beacon)
 
