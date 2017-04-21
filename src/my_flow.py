@@ -10,6 +10,7 @@ import src.my_sniff.mgt.beacon.frame as beacon_frame
 import src.my_sniff.mgt.beacon.radiotap as beacon_radiotab
 import src.my_sniff.mgt.beacon.wlan_radio as beacon_wlan_radio
 import src.my_sniff.mgt.beacon.wlan as beacon_wlan
+import src.my_sniff.counter as counter
 from src.my_misc.my_logging import create_logger
 log_flow = create_logger(logger_name=__name__, fmt='%(message)s')
 
@@ -41,39 +42,53 @@ def main_flow():
 	print(beacon_wlan_0.sa_resolved(cap[0]))
 	print(beacon_wlan_0.sa(cap[0]))
 
-	list_wlan_cap = []
-	counter_all = 0
-	counter_wlan = 0
-	list_wlan_cap_beacon = []
-	counter_wlan_cap_beacon = 0
-	list_wlan_beacon_sa = []
 
-	for i_cap in cap:
-		counter_all += 1
-		if 'wlan' in i_cap:
-			# list_wlan_cap.append(i_cap)
-			counter_wlan += 1
-			if beacon_wlan_0.fc_type_subtype(i_cap) == config_basic.beacon_type_value()[0]:
-				list_wlan_cap_beacon.append(i_cap)
-				counter_wlan_cap_beacon += 1
-				list_wlan_beacon_sa.append(beacon_wlan_0.sa(i_cap))
-				print(str(counter_wlan_cap_beacon) + ' :Running')
-				if beacon_wlan_0.sa(i_cap) == 'None':
-					import sys
-					print('!!!!!!!!!!!!!!')
-					sys.exit()
-			else:
-				print(str(counter_wlan) + ' :Skip')
-		else:
-			print('Others or Malformed')
-		print(counter_all)
+	wlan_list = counter.group_wlan_others(cap)
+	# print(len(wlan_list))
+	print(len(wlan_list[0]))
+	print(len(wlan_list[1]))
+	print(len(wlan_list[2]))
+	test = counter.group_wlan_bssid(cap, wlan_list[0])
+	print(test)
+	print(len(wlan_list[0]))
 
+	testtest = counter.get_wlan_beacon_count(cap, test)
+	for i in testtest:
+		print(i)
 
-	print(counter_wlan)
-	print(counter_wlan_cap_beacon)
+	# list_wlan_cap = []
+	# counter_all = 0
+	# counter_wlan = 0
+	# list_wlan_cap_beacon = []
+	# counter_wlan_cap_beacon = 0
+	# list_wlan_beacon_sa = []
 
-	list_wlan_beacon_sa_set = dict(Counter(list_wlan_beacon_sa))
-	print(list_wlan_beacon_sa_set)
+	# for i_cap in cap:
+	# 	counter_all += 1
+	# 	if 'wlan' in i_cap:
+	# 		# list_wlan_cap.append(i_cap)
+	# 		counter_wlan += 1
+	# 		if beacon_wlan_0.fc_type_subtype(i_cap) == config_basic.beacon_type_value()[0]:
+	# 			list_wlan_cap_beacon.append(i_cap)
+	# 			counter_wlan_cap_beacon += 1
+	# 			list_wlan_beacon_sa.append(beacon_wlan_0.sa(i_cap))
+	# 			print(str(counter_wlan_cap_beacon) + ' :Running')
+	# 			if beacon_wlan_0.sa(i_cap) == 'None':
+	# 				import sys
+	# 				print('!!!!!!!!!!!!!!')
+	# 				sys.exit()
+	# 		else:
+	# 			print(str(counter_wlan) + ' :Skip')
+	# 	else:
+	# 		print('Others or Malformed')
+	# 	print(counter_all)
+	#
+	#
+	# print(counter_wlan)
+	# print(counter_wlan_cap_beacon)
+	#
+	# list_wlan_beacon_sa_set = dict(Counter(list_wlan_beacon_sa))
+	# print(list_wlan_beacon_sa_set)
 
 
 	# print(beacon_frame_0.cap_len(cap[0]))
