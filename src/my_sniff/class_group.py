@@ -9,10 +9,22 @@ log_group = create_logger()
 
 class Group(Init):
 	def __init__(self, capture_dir, capture_name, role):
+		"""
+		Init Group
+		:param capture_dir: sniffer capture file directory
+		:param capture_name: sniffer capture file name
+		:param role: client side or AP side
+		"""
 		Init.__init__(self, capture_dir, capture_name)
 		self.role = str(role).lower()
 
 	def get_pkt_count_filter(self, capture_file, filter):
+		"""
+		Get packet count with display filter
+		:param capture_file: capture file obj
+		:param filter: filter string
+		:return: packet count with display filter
+		"""
 		import pyshark
 		cap = pyshark.FileCapture(self.capture_file_path,
 		                          only_summaries=False,
@@ -23,9 +35,3 @@ class Group(Init):
 		# There seems a bug that use only summary option will not include the 1st packet, so + 1 here
 		# pkt_count = pkt_count + 1
 		return pkt_count
-
-	# def malformed(self, packet):
-	# 	field_name = '_ws.malformed'
-	# 	value = packet[self.layer_name].get_field_value(field_name)
-	# 	str_value = str(value)
-	# 	return str_value

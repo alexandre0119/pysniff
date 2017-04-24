@@ -2,8 +2,9 @@
 # -*- coding: utf-8 -*-
 # Author: Alex Wang
 
-from collections import Counter
+# Import config file settings
 import src.my_config.config_basic as config_basic
+# Import class init
 import src.my_sniff.class_init as class_init
 import src.my_sniff.class_group as class_group
 import src.my_sniff.mgt.beacon.frame as beacon_frame
