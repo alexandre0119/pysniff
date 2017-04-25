@@ -6,7 +6,6 @@
 import src.my_config.config_basic as config_basic
 # Import class init
 import src.my_sniff.class_init as class_init
-import src.my_sniff.class_group as class_group
 import src.my_sniff.mgt.beacon.frame as beacon_frame
 import src.my_sniff.mgt.beacon.radiotap as beacon_radiotab
 import src.my_sniff.mgt.beacon.wlan_radio as beacon_wlan_radio
@@ -17,17 +16,17 @@ log_flow = create_logger(logger_name=__name__, fmt='%(message)s')
 
 def main_flow():
 	log_flow.info('\n================ Program started ================\n')
+
 	capture_dir = config_basic.capture_dir()
 	capture_file= config_basic.capture_file()
 	role = config_basic.role()
 	device = config_basic.device()
 	interface = config_basic.interface()
 	init = class_init.Init(capture_dir, capture_file)
-	group = class_group.Group(capture_dir, capture_file, role)
-	beacon_frame_0 = beacon_frame.Frame(capture_dir, capture_file, role, device, interface, 'Frame')
-	beacon_radiotab_0 = beacon_radiotab.Radiotap(capture_dir, capture_file, role, device, interface, 'radiotap')
-	beacon_wlan_radio_0 = beacon_wlan_radio.WLANRadio(capture_dir, capture_file, role, device, interface, 'wlan_radio')
-	beacon_wlan_0 = beacon_wlan.WLAN(capture_dir, capture_file, role, device, interface, 'wlan')
+	beacon_frame_0 = beacon_frame.Frame(capture_dir, capture_file, 'Frame')
+	beacon_radiotab_0 = beacon_radiotab.Radiotap(capture_dir, capture_file, 'radiotap')
+	beacon_wlan_radio_0 = beacon_wlan_radio.WLANRadio(capture_dir, capture_file, 'wlan_radio')
+	beacon_wlan_0 = beacon_wlan.WLAN(capture_dir, capture_file, 'wlan')
 
 	capture = init.capture_file_path
 
@@ -54,7 +53,7 @@ def main_flow():
 	# print(test)
 	# print(len(wlan_list[0]))
 
-	testtest = counter.build_beacon_info(capture, config_basic.beacon_BSSID())
+	testtest = counter.build_beacon_info(capture, config_basic.beacon_bssid())
 	print(testtest)
 	# for i in testtest:
 	# 	print(i)

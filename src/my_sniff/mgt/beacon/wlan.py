@@ -3,170 +3,108 @@
 # Author: Alex Wang
 
 import src.my_misc.hex2bin as hex2bin
-from src.my_sniff.mgt.basic import Basic
+from src.my_sniff.mgt.mgt_basic import MGT
 from src.my_misc.my_logging import create_logger
 log_beacon_wlan = create_logger(logger_name=__name__, fmt='%(message)s')
 
 
-class WLAN(Basic):
-	def __init__(self, capture_dir, capture_name, role, device, interface, layer_name):
-		Basic.__init__(self, capture_dir, capture_name, role, device, interface)
+class WLAN(MGT):
+	def __init__(self, capture_dir, capture_name, layer_name):
+		MGT.__init__(self, capture_dir, capture_name)
 
 		self.layer_name = str(layer_name).lower()
 
-		self.ap = 'AP'.lower()
-		self.marvell = 'MarvellS'.lower()
-		self.wireshark_mac = 'Wireshark_MAC'.lower()
-
 		self.fc = 'fc'
 
-	def error_msg(self):
-		import sys
-		log_beacon_wlan.info('Something wrong with device and interface setting'
-		                           ' when processing {0} layer. Exit...'.format(self.layer_name))
-		sys.exit()
-
-	def selector(self):
-		if self.role == self.ap and self.device == self.marvell and self.interface == self.wireshark_mac:
-			return '1'
-		else:
-			WLAN.error_msg(self)
-
 	def fc_type_subtype(self, packet):
-		if WLAN.selector(self) == '1':
-			field_name = self.layer_name + '.' + self.fc + '.' + 'type_subtype'
-			value = packet[self.layer_name].get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			WLAN.error_msg(self)
+		field_name = self.layer_name + '.' + self.fc + '.' + 'type_subtype'
+		value = packet[self.layer_name].get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def fc(self, packet):
-		if WLAN.selector(self) == '1':
-			field_name = self.layer_name + '.' + self.fc
-			value = packet[self.layer_name].get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			WLAN.error_msg(self)
+		field_name = self.layer_name + '.' + self.fc
+		value = packet[self.layer_name].get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def fc_version(self, packet):
-		if WLAN.selector(self) == '1':
-			field_name = self.layer_name + '.' + self.fc + '.' + 'version'
-			value = packet[self.layer_name].get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			WLAN.error_msg(self)
+		field_name = self.layer_name + '.' + self.fc + '.' + 'version'
+		value = packet[self.layer_name].get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def fc_type(self, packet):
-		if WLAN.selector(self) == '1':
-			field_name = self.layer_name + '.' + self.fc + '.' + 'type'
-			value = packet[self.layer_name].get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			WLAN.error_msg(self)
+		field_name = self.layer_name + '.' + self.fc + '.' + 'type'
+		value = packet[self.layer_name].get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def fc_subtype(self, packet):
-		if WLAN.selector(self) == '1':
-			field_name = self.layer_name + '.' + self.fc + '.' + 'subtype'
-			value = packet[self.layer_name].get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			WLAN.error_msg(self)
+		field_name = self.layer_name + '.' + self.fc + '.' + 'subtype'
+		value = packet[self.layer_name].get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def flags(self, packet):
-		if WLAN.selector(self) == '1':
-			field_name = self.layer_name + '.' + 'flags'
-			value = packet[self.layer_name].get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			WLAN.error_msg(self)
+		field_name = self.layer_name + '.' + 'flags'
+		value = packet[self.layer_name].get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def fc_ds(self, packet):
-		if WLAN.selector(self) == '1':
-			field_name = self.layer_name + '.' + self.fc + '.' + 'ds'
-			value = packet[self.layer_name].get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			WLAN.error_msg(self)
+		field_name = self.layer_name + '.' + self.fc + '.' + 'ds'
+		value = packet[self.layer_name].get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def fc_tods(self, packet):
-		if WLAN.selector(self) == '1':
-			field_name = self.layer_name + '.' + self.fc + '.' + 'tods'
-			value = packet[self.layer_name].get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			WLAN.error_msg(self)
-
+		field_name = self.layer_name + '.' + self.fc + '.' + 'tods'
+		value = packet[self.layer_name].get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def fc_fromds(self, packet):
-		if WLAN.selector(self) == '1':
-			field_name = self.layer_name + '.' + self.fc + '.' + 'fromds'
-			value = packet[self.layer_name].get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			WLAN.error_msg(self)
+		field_name = self.layer_name + '.' + self.fc + '.' + 'fromds'
+		value = packet[self.layer_name].get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def fc_frag(self, packet):
-		if WLAN.selector(self) == '1':
-			field_name = self.layer_name + '.' + self.fc + '.' + 'frag'
-			value = packet[self.layer_name].get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			WLAN.error_msg(self)
+		field_name = self.layer_name + '.' + self.fc + '.' + 'frag'
+		value = packet[self.layer_name].get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def fc_retry(self, packet):
-		if WLAN.selector(self) == '1':
-			field_name = self.layer_name + '.' + self.fc + '.' + 'retry'
-			value = packet[self.layer_name].get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			WLAN.error_msg(self)
+		field_name = self.layer_name + '.' + self.fc + '.' + 'retry'
+		value = packet[self.layer_name].get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def fc_pwrmgt(self, packet):
-		if WLAN.selector(self) == '1':
-			field_name = self.layer_name + '.' + self.fc + '.' + 'pwrmgt'
-			value = packet[self.layer_name].get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			WLAN.error_msg(self)
+		field_name = self.layer_name + '.' + self.fc + '.' + 'pwrmgt'
+		value = packet[self.layer_name].get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def fc_moredata(self, packet):
-		if WLAN.selector(self) == '1':
-			field_name = self.layer_name + '.' + self.fc + '.' + 'moredata'
-			value = packet[self.layer_name].get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			WLAN.error_msg(self)
+		field_name = self.layer_name + '.' + self.fc + '.' + 'moredata'
+		value = packet[self.layer_name].get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def fc_protected(self, packet):
-		if WLAN.selector(self) == '1':
-			field_name = self.layer_name + '.' + self.fc + '.' + 'protected'
-			value = packet[self.layer_name].get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			WLAN.error_msg(self)
+		field_name = self.layer_name + '.' + self.fc + '.' + 'protected'
+		value = packet[self.layer_name].get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def fc_order(self, packet):
-		if WLAN.selector(self) == '1':
-			field_name = self.layer_name + '.' + self.fc + '.' + 'order'
-			value = packet[self.layer_name].get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			WLAN.error_msg(self)
+		field_name = self.layer_name + '.' + self.fc + '.' + 'order'
+		value = packet[self.layer_name].get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def display_wlan_fc(self, packet):
 		wlan_fc_str = """
@@ -215,159 +153,107 @@ fc.order: {10}
 
 	# return radiotap_flags_str
 
-
 	def duration(self, packet):
-		if WLAN.selector(self) == '1':
-			field_name = self.layer_name + '.' + 'duration'
-			value = packet[self.layer_name].get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			WLAN.error_msg(self)
+		field_name = self.layer_name + '.' + 'duration'
+		value = packet[self.layer_name].get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def ra(self, packet):
-		if WLAN.selector(self) == '1':
-			field_name = self.layer_name + '.' + 'ra'
-			value = packet[self.layer_name].get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			WLAN.error_msg(self)
+		field_name = self.layer_name + '.' + 'ra'
+		value = packet[self.layer_name].get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def ra_resolved(self, packet):
-		if WLAN.selector(self) == '1':
-			field_name = self.layer_name + '.' + 'ra_resolved'
-			value = packet[self.layer_name].get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			WLAN.error_msg(self)
+		field_name = self.layer_name + '.' + 'ra_resolved'
+		value = packet[self.layer_name].get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def da(self, packet):
-		if WLAN.selector(self) == '1':
-			field_name = self.layer_name + '.' + 'da'
-			value = packet[self.layer_name].get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			WLAN.error_msg(self)
+		field_name = self.layer_name + '.' + 'da'
+		value = packet[self.layer_name].get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def da_resolved(self, packet):
-		if WLAN.selector(self) == '1':
-			field_name = self.layer_name + '.' + 'da_resolved'
-			value = packet[self.layer_name].get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			WLAN.error_msg(self)
+		field_name = self.layer_name + '.' + 'da_resolved'
+		value = packet[self.layer_name].get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def ta(self, packet):
-		if WLAN.selector(self) == '1':
-			field_name = self.layer_name + '.' + 'ta'
-			value = packet[self.layer_name].get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			WLAN.error_msg(self)
+		field_name = self.layer_name + '.' + 'ta'
+		value = packet[self.layer_name].get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def ta_resolved(self, packet):
-		if WLAN.selector(self) == '1':
-			field_name = self.layer_name + '.' + 'ta_resolved'
-			value = packet[self.layer_name].get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			WLAN.error_msg(self)
+		field_name = self.layer_name + '.' + 'ta_resolved'
+		value = packet[self.layer_name].get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def sa(self, packet):
-		if WLAN.selector(self) == '1':
-			field_name = self.layer_name + '.' + 'sa'
-			value = packet[self.layer_name].get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			WLAN.error_msg(self)
+		field_name = self.layer_name + '.' + 'sa'
+		value = packet[self.layer_name].get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def sa_resolved(self, packet):
-		if WLAN.selector(self) == '1':
-			field_name = self.layer_name + '.' + 'sa_resolved'
-			value = packet[self.layer_name].get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			WLAN.error_msg(self)
+		field_name = self.layer_name + '.' + 'sa_resolved'
+		value = packet[self.layer_name].get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def bssid(self, packet):
-		if WLAN.selector(self) == '1':
-			field_name = self.layer_name + '.' + 'bssid'
-			value = packet[self.layer_name].get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			WLAN.error_msg(self)
+		field_name = self.layer_name + '.' + 'bssid'
+		value = packet[self.layer_name].get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def bssid_resolved(self, packet):
-		if WLAN.selector(self) == '1':
-			field_name = self.layer_name + '.' + 'bssid_resolved'
-			value = packet[self.layer_name].get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			WLAN.error_msg(self)
+		field_name = self.layer_name + '.' + 'bssid_resolved'
+		value = packet[self.layer_name].get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def addr(self, packet):
-		if WLAN.selector(self) == '1':
-			field_name = self.layer_name + '.' + 'addr'
-			value = packet[self.layer_name].get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			WLAN.error_msg(self)
+		field_name = self.layer_name + '.' + 'addr'
+		value = packet[self.layer_name].get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def addr_resolved(self, packet):
-		if WLAN.selector(self) == '1':
-			field_name = self.layer_name + '.' + 'addr_resolved'
-			value = packet[self.layer_name].get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			WLAN.error_msg(self)
+		field_name = self.layer_name + '.' + 'addr_resolved'
+		value = packet[self.layer_name].get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def frag(self, packet):
-		if WLAN.selector(self) == '1':
-			field_name = self.layer_name + '.' + 'frag'
-			value = packet[self.layer_name].get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			WLAN.error_msg(self)
+		field_name = self.layer_name + '.' + 'frag'
+		value = packet[self.layer_name].get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def seq(self, packet):
-		if WLAN.selector(self) == '1':
-			field_name = self.layer_name + '.' + 'seq'
-			value = packet[self.layer_name].get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			WLAN.error_msg(self)
+		field_name = self.layer_name + '.' + 'seq'
+		value = packet[self.layer_name].get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def fcs(self, packet):
-		if WLAN.selector(self) == '1':
-			field_name = self.layer_name + '.' + 'fcs'
-			value = packet[self.layer_name].get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			WLAN.error_msg(self)
+		field_name = self.layer_name + '.' + 'fcs'
+		value = packet[self.layer_name].get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def fcs_status(self, packet):
-		if WLAN.selector(self) == '1':
-			field_name = self.layer_name + '.' + 'fcs' + '.' + 'status'
-			value = packet[self.layer_name].get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			WLAN.error_msg(self)
+		field_name = self.layer_name + '.' + 'fcs' + '.' + 'status'
+		value = packet[self.layer_name].get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def display_wlan(self, packet, option):
 		option = str(option)

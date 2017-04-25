@@ -2,156 +2,99 @@
 # -*- coding: utf-8 -*-
 # Author: Alex Wang
 
-from src.my_sniff.mgt.basic import Basic
+from src.my_sniff.mgt.mgt_basic import MGT
 from src.my_misc.my_logging import create_logger
 log_beacon_frame = create_logger(logger_name=__name__, fmt='%(message)s')
 
 
-class Frame(Basic):
-	def __init__(self, capture_dir, capture_name, role, device, interface, layer_name):
-		Basic.__init__(self, capture_dir, capture_name, role, device, interface)
+class Frame(MGT):
+	def __init__(self, capture_dir, capture_name, layer_name):
+		MGT.__init__(self, capture_dir, capture_name)
 		self.layer_name = str(layer_name).lower()
-		self.ap = 'AP'.lower()
-		self.marvell = 'MarvellS'.lower()
-		self.wireshark_mac = 'Wireshark_MAC'.lower()
-
-	def error_msg(self):
-		import sys
-		log_beacon_frame.info('Something wrong with device and interface setting'
-		                      ' when processing {0} layer. Exit...'.format(self.layer_name))
-		sys.exit()
-
-	def selector(self):
-		if self.role == self.ap and self.device == self.marvell and self.interface == self.wireshark_mac:
-			return '1'
-		else:
-			Frame.error_msg(self)
 
 	def interface_id(self, packet):
-		if Frame.selector(self) == '1':
-			field_name = self.layer_name + '.' + 'interface_id'
-			value = packet.frame_info.get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			Frame.error_msg(self)
+		field_name = self.layer_name + '.' + 'interface_id'
+		value = packet.frame_info.get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def encap_type(self, packet):
-		if Frame.selector(self) == '1':
-			field_name = self.layer_name + '.' + 'encap_type'
-			value = packet.frame_info.get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			Frame.error_msg(self)
+		field_name = self.layer_name + '.' + 'encap_type'
+		value = packet.frame_info.get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def time(self, packet):
-		if Frame.selector(self) == '1':
-			field_name = self.layer_name + '.' + 'time'
-			value = packet.frame_info.get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			Frame.error_msg(self)
+		field_name = self.layer_name + '.' + 'time'
+		value = packet.frame_info.get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def offset_shift(self, packet):
-		if Frame.selector(self) == '1':
-			field_name = self.layer_name + '.' + 'offset_shift'
-			value = packet.frame_info.get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			Frame.error_msg(self)
+		field_name = self.layer_name + '.' + 'offset_shift'
+		value = packet.frame_info.get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def time_epoch(self, packet):
-		if Frame.selector(self) == '1':
-			field_name = self.layer_name + '.' + 'time_epoch'
-			value = packet.frame_info.get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			Frame.error_msg(self)
+		field_name = self.layer_name + '.' + 'time_epoch'
+		value = packet.frame_info.get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def time_delta(self, packet):
-		if Frame.selector(self) == '1':
-			field_name = self.layer_name + '.' + 'time_delta'
-			value = packet.frame_info.get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			Frame.error_msg(self)
+		field_name = self.layer_name + '.' + 'time_delta'
+		value = packet.frame_info.get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def time_delta_displayed(self, packet):
-		if Frame.selector(self) == '1':
-			field_name = self.layer_name + '.' + 'time_delta_displayed'
-			value = packet.frame_info.get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			Frame.error_msg(self)
+		field_name = self.layer_name + '.' + 'time_delta_displayed'
+		value = packet.frame_info.get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def time_relative(self, packet):
-		if Frame.selector(self) == '1':
-			field_name = self.layer_name + '.' + 'time_relative'
-			value = packet.frame_info.get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			Frame.error_msg(self)
+		field_name = self.layer_name + '.' + 'time_relative'
+		value = packet.frame_info.get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def number(self, packet):
-		if Frame.selector(self) == '1':
-			field_name = self.layer_name + '.' + 'number'
-			value = packet.frame_info.get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			Frame.error_msg(self)
+		field_name = self.layer_name + '.' + 'number'
+		value = packet.frame_info.get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def len(self, packet):
-		if Frame.selector(self) == '1':
-			field_name = self.layer_name + '.' + 'len'
-			value = packet.frame_info.get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			Frame.error_msg(self)
+		field_name = self.layer_name + '.' + 'len'
+		value = packet.frame_info.get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def cap_len(self, packet):
-		if Frame.selector(self) == '1':
-			field_name = self.layer_name + '.' + 'cap_len'
-			value = packet.frame_info.get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			Frame.error_msg(self)
+		field_name = self.layer_name + '.' + 'cap_len'
+		value = packet.frame_info.get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def marked(self, packet):
-		if Frame.selector(self) == '1':
-			field_name = self.layer_name + '.' + 'marked'
-			value = packet.frame_info.get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			Frame.error_msg(self)
+		field_name = self.layer_name + '.' + 'marked'
+		value = packet.frame_info.get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def ignored(self, packet):
-		if Frame.selector(self) == '1':
-			field_name = self.layer_name + '.' + 'ignored'
-			value = packet.frame_info.get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			Frame.error_msg(self)
+		field_name = self.layer_name + '.' + 'ignored'
+		value = packet.frame_info.get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def protocols(self, packet):
-		if Frame.selector(self) == '1':
-			field_name = self.layer_name + '.' + 'protocols'
-			value = packet.frame_info.get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			Frame.error_msg(self)
+		field_name = self.layer_name + '.' + 'protocols'
+		value = packet.frame_info.get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def display_frame(self, packet, option):
 		option = str(option)

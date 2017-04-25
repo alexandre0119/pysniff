@@ -2,123 +2,77 @@
 # -*- coding: utf-8 -*-
 # Author: Alex Wang
 
-from src.my_sniff.mgt.basic import Basic
+from src.my_sniff.mgt.mgt_basic import MGT
 from src.my_misc.my_logging import create_logger
 
 log_beacon_wlan_radio = create_logger(logger_name=__name__, fmt='%(message)s')
 
 
-class WLANRadio(Basic):
-	def __init__(self, capture_dir, capture_name, role, device, interface, layer_name):
-		Basic.__init__(self, capture_dir, capture_name, role, device, interface)
+class WLANRadio(MGT):
+	def __init__(self, capture_dir, capture_name, layer_name):
+		MGT.__init__(self, capture_dir, capture_name)
 
 		self.layer_name = str(layer_name).lower()
 
-		self.ap = 'AP'.lower()
-		self.marvell = 'MarvellS'.lower()
-		self.wireshark_mac = 'Wireshark_MAC'.lower()
-
-	def error_msg(self):
-		import sys
-		log_beacon_wlan_radio.info('Something wrong with device and interface setting'
-		                           ' when processing {0} layer. Exit...'.format(self.layer_name))
-		sys.exit()
-
-	def selector(self):
-		if self.role == self.ap and self.device == self.marvell and self.interface == self.wireshark_mac:
-			return '1'
-		else:
-			WLANRadio.error_msg(self)
-
 	def phy(self, packet):
-		if WLANRadio.selector(self) == '1':
-			field_name = self.layer_name + '.' + 'phy'
-			value = packet[self.layer_name].get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			WLANRadio.error_msg(self)
+		field_name = self.layer_name + '.' + 'phy'
+		value = packet[self.layer_name].get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def turbo_type_11a(self, packet):
-		if WLANRadio.selector(self) == '1':
-			field_name = self.layer_name + '.' + '11a_turbo_type'
-			value = packet[self.layer_name].get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			WLANRadio.error_msg(self)
+		field_name = self.layer_name + '.' + '11a_turbo_type'
+		value = packet[self.layer_name].get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def data_rate(self, packet):
-		if WLANRadio.selector(self) == '1':
-			field_name = self.layer_name + '.' + 'data_rate'
-			value = packet[self.layer_name].get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			WLANRadio.error_msg(self)
+		field_name = self.layer_name + '.' + 'data_rate'
+		value = packet[self.layer_name].get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def channel(self, packet):
-		if WLANRadio.selector(self) == '1':
-			field_name = self.layer_name + '.' + 'channel'
-			value = packet[self.layer_name].get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			WLANRadio.error_msg(self)
+		field_name = self.layer_name + '.' + 'channel'
+		value = packet[self.layer_name].get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def frequency(self, packet):
-		if WLANRadio.selector(self) == '1':
-			field_name = self.layer_name + '.' + 'frequency'
-			value = packet[self.layer_name].get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			WLANRadio.error_msg(self)
+		field_name = self.layer_name + '.' + 'frequency'
+		value = packet[self.layer_name].get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def signal_dbm(self, packet):
-		if WLANRadio.selector(self) == '1':
-			field_name = self.layer_name + '.' + 'signal_dbm'
-			value = packet[self.layer_name].get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			WLANRadio.error_msg(self)
+		field_name = self.layer_name + '.' + 'signal_dbm'
+		value = packet[self.layer_name].get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def noise_dbm(self, packet):
-		if WLANRadio.selector(self) == '1':
-			field_name = self.layer_name + '.' + 'noise_dbm'
-			value = packet[self.layer_name].get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			WLANRadio.error_msg(self)
+		field_name = self.layer_name + '.' + 'noise_dbm'
+		value = packet[self.layer_name].get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def timestamp(self, packet):
-		if WLANRadio.selector(self) == '1':
-			field_name = self.layer_name + '.' + 'timestamp'
-			value = packet[self.layer_name].get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			WLANRadio.error_msg(self)
+		field_name = self.layer_name + '.' + 'timestamp'
+		value = packet[self.layer_name].get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def duration(self, packet):
-		if WLANRadio.selector(self) == '1':
-			field_name = self.layer_name + '.' + 'duration'
-			value = packet[self.layer_name].get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			WLANRadio.error_msg(self)
+		field_name = self.layer_name + '.' + 'duration'
+		value = packet[self.layer_name].get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def preamble(self, packet):
-		if WLANRadio.selector(self) == '1':
-			field_name = self.layer_name + '.' + 'preamble'
-			value = packet[self.layer_name].get_field_value(field_name)
-			str_value = str(value)
-			return str_value
-		else:
-			WLANRadio.error_msg(self)
+		field_name = self.layer_name + '.' + 'preamble'
+		value = packet[self.layer_name].get_field_value(field_name)
+		str_value = str(value)
+		return str_value
 
 	def display_wlan_radio(self, packet, option):
 		option = str(option)
