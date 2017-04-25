@@ -57,3 +57,8 @@ def beacon_type_value():
 	beacon_type_subtype_json = str(config['Frame_Management'].get('Subtype_Beacon_Json'))
 	beacon_type_subtype_wsdf = str(config['Frame_Management'].get('Subtype_Beacon_WSDF'))
 	return beacon_type_subtype_json, beacon_type_subtype_wsdf
+
+def beacon_BSSID():
+	config = load_config()
+	bssid = str(config['BSSID'].get('BSSID'))
+	return bssid

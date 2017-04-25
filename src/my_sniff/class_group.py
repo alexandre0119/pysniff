@@ -18,7 +18,7 @@ class Group(Init):
 		Init.__init__(self, capture_dir, capture_name)
 		self.role = str(role).lower()
 
-	def get_pkt_count_filter(self, capture_file, filter):
+	def get_pkt_count_filter(self, filter):
 		"""
 		Get packet count with display filter
 		:param capture_file: capture file obj

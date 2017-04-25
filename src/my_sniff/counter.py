@@ -8,6 +8,8 @@ from collections import Counter
 import src.my_config.config_basic as config_basic
 # Import class Group
 import src.my_sniff.class_group as class_group
+# Import beacon frame layer
+import src.my_sniff.mgt.beacon.frame as beacon_frame
 # Import Beacon WLAN layer
 import src.my_sniff.mgt.beacon.wlan as beacon_wlan
 # Set logger
@@ -20,7 +22,8 @@ capture_file = config_basic.capture_file()  # capture file name
 role = config_basic.role()  # client side or AP side
 device = config_basic.device()  # device name
 interface = config_basic.interface()  # interface name
-
+# Init class frame
+beacon_frame_0 = beacon_frame.Frame(capture_dir, capture_file, role, device, interface, 'frame')
 # Init class Beacon WLAN layer
 beacon_wlan_0 = beacon_wlan.WLAN(capture_dir, capture_file, role, device, interface, 'wlan')
 # Init class Group
@@ -47,19 +50,19 @@ def group_wlan_others(capture):
 		if 'WLAN' in i_cap:
 			# If WLAN layer NOT contain BSSID info
 			if beacon_wlan_0.bssid(i_cap) == 'None':
-				log_counter.info('{0}: Found packet with WLAN layer but no BSSID.'.format(pkt_counter))
+				log_counter.info('Index_All {0}: Found packet with WLAN layer but no BSSID.'.format(pkt_counter))
 				# Append to WLAN packet without BSSID info list
 				wlan_no_bssid_list.append({pkt_counter: ['WLAN without BSSID']})
 				# Increase counter
 				pkt_counter += 1
 			else:
-				log_counter.info('{0}: Found packet with WLAN layer and with BSSID.'.format(pkt_counter))
+				log_counter.info('Index_All {0}: Found packet with WLAN layer and with BSSID.'.format(pkt_counter))
 				# Append to WLAN packet with BSSID info list
-				wlan_bssid_list.append({pkt_counter: ['WLAN with BSSID']})
+				wlan_bssid_list.append({pkt_counter: [beacon_wlan_0.bssid(i_cap)]})
 				# Increase counter
 				pkt_counter += 1
 		else:
-			log_counter.info('{0}: Found a non-WLAN packet.'.format(pkt_counter))
+			log_counter.info('Index_All {0}: Found a non-WLAN packet.'.format(pkt_counter))
 			# Append to Non-WLAN packet list
 			non_wlan_list.append({pkt_counter: ['non-WLAN']})
 			# Increase counter
@@ -68,35 +71,92 @@ def group_wlan_others(capture):
 
 
 def group_wlan_bssid(capture, wlan_pkt_list):
+	"""
+	Get BSSIDs from all WLAN packet, and counter for each BSSID
+	:param capture: capture file
+	:param wlan_pkt_list: WLAN with BSSID packet list
+	:return: List of dict: {BSSID: appear time}, {...}
+	"""
 	wlan_bssid_list = []
 	counter = 0
+	# Loop for WLAN with BSSID list
 	for i_pkt in wlan_pkt_list:
+		# Index is the index_all of entire original packet, info is 'WLAN with BSSID'
 		for index, info in i_pkt.items():
-			log_counter.info('{0}: Check BSSID for packet @ index {1}.'.format(counter, index))
-			wlan_bssid_list.append(beacon_wlan_0.sa(capture[index]))
+			log_counter.info('Index_BSSID_List {0}: Check BSSID for packet @ Index_All {1}.'.format(counter, index))
+			wlan_bssid_list.append(beacon_wlan_0.bssid(capture[index]))
 			counter += 1
+	# Remove duplicate item in list, and get counter for each BSSID appearance time
 	wlan_bssid_counter = dict(Counter(wlan_bssid_list))
 	return wlan_bssid_counter
 
 
-def get_beacon_count_based_on_bssid(capture, wlan_pkt_list, wlan_bssid_list):
-	beacon_count = 0
-	beacon_count_based_on_bssid_list = []
-	for bssid, bssid_count in wlan_bssid_list.items():
-		for i_pkt in wlan_pkt_list:
-			for index, info in i_pkt.items():
-				if beacon_wlan_0.fc_type_subtype(capture[index]) == config_basic.beacon_type_value()[0]:
-					log_counter.info('{0}: increment count for {1}'.format(beacon_count, bssid))
-					beacon_count += 1
-		beacon_count_based_on_bssid_list.append({bssid: beacon_count})
-	return beacon_count_based_on_bssid_list
-
-
-def get_wlan_beacon_count(capture, wlan_bssid_list):
+def get_wlan_beacon_count(wlan_bssid_list):
+	"""
+	Get beacon count based on BSSID
+	:param wlan_bssid_list: WLAN with BSSID packet list
+	:return: List of dict: {BSSID: appear time}, {...}
+	"""
 	beacon_count_based_on_filter = []
 	for bssid, bssid_count in wlan_bssid_list.items():
 		filter_str = config_basic.beacon_type_value()[1] + ' and wlan.bssid == ' + bssid
-		print(filter_str)
-		beacon_count = group_0.get_pkt_count_filter(capture, filter_str)
+		log_counter.info('Filter based on: '.format(filter_str))
+		beacon_count = group_0.get_pkt_count_filter(filter_str)
 		beacon_count_based_on_filter.append({bssid: beacon_count})
-	return beacon_count_based_on_filter
+
+	final_list = []
+	for i_beacon_count in beacon_count_based_on_filter:
+		for bssid, beacon_count in i_beacon_count.items():
+			if beacon_count > 0:
+				final_list.append({bssid: beacon_count})
+
+	return final_list
+
+
+def build_beacon_info(capture, bssid):
+	import pandas as pd
+	beacon_count = 0
+	beacon_info_list = []
+
+	bssid_str = bssid
+	filter_str = config_basic.beacon_type_value()[1] + ' and wlan.bssid == ' + bssid_str
+	log_counter.info('Filter based on: {0}'.format(filter_str))
+
+	import pyshark
+	cap_beacon = pyshark.FileCapture(capture, only_summaries=False, display_filter=filter_str)
+
+	for i_cap_beacon in cap_beacon:
+		beacon_content_list = [beacon_count,
+		                       beacon_frame_0.interface_id(i_cap_beacon),
+		                       beacon_frame_0.encap_type(i_cap_beacon),
+		                       beacon_frame_0.time(i_cap_beacon),
+		                       beacon_frame_0.time_epoch(i_cap_beacon),
+		                       beacon_frame_0.time_delta(i_cap_beacon),
+		                       beacon_frame_0.time_delta_displayed(i_cap_beacon),
+		                       beacon_frame_0.time_relative(i_cap_beacon),
+		                       beacon_frame_0.number(i_cap_beacon),
+		                       beacon_frame_0.len(i_cap_beacon),
+		                       beacon_frame_0.cap_len(i_cap_beacon),
+		                       beacon_frame_0.marked(i_cap_beacon),
+		                       beacon_frame_0.ignored(i_cap_beacon),
+		                       beacon_frame_0.protocols(i_cap_beacon)]
+		beacon_info_list.append(beacon_content_list)
+		beacon_count += 1
+
+	df = pd.DataFrame(beacon_info_list)
+	df.columns = ['Count',
+	              'Interface ID',
+	              'Encap Type',
+	              'Time',
+	              'Time Epoch',
+	              'Time Delta',
+	              'Time Delta Displayed',
+	              'Time Relative',
+	              'Number',
+	              'Len',
+	              'Cap Len',
+	              'Marked',
+	              'Ignored',
+	              'Protocols']
+	df.to_csv('example.csv')
+	return df
