@@ -36,11 +36,9 @@ class Init(object):
 		:return: packet count
 		"""
 		import pyshark
-		import progressbar
 		cap = pyshark.FileCapture(self.capture_file_path,
 		                          only_summaries=False)
 		log_init.info('Calculating capture file packet count. This may take a while depends on capture size...')
-		# bar = progressbar.ProgressBar(redirect_stdout=True)
 		pkt_count = len([packet for packet in cap])
 		log_init.info('Finished calculation for capture file packet count')
 		# There seems a bug that use only summary option will not include the 1st packet, so + 1 here

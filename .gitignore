@@ -2,4 +2,3 @@
 # .gitignore
 .idea/workspace.xml
 /log_this.txt
-/example.csv

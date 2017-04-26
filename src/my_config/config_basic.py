@@ -20,13 +20,29 @@ def load_config():
 	return config
 
 
-def capture_dir():
+def program_dir():
 	"""
 	Load capture file directory from config.ini file
 	:return: capture directory
 	"""
 	config = load_config()
-	capture_path = str(config['Directory'].get('Capture_Dir'))
+	capture_path = str(config['Directory'].get('Program_Path'))
+	return capture_path
+
+
+def capture_folder():
+	"""
+	Load capture file directory from config.ini file
+	:return: capture directory
+	"""
+	config = load_config()
+	capture_path = str(config['Directory'].get('Capture_Folder'))
+	return capture_path
+
+
+def capture_dir():
+	import os
+	capture_path = os.path.join(program_dir(), capture_folder())
 	return capture_path
 
 
@@ -40,46 +56,13 @@ def capture_file():
 	return capture_file_name
 
 
-def role():
-	config = load_config()
-	role_name = str(config['Role'].get('Role'))
-	return role_name
-
-
-def device():
-	config = load_config()
-	device_name = str(config['Device'].get('Device_Name'))
-	return device_name
-
-
-def interface():
-	config = load_config()
-	interface_name = str(config['Interface'].get('Wireshark'))
-	return interface_name
-
-
-def beacon_type_value():
-	config = load_config()
-	beacon_type_subtype_json = str(config['Frame_Management'].get('Subtype_Beacon_Json'))
-	beacon_type_subtype_wsdf = str(config['Frame_Management'].get('Subtype_Beacon_WSDF'))
-	return beacon_type_subtype_json, beacon_type_subtype_wsdf
-
-
-def beacon_bssid():
-	config = load_config()
-	bssid = str(config['BSSID'].get('BSSID'))
-	return bssid
-
-
 def pd_display_max_row():
-	import pandas as pd
 	config = load_config()
 	max_row = int(str(config['Pandas'].get('Display_MaxRow')))
 	return max_row
 
 
 def pd_precision():
-	import pandas as pd
 	config = load_config()
 	precision = int(str(config['Pandas'].get('Precision')))
 	return precision
