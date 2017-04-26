@@ -57,14 +57,26 @@ def csv_save_path():
 	return csv_path
 
 
-def beacon_bssid():
+def bssid():
 	config_beacon = load_config_beacon()
-	bssid = str(config_beacon['Address'].get('BSSID'))
-	return bssid
+	bssid_value = str(config_beacon['Address'].get('BSSID'))
+	return bssid_value
 
 
-def beacon_type_value():
+def type_value():
 	config_beacon = load_config_beacon()
-	beacon_type_subtype_json = str(config_beacon['Type'].get('Subtype_Beacon_Json'))
-	beacon_type_subtype_wsdf = str(config_beacon['Type'].get('Subtype_Beacon_WSDF'))
-	return beacon_type_subtype_json, beacon_type_subtype_wsdf
+	type_subtype_json = str(config_beacon['Type'].get('Subtype_Beacon_Json'))
+	type_subtype_wsdf = str(config_beacon['Type'].get('Subtype_Beacon_WSDF'))
+	return type_subtype_json, type_subtype_wsdf
+
+
+def interface_id():
+	config_beacon = load_config_beacon()
+	interface_id_value = str(config_beacon['Frame'].get('Interface_ID'))
+	return interface_id_value
+
+
+def encap_type():
+	config_beacon = load_config_beacon()
+	encap_type_value = str(config_beacon['Frame'].get('Encap_Type'))
+	return encap_type_value

@@ -1,4 +1,4 @@
-,Count,Interface ID,Encap Type,Time,Time Epoch,Time Delta,Time Delta Displayed,Time Relative,Number,Len,Cap Len,Marked,Ignored,Protocols
+,Count,Interface_ID,Encap_Type,Time,Time_Epoch,Time_Delta,Time_Delta_Displayed,Time_Relative,Number,Len,Cap_Len,Marked,Ignored,Protocols
 0,0,0,23,"Apr 13, 2017 15:56:30.615367000 Pacific Daylight Time",1492124190.615367000,0.004873000,0.000000000,0.106383000,82,259,259,0,0,radiotap:wlan_radio:wlan
 1,1,0,23,"Apr 13, 2017 15:56:30.716003000 Pacific Daylight Time",1492124190.716003000,0.000222000,0.100636000,0.207019000,151,259,259,0,0,radiotap:wlan_radio:wlan
 2,2,0,23,"Apr 13, 2017 15:56:30.821941000 Pacific Daylight Time",1492124190.821941000,0.000284000,0.105938000,0.312957000,220,259,259,0,0,radiotap:wlan_radio:wlan

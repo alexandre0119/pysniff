@@ -30,6 +30,7 @@ def beacon_df(capture, bssid, to_csv):
 	:return: beacon data frame
 	"""
 	import pandas as pd
+
 	pd.options.display.max_rows = config_basic.pd_display_max_row()
 	pd.set_option('precision', config_basic.pd_precision())
 
@@ -37,7 +38,7 @@ def beacon_df(capture, bssid, to_csv):
 	beacon_info_list = []
 
 	bssid_str = bssid
-	filter_str = config_beacon.beacon_type_value()[1] + ' and wlan.bssid == ' + bssid_str
+	filter_str = config_beacon.type_value()[1] + ' and wlan.bssid == ' + bssid_str
 	log_counter.info('Filter based on: {0}'.format(filter_str))
 
 	import pyshark
@@ -63,16 +64,16 @@ def beacon_df(capture, bssid, to_csv):
 
 	df = pd.DataFrame(beacon_info_list)
 	df.columns = ['Count',
-	              'Interface ID',
-	              'Encap Type',
+	              'Interface_ID',
+	              'Encap_Type',
 	              'Time',
-	              'Time Epoch',
-	              'Time Delta',
-	              'Time Delta Displayed',
-	              'Time Relative',
+	              'Time_Epoch',
+	              'Time_Delta',
+	              'Time_Delta_Displayed',
+	              'Time_Relative',
 	              'Number',
 	              'Len',
-	              'Cap Len',
+	              'Cap_Len',
 	              'Marked',
 	              'Ignored',
 	              'Protocols']
@@ -80,3 +81,22 @@ def beacon_df(capture, bssid, to_csv):
 		df.to_csv(config_beacon.csv_save_path())
 
 	return df
+
+
+def check_beacon_df(capture, bssid):
+	df = beacon_df(capture, bssid, 0)
+	pass_list = []
+	col_compare_list = ['Interface_ID',
+	                    'Encap_Type']
+	for rows in df.index:
+		if df.get_value(rows, 'Interface_ID') == config_beacon.interface_id():
+			pass_list.append({rows: {'Interface_ID': 'Pass'}})
+		else:
+			pass_list.append({rows: {'Interface_ID': 'Fail'}})
+
+		if df.get_value(rows, 'Encap_Type') == config_beacon.encap_type():
+			pass_list.append({rows: {'Encap_Type': 'Pass'}})
+		else:
+			pass_list.append({rows: {'Encap_Type': 'Fail'}})
+
+	return pass_list

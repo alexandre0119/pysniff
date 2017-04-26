@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # Author: Alex Wang
 
-import os
+import pandas as pd
 # Import config file settings
 import src.my_config.config_basic as config_basic
 import src.my_config.config_beacon as config_beacon
@@ -53,7 +53,22 @@ def main_flow():
 	# print(test)
 	# print(len(wlan_list[0]))
 
-	testtest = beacon.beacon_df(capture, config_beacon.beacon_bssid(), 1)
-	print(testtest)
+	testtest = beacon.beacon_df(capture, config_beacon.bssid(), 1)
+	print(testtest.columns)
+	print(len(testtest))
+
+	result_summary = []
+
+	beacon_result = beacon.check_beacon_df(capture, config_beacon.bssid())
+	result_summary.append({'Beacon': beacon_result})
+	print(result_summary)
+	#
+	# df = pd.Series(result_summary)
+	# str_summary = '\n===========================================================' \
+	#               '\n------------------------- Summary -------------------------\n\n' \
+	#               '{0}' \
+	#               '\n\n-------------------- Program finished --------------------' \
+	#               '\n===========================================================\n'.format(df)
+	# log_flow.info(str_summary)
 
 	log_flow.info('\n================ Program complete ================\n')
