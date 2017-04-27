@@ -83,20 +83,57 @@ def beacon_df(capture, bssid, to_csv):
 	return df
 
 
-def check_beacon_df(capture, bssid):
-	df = beacon_df(capture, bssid, 0)
-	pass_list = []
-	col_compare_list = ['Interface_ID',
-	                    'Encap_Type']
-	for rows in df.index:
-		if df.get_value(rows, 'Interface_ID') == config_beacon.interface_id():
-			pass_list.append({rows: {'Interface_ID': 'Pass'}})
-		else:
-			pass_list.append({rows: {'Interface_ID': 'Fail'}})
+def check_beacon_df_warp_0(option, ref_value, input_value):
+	pass_str = 'PASS'
+	fail_str = 'FAIL'
 
-		if df.get_value(rows, 'Encap_Type') == config_beacon.encap_type():
-			pass_list.append({rows: {'Encap_Type': 'Pass'}})
+	if option == '1':
+		if input_value == ref_value:
+			return '{0}: {1} = {2}'.format(pass_str, input_value, ref_value)
 		else:
-			pass_list.append({rows: {'Encap_Type': 'Fail'}})
+			return '{0}: {1} != {2}'.format(fail_str, input_value, ref_value)
+
+
+def check_beacon_df(capture, bssid, to_csv):
+	df = beacon_df(capture, bssid, to_csv)
+
+	pass_list = []
+	fail_list = []
+
+	col_list = ['Interface_ID',
+	            'Encap_Type',
+	            'Time',
+	            'Offset_Shift',
+	            'Time_epoch',
+	            'Time_delta',
+	            'Time_delta_displayed',
+	            'Time_relative',
+	            'Number',
+	            'Len',
+	            'Cap_len',
+	            'Marked',
+	            'Ignored',
+	            'Protocols']
+
+	for rows in df.index:
+		if config_beacon.interface_id()[0] == '1':
+			if df.get_value(rows, col_list[0]) == config_beacon.interface_id()[1]:
+				pass_list.append({rows: {col_list[0]: check_beacon_df_warp_0(1,
+				                                                             config_beacon.interface_id()[1],
+				                                                             df.get_value(rows, col_list[0]))}})
+			else:
+				fail_list.append({rows: {col_list[0]: check_beacon_df_warp_0(0,
+				                                                             config_beacon.interface_id()[1],
+				                                                             df.get_value(rows, col_list[0]))}})
+
+		if config_beacon.encap_type()[0] == '1':
+			if df.get_value(rows, col_list[1]) == config_beacon.encap_type():
+				pass_list.append({rows: {col_list[1]: check_beacon_df_warp_0(1,
+				                                                             config_beacon.encap_type()[1],
+				                                                             df.get_value(rows, col_list[1]))}})
+			else:
+				pass_list.append({rows: {col_list[1]: check_beacon_df_warp_0(0,
+				                                                             config_beacon.encap_type()[1],
+				                                                             df.get_value(rows, col_list[1]))}})
 
 	return pass_list

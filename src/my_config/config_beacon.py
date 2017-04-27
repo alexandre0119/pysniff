@@ -72,11 +72,13 @@ def type_value():
 
 def interface_id():
 	config_beacon = load_config_beacon()
-	interface_id_value = str(config_beacon['Frame'].get('Interface_ID'))
-	return interface_id_value
+	interface_id_enable = str(config_beacon['Frame'].get('Interface_ID_Enable'))
+	interface_id_value = str(config_beacon['Frame'].get('Interface_ID_Value'))
+	return interface_id_enable, interface_id_value
 
 
 def encap_type():
 	config_beacon = load_config_beacon()
-	encap_type_value = str(config_beacon['Frame'].get('Encap_Type'))
-	return encap_type_value
+	encap_type_enable = str(config_beacon['Frame'].get('Encap_Type_Enable'))
+	encap_type_value = str(config_beacon['Frame'].get('Encap_Type_Value'))
+	return encap_type_enable, encap_type_value
