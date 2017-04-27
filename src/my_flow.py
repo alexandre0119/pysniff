@@ -41,27 +41,18 @@ def main_flow():
 	beacon_wlan_0.display_wlan_fc(cap[0])
 	# print(beacon_wlan_0.sa_resolved(cap[0]))
 	# print(beacon_wlan_0.sa(cap[0]))
-	#
-	#
-	#
-	# wlan_list = counter.group_wlan_others(cap)
-	# # print(len(wlan_list))
-	# print(len(wlan_list[0]))
-	# print(len(wlan_list[1]))
-	# print(len(wlan_list[2]))
-	# test = counter.group_wlan_bssid(cap, wlan_list[0])
-	# print(test)
-	# print(len(wlan_list[0]))
 
 	testtest = beacon.beacon_df(capture, config_beacon.bssid(), 1)
 	print(testtest.columns)
-	print(len(testtest))
 
 	result_summary = []
 
-	beacon_result = beacon.check_beacon_df(capture, config_beacon.bssid())
-	result_summary.append({'Beacon': beacon_result})
-	print(result_summary)
+	# beacon_result = beacon.check_beacon_df(capture, config_beacon.bssid(), '0')
+	# for i in beacon_result[2]:
+	# 	print(i)
+
+	# result_summary.append({'Beacon': beacon_result})
+	# print(result_summary)
 	#
 	# df = pd.Series(result_summary)
 	# str_summary = '\n===========================================================' \

@@ -15,6 +15,11 @@ def now():
 	return now_info
 
 
+def filename_timestamp():
+	time_str = time.strftime("%Y%m%d-%H%M%S")
+	return time_str
+
+
 def time_zone():
 	"""
 	Get current time zone using datetime

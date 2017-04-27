@@ -42,6 +42,7 @@ def load_config_basic():
 
 def csv_save_path():
 	import os
+	from src.my_misc.my_time import filename_timestamp
 	config_beacon = load_config_beacon()
 	config_basic = load_config_basic()
 
@@ -51,7 +52,7 @@ def csv_save_path():
 
 	csv_file_prefix = str(config_beacon['Directory'].get('CSV_File_Name_Prefix'))
 	bssid = '-'.join(str(config_beacon['Address'].get('BSSID')).split(':'))
-	csv_file_name = csv_file_prefix + '_' + bssid + '.csv'
+	csv_file_name = csv_file_prefix + '_' + bssid + '_' + filename_timestamp() + '.csv'
 
 	csv_path = os.path.join(csv_file_path, csv_file_name)
 	return csv_path
