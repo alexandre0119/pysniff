@@ -22,7 +22,7 @@ class WLAN(MGT):
 		str_value = str(value)
 		return str_value
 
-	def fc(self, packet):
+	def fc_tree(self, packet):
 		field_name = self.layer_name + '.' + self.fc
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
@@ -115,7 +115,7 @@ class WLAN(MGT):
 3. Type: {4}
 4. Subtype: {5}
 ----------------------------------------------------------------------
-		""".format(WLAN.fc(self, packet), hex2bin.hex2bin_format(WLAN.fc(self, packet)),
+		""".format(WLAN.fc_tree(self, packet), hex2bin.hex2bin_format(WLAN.fc_tree(self, packet)),
 		           WLAN.fc_type_subtype(self, packet),
 		           WLAN.fc_version(self, packet),
 		           WLAN.fc_type(self, packet),

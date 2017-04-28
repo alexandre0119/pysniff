@@ -12,6 +12,7 @@ import src.my_sniff.mgt.beacon.frame as beacon_frame
 import src.my_sniff.mgt.beacon.radiotap as beacon_radiotab
 import src.my_sniff.mgt.beacon.wlan_radio as beacon_wlan_radio
 import src.my_sniff.mgt.beacon.wlan as beacon_wlan
+import src.my_sniff.mgt.beacon.wlan_mgt as beacon_wlan_mgt
 import src.my_sniff.counter as counter
 import src.my_sniff.mgt.beacon.beacon as beacon
 from src.my_misc.my_logging import create_logger
@@ -27,6 +28,7 @@ def main_flow():
 	beacon_radiotab_0 = beacon_radiotab.Radiotap(capture_dir, capture_file, 'radiotap')
 	beacon_wlan_radio_0 = beacon_wlan_radio.WLANRadio(capture_dir, capture_file, 'wlan_radio')
 	beacon_wlan_0 = beacon_wlan.WLAN(capture_dir, capture_file, 'wlan')
+	beacon_wlan_mgt_0 = beacon_wlan_mgt.WLANMGT(capture_dir, capture_file, 'wlan_mgt')
 
 	capture = init.capture_file_path
 
@@ -39,11 +41,15 @@ def main_flow():
 	# beacon_wlan_radio_0.display_wlan_radio(cap[0], 0)
 	beacon_wlan_0.display_wlan(cap[0], 1)
 	beacon_wlan_0.display_wlan_fc(cap[0])
+	print(beacon_wlan_mgt_0.supported_rates(cap[0]))
+	# for i in beacon_wlan_mgt_0.supported_rates(cap[0]):
+	# 	print(i)
+	# print(type(beacon_wlan_mgt_0.supported_rates(cap[0])))
 	# print(beacon_wlan_0.sa_resolved(cap[0]))
 	# print(beacon_wlan_0.sa(cap[0]))
 
-	testtest = beacon.beacon_df(capture, config_beacon.bssid(), 1)
-	print(testtest.columns)
+	# testtest = beacon.beacon_df(capture, config_beacon.bssid(), 1)
+	# print(testtest.columns)
 
 	result_summary = []
 

@@ -9,6 +9,8 @@ import src.my_config.config_beacon as config_beacon
 import src.my_sniff.mgt.beacon.frame as beacon_frame
 # Import beacon radiotap layer
 import src.my_sniff.mgt.beacon.radiotap as beacon_radiotap
+# Import beacon WLAN radio layer
+import src.my_sniff.mgt.beacon.wlan_radio as beacon_wlan_radio
 # Import Beacon WLAN layer
 import src.my_sniff.mgt.beacon.wlan as beacon_wlan
 # Set logger
@@ -18,16 +20,18 @@ log_counter = create_logger(logger_name=__name__, fmt='%(message)s')
 
 capture_dir = config_basic.capture_dir()  # capture file directory
 capture_file = config_basic.capture_file()  # capture file name
-# Init class frame
+# Init class: Beacon frame
 beacon_frame_0 = beacon_frame.Frame(capture_dir, capture_file, 'frame')
-# Init class frame
+# Init class: Beacon Radiotap
 beacon_radiotap_0 = beacon_radiotap.Radiotap(capture_dir, capture_file, 'radiotap')
-# Init class Beacon WLAN layer
+# Init class: Beacon WLAN Radio
+beacon_wlan_radio_0 = beacon_wlan_radio.WLANRadio(capture_dir, capture_file, 'wlan_radio')
+# Init class: Beacon WLAN
 beacon_wlan_0 = beacon_wlan.WLAN(capture_dir, capture_file, 'wlan')
 
 
 def fields():
-	fields_list = ['interface_id',
+	fields_list = ['interface_id',  # Frame
 	               'encap_type',
 	               'time',
 	               'offset_shift',
@@ -41,6 +45,7 @@ def fields():
 	               'marked',
 	               'ignored',
 	               'protocols',
+	               # Radiotap
 	               'version',
 	               'pad',
 	               'length',
@@ -95,7 +100,51 @@ def fields():
 	               'channel_flags_quarter',
 	               'dbm_antsignal',
 	               'dbm_antnoise',
-	               'antenna']
+	               'antenna',
+	               # WLAN Radio
+	               'phy',
+	               'turbo_type_11a',
+	               'data_rate',
+	               'channel',
+	               'frequency',
+	               'signal_dbm',
+	               'noise_dbm',
+	               'timestamp',
+	               'duration',
+	               'preamble',
+	               # WLAN
+	               'fc_type_subtype',
+	               'fc',
+	               'fc_version',
+	               'fc_type',
+	               'fc_subtype',
+	               'flags',
+	               'fc_ds',
+	               'fc_tods',
+	               'fc_fromds',
+	               'fc_frag',
+	               'fc_retry',
+	               'fc_pwrmgt',
+	               'fc_moredata',
+	               'fc_protected',
+	               'fc_order',
+	               'duration',
+	               'ra',
+	               'ra_resolved',
+	               'da',
+	               'da_resolved',
+	               'ta',
+	               'ta_resolved',
+	               'sa',
+	               'sa_resolved',
+	               'bssid',
+	               'bssid_resolved',
+	               'addr',
+	               'addr_resolved',
+	               'frag',
+	               'seq',
+	               'fcs',
+	               'fcs_status']
 	return fields_list
 
 
@@ -124,6 +173,7 @@ def beacon_df(capture, bssid, to_csv):
 
 	for i_cap_beacon in cap_beacon:
 		beacon_content_list = [beacon_count,
+		                       # Frame
 		                       beacon_frame_0.interface_id(i_cap_beacon),
 		                       beacon_frame_0.encap_type(i_cap_beacon),
 		                       beacon_frame_0.time(i_cap_beacon),
@@ -138,6 +188,7 @@ def beacon_df(capture, bssid, to_csv):
 		                       beacon_frame_0.marked(i_cap_beacon),
 		                       beacon_frame_0.ignored(i_cap_beacon),
 		                       beacon_frame_0.protocols(i_cap_beacon),
+		                       # Radiotap
 		                       beacon_radiotap_0.version(i_cap_beacon),
 		                       beacon_radiotap_0.pad(i_cap_beacon),
 		                       beacon_radiotap_0.length(i_cap_beacon),
@@ -192,7 +243,51 @@ def beacon_df(capture, bssid, to_csv):
 		                       beacon_radiotap_0.channel_flags_quarter(i_cap_beacon),
 		                       beacon_radiotap_0.dbm_antsignal(i_cap_beacon),
 		                       beacon_radiotap_0.dbm_antnoise(i_cap_beacon),
-		                       beacon_radiotap_0.antenna(i_cap_beacon)]
+		                       beacon_radiotap_0.antenna(i_cap_beacon),
+		                       # WLAN Radio
+		                       beacon_wlan_radio_0.phy(i_cap_beacon),
+		                       beacon_wlan_radio_0.turbo_type_11a(i_cap_beacon),
+		                       beacon_wlan_radio_0.data_rate(i_cap_beacon),
+		                       beacon_wlan_radio_0.channel(i_cap_beacon),
+		                       beacon_wlan_radio_0.frequency(i_cap_beacon),
+		                       beacon_wlan_radio_0.signal_dbm(i_cap_beacon),
+		                       beacon_wlan_radio_0.noise_dbm(i_cap_beacon),
+		                       beacon_wlan_radio_0.timestamp(i_cap_beacon),
+		                       beacon_wlan_radio_0.duration(i_cap_beacon),
+		                       beacon_wlan_radio_0.preamble(i_cap_beacon),
+		                       # WLAN
+		                       beacon_wlan_0.fc_type_subtype(i_cap_beacon),
+		                       beacon_wlan_0.fc_tree(i_cap_beacon),
+		                       beacon_wlan_0.fc_version(i_cap_beacon),
+		                       beacon_wlan_0.fc_type(i_cap_beacon),
+		                       beacon_wlan_0.fc_subtype(i_cap_beacon),
+		                       beacon_wlan_0.flags(i_cap_beacon),
+		                       beacon_wlan_0.fc_ds(i_cap_beacon),
+		                       beacon_wlan_0.fc_tods(i_cap_beacon),
+		                       beacon_wlan_0.fc_fromds(i_cap_beacon),
+		                       beacon_wlan_0.fc_frag(i_cap_beacon),
+		                       beacon_wlan_0.fc_retry(i_cap_beacon),
+		                       beacon_wlan_0.fc_pwrmgt(i_cap_beacon),
+		                       beacon_wlan_0.fc_moredata(i_cap_beacon),
+		                       beacon_wlan_0.fc_protected(i_cap_beacon),
+		                       beacon_wlan_0.fc_order(i_cap_beacon),
+		                       beacon_wlan_0.duration(i_cap_beacon),
+		                       beacon_wlan_0.ra(i_cap_beacon),
+		                       beacon_wlan_0.ra_resolved(i_cap_beacon),
+		                       beacon_wlan_0.da(i_cap_beacon),
+		                       beacon_wlan_0.da_resolved(i_cap_beacon),
+		                       beacon_wlan_0.ta(i_cap_beacon),
+		                       beacon_wlan_0.ta_resolved(i_cap_beacon),
+		                       beacon_wlan_0.sa(i_cap_beacon),
+		                       beacon_wlan_0.sa_resolved(i_cap_beacon),
+		                       beacon_wlan_0.bssid(i_cap_beacon),
+		                       beacon_wlan_0.bssid_resolved(i_cap_beacon),
+		                       beacon_wlan_0.addr(i_cap_beacon),
+		                       beacon_wlan_0.addr_resolved(i_cap_beacon),
+		                       beacon_wlan_0.frag(i_cap_beacon),
+		                       beacon_wlan_0.seq(i_cap_beacon),
+		                       beacon_wlan_0.fcs(i_cap_beacon),
+		                       beacon_wlan_0.fcs_status(i_cap_beacon)]
 		beacon_info_list.append(beacon_content_list)
 		beacon_count += 1
 
@@ -200,7 +295,6 @@ def beacon_df(capture, bssid, to_csv):
 
 	col_list = ['count']
 	col_list.extend(fields())
-
 	df.columns = col_list
 
 	if to_csv == 1:
