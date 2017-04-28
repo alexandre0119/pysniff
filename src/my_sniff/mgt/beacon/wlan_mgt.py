@@ -26,9 +26,10 @@ class WLANMGT(MGT):
 		return str_value
 
 	def supported_rates(self, packet):
-		field_name = self.layer_name + '.' + 'supported_rates'
+		field_name = self.layer_name + '.' + 'tag'
 		# field_name = self.layer_name
-		value = packet[self.layer_name].get_field_value(field_name)[-1]
-		# value_0 = packet[self.layer_name].pretty_print()
+		value = packet[self.layer_name].get_field_value(field_name)
+		# value = packet[self.layer_name].pretty_print()
+		# value = packet[self.layer_name]
 		str_value = str(value)
 		return value
