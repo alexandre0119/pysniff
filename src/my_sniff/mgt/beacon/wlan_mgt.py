@@ -28,8 +28,8 @@ class WLANMGT(MGT):
 	def supported_rates(self, packet):
 		field_name = self.layer_name + '.' + 'tag'
 		# field_name = self.layer_name
-		value = packet[self.layer_name].get_field_value(field_name)
+		# value = packet.wlan_mgt.tagged_all
 		# value = packet[self.layer_name].pretty_print()
-		# value = packet[self.layer_name]
+		value = packet.wlan_mgt.country_info_fnm_fcn
 		str_value = str(value)
 		return value
