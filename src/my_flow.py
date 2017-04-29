@@ -33,20 +33,11 @@ def main_flow():
 	capture = init.capture_file_path
 
 	cap = init.file_capture(capture)
-	# print(beacon_frame_0.protocols(cap[0]))
-	# print(init.get_pkt_count_all(cap))
-	# print(group.get_pkt_count_filter(cap))
-	# beacon_frame_0.display_frame(cap[0], 0)
-	# beacon_radiotab_0.display_radiotap(cap[0], 0)
-	# beacon_wlan_radio_0.display_wlan_radio(cap[0], 0)
-	beacon_wlan_0.display_wlan(cap[0], 1)
-	beacon_wlan_0.display_wlan_fc(cap[0])
-	print(beacon_wlan_mgt_0.supported_rates(cap[0]))
-	# for i in beacon_wlan_mgt_0.supported_rates(cap[0]):
-	# 	print(i)
-	# print(type(beacon_wlan_mgt_0.supported_rates(cap[0])))
-	# print(beacon_wlan_0.sa_resolved(cap[0]))
-	# print(beacon_wlan_0.sa(cap[0]))
+
+
+	print(beacon_wlan_mgt_0.fixed_beacon(cap[0]))
+	print(beacon_wlan_mgt_0.tim_partial_virtual_bitmap(cap[0]))
+	print(beacon_wlan_mgt_0.testtest(cap[0]))
 
 	# testtest = beacon.beacon_df(capture, config_beacon.bssid(), 1)
 	# print(testtest.columns)
