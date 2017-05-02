@@ -1,5 +1,10 @@
 # Created by .ignore support plugin (hsz.mobi)
-# .gitignore
 .idea/workspace.xml
 /log_this.txt
 /log
+src/__pycache__/
+src/my_config/__pycache__/
+src/my_misc/__pycache__/
+src/my_sniff/__pycache__/
+src/my_sniff/mgt/__pycache__/
+src/my_sniff/mgt/beacon/__pycache__/

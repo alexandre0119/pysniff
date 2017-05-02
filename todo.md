@@ -1,3 +1,26 @@
+# To-Do
+1. Overall all packet analysis
+    * Get all packet type, percentage, and 
+    pie chart.
+    
+2. Beacon frame 
+    * All field get data
+    * All field data reference data
+    * All field data check
+    * Report summary
+
+
+
+# Issue
+1. Beacon frame 'supported_rates'
+    * Only able to get the first value
+    due to Pyshark lib issue
+
+# Completed
+1. Beacon frame/radiotap/wlan/wlan_radio layers
+
+
+
 Dear All,
 
 I am using Pyshark to parse Wireshark sniffer log, and I used exported Json format file (based on pcapny file) to find field names when use 'get_field_value' function to retrieve field value. 
