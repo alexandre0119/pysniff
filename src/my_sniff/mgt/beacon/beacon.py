@@ -13,6 +13,8 @@ import src.my_sniff.mgt.beacon.radiotap as beacon_radiotap
 import src.my_sniff.mgt.beacon.wlan_radio as beacon_wlan_radio
 # Import Beacon WLAN layer
 import src.my_sniff.mgt.beacon.wlan as beacon_wlan
+# Import Beacon WLAN MGT layer
+import src.my_sniff.mgt.beacon.wlan_mgt as beacon_wlan_mgt
 # Set logger
 from src.my_misc.my_logging import create_logger
 
@@ -28,10 +30,13 @@ beacon_radiotap_0 = beacon_radiotap.Radiotap(capture_dir, capture_file, 'radiota
 beacon_wlan_radio_0 = beacon_wlan_radio.WLANRadio(capture_dir, capture_file, 'wlan_radio')
 # Init class: Beacon WLAN
 beacon_wlan_0 = beacon_wlan.WLAN(capture_dir, capture_file, 'wlan')
+# Init class: Beacon WLAN
+beacon_wlan_mgt_0 = beacon_wlan_mgt.WLANMGT(capture_dir, capture_file, 'wlan_mgt')
 
 
-def fields():
-	fields_list = ['interface_id',  # Frame
+def fields_frame():
+	# Frame fields
+	fields_list = ['interface_id',
 	               'encap_type',
 	               'time',
 	               'offset_shift',
@@ -44,9 +49,31 @@ def fields():
 	               'cap_len',
 	               'marked',
 	               'ignored',
-	               'protocols',
-	               # Radiotap
-	               'version',
+	               'protocols']
+	return fields_list
+
+
+def values_frame(packet, layer):
+	value_list = [layer.interface_id(packet),
+	              layer.encap_type(packet),
+	              layer.time(packet),
+	              layer.offset_shift(packet),
+	              layer.time_epoch(packet),
+	              layer.time_delta(packet),
+	              layer.time_delta_displayed(packet),
+	              layer.time_relative(packet),
+	              layer.number(packet),
+	              layer.len(packet),
+	              layer.cap_len(packet),
+	              layer.marked(packet),
+	              layer.ignored(packet),
+	              layer.protocols(packet)]
+	return value_list
+
+
+def fields_radiotap():
+	# Radiotap fields
+	fields_list = ['version',
 	               'pad',
 	               'length',
 	               'present_word',
@@ -100,9 +127,72 @@ def fields():
 	               'channel_flags_quarter',
 	               'dbm_antsignal',
 	               'dbm_antnoise',
-	               'antenna',
-	               # WLAN Radio
-	               'phy',
+	               'antenna']
+	return fields_list
+
+
+def values_radiotap(packet, layer):
+	value_list = [layer.version(packet),
+	              layer.pad(packet),
+	              layer.length(packet),
+	              layer.present_word(packet),
+	              layer.present_tsft(packet),
+	              layer.present_flags(packet),
+	              layer.present_rate(packet),
+	              layer.present_channel(packet),
+	              layer.present_fhss(packet),
+	              layer.present_dbm_antsignal(packet),
+	              layer.present_dbm_antnoise(packet),
+	              layer.present_lock_quality(packet),
+	              layer.present_tx_attenuation(packet),
+	              layer.present_db_tx_attenuation(packet),
+	              layer.present_dbm_tx_power(packet),
+	              layer.present_antenna(packet),
+	              layer.present_db_antsignal(packet),
+	              layer.present_db_antnoise(packet),
+	              layer.present_rxflags(packet),
+	              layer.present_xchannel(packet),
+	              layer.present_mcs(packet),
+	              layer.present_ampdu(packet),
+	              layer.present_vht(packet),
+	              layer.present_reserved(packet),
+	              layer.present_rtap_ns(packet),
+	              layer.present_vendor_ns(packet),
+	              layer.present_ext(packet),
+	              layer.mactime(packet),
+	              layer.flags(packet),
+	              layer.flags_cfp(packet),
+	              layer.flags_preamble(packet),
+	              layer.flags_wep(packet),
+	              layer.flags_frag(packet),
+	              layer.flags_fcs(packet),
+	              layer.flags_datapad(packet),
+	              layer.flags_badfcs(packet),
+	              layer.flags_shortgi(packet),
+	              layer.datarate(packet),
+	              layer.channel_freq(packet),
+	              layer.channel_flags(packet),
+	              layer.channel_flags_turbo(packet),
+	              layer.channel_flags_cck(packet),
+	              layer.channel_flags_ofdm(packet),
+	              layer.channel_flags_2ghz(packet),
+	              layer.channel_flags_5ghz(packet),
+	              layer.channel_flags_passive(packet),
+	              layer.channel_flags_dynamic(packet),
+	              layer.channel_flags_gfsk(packet),
+	              layer.channel_flags_gsm(packet),
+	              layer.channel_flags_sturbo(packet),
+	              layer.channel_flags_half(packet),
+	              layer.channel_flags_quarter(packet),
+	              layer.dbm_antsignal(packet),
+	              layer.dbm_antnoise(packet),
+	              layer.antenna(packet)]
+	return value_list
+
+
+def fields_wlan_radio():
+	# WLAN Radio
+	fields_list = ['phy',
 	               'turbo_type_11a',
 	               'data_rate',
 	               'channel',
@@ -111,9 +201,27 @@ def fields():
 	               'noise_dbm',
 	               'timestamp',
 	               'duration',
-	               'preamble',
-	               # WLAN
-	               'fc_type_subtype',
+	               'preamble']
+	return fields_list
+
+
+def values_wlan_radio(packet, layer):
+	value_list = [layer.phy(packet),
+	              layer.turbo_type_11a(packet),
+	              layer.data_rate(packet),
+	              layer.channel(packet),
+	              layer.frequency(packet),
+	              layer.signal_dbm(packet),
+	              layer.noise_dbm(packet),
+	              layer.timestamp(packet),
+	              layer.duration(packet),
+	              layer.preamble(packet)]
+	return value_list
+
+
+def fields_wlan():
+	# WLAN fields
+	fields_list = ['fc_type_subtype',
 	               'fc',
 	               'fc_version',
 	               'fc_type',
@@ -148,6 +256,71 @@ def fields():
 	return fields_list
 
 
+def values_wlan(packet, layer):
+	value_list = [layer.fc_type_subtype(packet),
+	              layer.fc_tree(packet),
+	              layer.fc_version(packet),
+	              layer.fc_type(packet),
+	              layer.fc_subtype(packet),
+	              layer.flags(packet),
+	              layer.fc_ds(packet),
+	              layer.fc_tods(packet),
+	              layer.fc_fromds(packet),
+	              layer.fc_frag(packet),
+	              layer.fc_retry(packet),
+	              layer.fc_pwrmgt(packet),
+	              layer.fc_moredata(packet),
+	              layer.fc_protected(packet),
+	              layer.fc_order(packet),
+	              layer.duration(packet),
+	              layer.ra(packet),
+	              layer.ra_resolved(packet),
+	              layer.da(packet),
+	              layer.da_resolved(packet),
+	              layer.ta(packet),
+	              layer.ta_resolved(packet),
+	              layer.sa(packet),
+	              layer.sa_resolved(packet),
+	              layer.bssid(packet),
+	              layer.bssid_resolved(packet),
+	              layer.addr(packet),
+	              layer.addr_resolved(packet),
+	              layer.frag(packet),
+	              layer.seq(packet),
+	              layer.fcs(packet),
+	              layer.fcs_status(packet)]
+	return value_list
+
+
+def fields_wlan_mgt():
+	# WLAN mgt fields
+	fields_list = []
+	return fields_list
+
+
+def values_wlan_mgt(packet, layer):
+	value_list = []
+	return value_list
+
+
+def fields():
+	fields_list = fields_frame() \
+	              + fields_radiotap() \
+	              + fields_wlan_radio() \
+	              + fields_wlan() \
+	              + fields_wlan_mgt()
+	return fields_list
+
+
+def values(packet):
+	values_list = values_frame(packet, beacon_frame_0) \
+	              + values_radiotap(packet, beacon_radiotap_0) \
+	              + values_wlan_radio(packet, beacon_wlan_radio_0) \
+	              + values_wlan(packet, beacon_wlan_0) \
+	              + values_wlan_mgt(packet, beacon_wlan_mgt_0)
+	return values_list
+
+
 def beacon_df(capture, bssid, to_csv):
 	"""
 	Construct beacon DataFrame
@@ -172,122 +345,7 @@ def beacon_df(capture, bssid, to_csv):
 	cap_beacon = pyshark.FileCapture(capture, only_summaries=False, display_filter=filter_str)
 
 	for i_cap_beacon in cap_beacon:
-		beacon_content_list = [beacon_count,
-		                       # Frame
-		                       beacon_frame_0.interface_id(i_cap_beacon),
-		                       beacon_frame_0.encap_type(i_cap_beacon),
-		                       beacon_frame_0.time(i_cap_beacon),
-		                       beacon_frame_0.offset_shift(i_cap_beacon),
-		                       beacon_frame_0.time_epoch(i_cap_beacon),
-		                       beacon_frame_0.time_delta(i_cap_beacon),
-		                       beacon_frame_0.time_delta_displayed(i_cap_beacon),
-		                       beacon_frame_0.time_relative(i_cap_beacon),
-		                       beacon_frame_0.number(i_cap_beacon),
-		                       beacon_frame_0.len(i_cap_beacon),
-		                       beacon_frame_0.cap_len(i_cap_beacon),
-		                       beacon_frame_0.marked(i_cap_beacon),
-		                       beacon_frame_0.ignored(i_cap_beacon),
-		                       beacon_frame_0.protocols(i_cap_beacon),
-		                       # Radiotap
-		                       beacon_radiotap_0.version(i_cap_beacon),
-		                       beacon_radiotap_0.pad(i_cap_beacon),
-		                       beacon_radiotap_0.length(i_cap_beacon),
-		                       beacon_radiotap_0.present_word(i_cap_beacon),
-		                       beacon_radiotap_0.present_tsft(i_cap_beacon),
-		                       beacon_radiotap_0.present_flags(i_cap_beacon),
-		                       beacon_radiotap_0.present_rate(i_cap_beacon),
-		                       beacon_radiotap_0.present_channel(i_cap_beacon),
-		                       beacon_radiotap_0.present_fhss(i_cap_beacon),
-		                       beacon_radiotap_0.present_dbm_antsignal(i_cap_beacon),
-		                       beacon_radiotap_0.present_dbm_antnoise(i_cap_beacon),
-		                       beacon_radiotap_0.present_lock_quality(i_cap_beacon),
-		                       beacon_radiotap_0.present_tx_attenuation(i_cap_beacon),
-		                       beacon_radiotap_0.present_db_tx_attenuation(i_cap_beacon),
-		                       beacon_radiotap_0.present_dbm_tx_power(i_cap_beacon),
-		                       beacon_radiotap_0.present_antenna(i_cap_beacon),
-		                       beacon_radiotap_0.present_db_antsignal(i_cap_beacon),
-		                       beacon_radiotap_0.present_db_antnoise(i_cap_beacon),
-		                       beacon_radiotap_0.present_rxflags(i_cap_beacon),
-		                       beacon_radiotap_0.present_xchannel(i_cap_beacon),
-		                       beacon_radiotap_0.present_mcs(i_cap_beacon),
-		                       beacon_radiotap_0.present_ampdu(i_cap_beacon),
-		                       beacon_radiotap_0.present_vht(i_cap_beacon),
-		                       beacon_radiotap_0.present_reserved(i_cap_beacon),
-		                       beacon_radiotap_0.present_rtap_ns(i_cap_beacon),
-		                       beacon_radiotap_0.present_vendor_ns(i_cap_beacon),
-		                       beacon_radiotap_0.present_ext(i_cap_beacon),
-		                       beacon_radiotap_0.mactime(i_cap_beacon),
-		                       beacon_radiotap_0.flags(i_cap_beacon),
-		                       beacon_radiotap_0.flags_cfp(i_cap_beacon),
-		                       beacon_radiotap_0.flags_preamble(i_cap_beacon),
-		                       beacon_radiotap_0.flags_wep(i_cap_beacon),
-		                       beacon_radiotap_0.flags_frag(i_cap_beacon),
-		                       beacon_radiotap_0.flags_fcs(i_cap_beacon),
-		                       beacon_radiotap_0.flags_datapad(i_cap_beacon),
-		                       beacon_radiotap_0.flags_badfcs(i_cap_beacon),
-		                       beacon_radiotap_0.flags_shortgi(i_cap_beacon),
-		                       beacon_radiotap_0.datarate(i_cap_beacon),
-		                       beacon_radiotap_0.channel_freq(i_cap_beacon),
-		                       beacon_radiotap_0.channel_flags(i_cap_beacon),
-		                       beacon_radiotap_0.channel_flags_turbo(i_cap_beacon),
-		                       beacon_radiotap_0.channel_flags_cck(i_cap_beacon),
-		                       beacon_radiotap_0.channel_flags_ofdm(i_cap_beacon),
-		                       beacon_radiotap_0.channel_flags_2ghz(i_cap_beacon),
-		                       beacon_radiotap_0.channel_flags_5ghz(i_cap_beacon),
-		                       beacon_radiotap_0.channel_flags_passive(i_cap_beacon),
-		                       beacon_radiotap_0.channel_flags_dynamic(i_cap_beacon),
-		                       beacon_radiotap_0.channel_flags_gfsk(i_cap_beacon),
-		                       beacon_radiotap_0.channel_flags_gsm(i_cap_beacon),
-		                       beacon_radiotap_0.channel_flags_sturbo(i_cap_beacon),
-		                       beacon_radiotap_0.channel_flags_half(i_cap_beacon),
-		                       beacon_radiotap_0.channel_flags_quarter(i_cap_beacon),
-		                       beacon_radiotap_0.dbm_antsignal(i_cap_beacon),
-		                       beacon_radiotap_0.dbm_antnoise(i_cap_beacon),
-		                       beacon_radiotap_0.antenna(i_cap_beacon),
-		                       # WLAN Radio
-		                       beacon_wlan_radio_0.phy(i_cap_beacon),
-		                       beacon_wlan_radio_0.turbo_type_11a(i_cap_beacon),
-		                       beacon_wlan_radio_0.data_rate(i_cap_beacon),
-		                       beacon_wlan_radio_0.channel(i_cap_beacon),
-		                       beacon_wlan_radio_0.frequency(i_cap_beacon),
-		                       beacon_wlan_radio_0.signal_dbm(i_cap_beacon),
-		                       beacon_wlan_radio_0.noise_dbm(i_cap_beacon),
-		                       beacon_wlan_radio_0.timestamp(i_cap_beacon),
-		                       beacon_wlan_radio_0.duration(i_cap_beacon),
-		                       beacon_wlan_radio_0.preamble(i_cap_beacon),
-		                       # WLAN
-		                       beacon_wlan_0.fc_type_subtype(i_cap_beacon),
-		                       beacon_wlan_0.fc_tree(i_cap_beacon),
-		                       beacon_wlan_0.fc_version(i_cap_beacon),
-		                       beacon_wlan_0.fc_type(i_cap_beacon),
-		                       beacon_wlan_0.fc_subtype(i_cap_beacon),
-		                       beacon_wlan_0.flags(i_cap_beacon),
-		                       beacon_wlan_0.fc_ds(i_cap_beacon),
-		                       beacon_wlan_0.fc_tods(i_cap_beacon),
-		                       beacon_wlan_0.fc_fromds(i_cap_beacon),
-		                       beacon_wlan_0.fc_frag(i_cap_beacon),
-		                       beacon_wlan_0.fc_retry(i_cap_beacon),
-		                       beacon_wlan_0.fc_pwrmgt(i_cap_beacon),
-		                       beacon_wlan_0.fc_moredata(i_cap_beacon),
-		                       beacon_wlan_0.fc_protected(i_cap_beacon),
-		                       beacon_wlan_0.fc_order(i_cap_beacon),
-		                       beacon_wlan_0.duration(i_cap_beacon),
-		                       beacon_wlan_0.ra(i_cap_beacon),
-		                       beacon_wlan_0.ra_resolved(i_cap_beacon),
-		                       beacon_wlan_0.da(i_cap_beacon),
-		                       beacon_wlan_0.da_resolved(i_cap_beacon),
-		                       beacon_wlan_0.ta(i_cap_beacon),
-		                       beacon_wlan_0.ta_resolved(i_cap_beacon),
-		                       beacon_wlan_0.sa(i_cap_beacon),
-		                       beacon_wlan_0.sa_resolved(i_cap_beacon),
-		                       beacon_wlan_0.bssid(i_cap_beacon),
-		                       beacon_wlan_0.bssid_resolved(i_cap_beacon),
-		                       beacon_wlan_0.addr(i_cap_beacon),
-		                       beacon_wlan_0.addr_resolved(i_cap_beacon),
-		                       beacon_wlan_0.frag(i_cap_beacon),
-		                       beacon_wlan_0.seq(i_cap_beacon),
-		                       beacon_wlan_0.fcs(i_cap_beacon),
-		                       beacon_wlan_0.fcs_status(i_cap_beacon)]
+		beacon_content_list = [beacon_count] + values(i_cap_beacon)
 		beacon_info_list.append(beacon_content_list)
 		beacon_count += 1
 

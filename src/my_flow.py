@@ -39,7 +39,7 @@ def main_flow():
 	print(beacon_wlan_mgt_0.ht_mcsset(cap[81]))
 	print(beacon_wlan_mgt_0.ap_channel_report_channel_list(cap[81]))
 
-	# testtest = beacon.beacon_df(capture, config_beacon.bssid(), 1)
+	testtest = beacon.beacon_df(capture, config_beacon.bssid(), 1)
 	# print(testtest.columns)
 
 	result_summary = []
