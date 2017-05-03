@@ -6,6 +6,7 @@
 from collections import Counter
 # Import config file setting
 import src.my_config.config_basic as config_basic
+import src.my_config.config_beacon as config_beacon
 # Import class Group
 import src.my_sniff.class_init as class_init
 # Import beacon frame layer
@@ -20,9 +21,9 @@ log_counter = create_logger(logger_name=__name__, fmt='%(message)s')
 capture_dir = config_basic.capture_dir()  # capture file directory
 capture_file = config_basic.capture_file()  # capture file name
 # Init class frame
-beacon_frame_0 = beacon_frame.Frame(capture_dir, capture_file, 'frame')
+beacon_frame_0 = beacon_frame.Frame(capture_dir, capture_file)
 # Init class Beacon WLAN layer
-beacon_wlan_0 = beacon_wlan.WLAN(capture_dir, capture_file, 'wlan')
+beacon_wlan_0 = beacon_wlan.WLAN(capture_dir, capture_file)
 # Init class Group
 init = class_init.Init(capture_dir, capture_file)
 
@@ -96,7 +97,7 @@ def get_wlan_beacon_count(wlan_bssid_list):
 	"""
 	beacon_count_based_on_filter = []
 	for bssid, bssid_count in wlan_bssid_list.items():
-		filter_str = config_basic.beacon_type_value()[1] + ' and wlan.bssid == ' + bssid
+		filter_str = config_beacon.type_value()[1] + ' and wlan.bssid == ' + bssid
 		log_counter.info('Filter based on: '.format(filter_str))
 		beacon_count = init.get_pkt_count_filter(filter_str)
 		beacon_count_based_on_filter.append({bssid: beacon_count})

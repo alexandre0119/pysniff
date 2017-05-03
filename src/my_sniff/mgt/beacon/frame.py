@@ -8,9 +8,10 @@ log_beacon_frame = create_logger(logger_name=__name__, fmt='%(message)s')
 
 
 class Frame(MGT):
-	def __init__(self, capture_dir, capture_name, layer_name):
+	def __init__(self, capture_dir, capture_name):
 		MGT.__init__(self, capture_dir, capture_name)
-		self.layer_name = str(layer_name).lower()
+
+		self.layer_name = 'frame'
 
 	def interface_id(self, packet):
 		field_name = self.layer_name + '.' + 'interface_id'

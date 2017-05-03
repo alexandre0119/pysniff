@@ -6,15 +6,28 @@
 import src.my_config.config_basic as config_basic
 import src.my_config.config_beacon as config_beacon
 # Import beacon frame layer
-import src.my_sniff.mgt.beacon.frame as beacon_frame
+import src.my_sniff.mgt.beacon.frame as frame
 # Import beacon radiotap layer
-import src.my_sniff.mgt.beacon.radiotap as beacon_radiotap
+import src.my_sniff.mgt.beacon.radiotap as radiotap
 # Import beacon WLAN radio layer
-import src.my_sniff.mgt.beacon.wlan_radio as beacon_wlan_radio
+import src.my_sniff.mgt.beacon.wlan_radio as wlan_radio
 # Import Beacon WLAN layer
-import src.my_sniff.mgt.beacon.wlan as beacon_wlan
+import src.my_sniff.mgt.beacon.wlan as wlan
 # Import Beacon WLAN MGT layer
-import src.my_sniff.mgt.beacon.wlan_mgt as beacon_wlan_mgt
+import src.my_sniff.mgt.beacon.wlan_mgt_fixed as fixed
+import src.my_sniff.mgt.beacon.wlan_mgt_tag_ssid as ssid
+import src.my_sniff.mgt.beacon.wlan_mgt_tag_supported_rates as supported_rates
+import src.my_sniff.mgt.beacon.wlan_mgt_tag_current_channel as current_channel
+import src.my_sniff.mgt.beacon.wlan_mgt_tag_tim as tim
+import src.my_sniff.mgt.beacon.wlan_mgt_tag_rsn as rsn
+import src.my_sniff.mgt.beacon.wlan_mgt_tag_ht_cap as ht_cap
+import src.my_sniff.mgt.beacon.wlan_mgt_tag_ht_info as ht_info
+import src.my_sniff.mgt.beacon.wlan_mgt_tag_channel_report as channel_report
+import src.my_sniff.mgt.beacon.wlan_mgt_tag_extcap as extcap
+import src.my_sniff.mgt.beacon.wlan_mgt_tag_vht_cap as vht_cap
+import src.my_sniff.mgt.beacon.wlan_mgt_tag_vht_op as vht_op
+import src.my_sniff.mgt.beacon.wlan_mgt_tag_oui as oui
+import src.my_sniff.mgt.beacon.wlan_mgt_tag_wfa as wfa
 # Set logger
 from src.my_misc.my_logging import create_logger
 
@@ -23,15 +36,28 @@ log_counter = create_logger(logger_name=__name__, fmt='%(message)s')
 capture_dir = config_basic.capture_dir()  # capture file directory
 capture_file = config_basic.capture_file()  # capture file name
 # Init class: Beacon frame
-beacon_frame_0 = beacon_frame.Frame(capture_dir, capture_file, 'frame')
+frame_init = frame.Frame(capture_dir, capture_file)
 # Init class: Beacon Radiotap
-beacon_radiotap_0 = beacon_radiotap.Radiotap(capture_dir, capture_file, 'radiotap')
+radiotap_init = radiotap.Radiotap(capture_dir, capture_file)
 # Init class: Beacon WLAN Radio
-beacon_wlan_radio_0 = beacon_wlan_radio.WLANRadio(capture_dir, capture_file, 'wlan_radio')
+wlan_radio_init = wlan_radio.WLANRadio(capture_dir, capture_file)
 # Init class: Beacon WLAN
-beacon_wlan_0 = beacon_wlan.WLAN(capture_dir, capture_file, 'wlan')
-# Init class: Beacon WLAN
-beacon_wlan_mgt_0 = beacon_wlan_mgt.WLANMGT(capture_dir, capture_file, 'wlan_mgt')
+wlan_init = wlan.WLAN(capture_dir, capture_file)
+# Init class: Beacon WLAN MGT layer
+fixed_init = fixed.WLANMGTFixed(capture_dir, capture_file)
+ssid_init = ssid.WLANMGTTagSSID(capture_dir, capture_file)
+supported_rates_init = supported_rates.WLANMGTTagSupportedRates(capture_dir, capture_file)
+current_channel_init = current_channel.WLANMGTTagCurrentChannel(capture_dir, capture_file)
+tim_init = tim.WLANMGTTagTIM(capture_dir, capture_file)
+rsn_init = rsn.WLANMGTTagRSN(capture_dir, capture_file)
+ht_cap_init = ht_cap.WLANMGTTagHTCap(capture_dir, capture_file)
+ht_info_init = ht_info.WLANMGTTagHTInfo(capture_dir, capture_file)
+channel_report_init = channel_report.WLANMGTTagChannelReport(capture_dir, capture_file)
+extcap_init = extcap.WLANMGTTagSSID(capture_dir, capture_file)
+vht_cap_init = vht_cap.WLANMGTTagVHTCap(capture_dir, capture_file)
+vht_op_init = vht_op.WLANMGTTagVHTOp(capture_dir, capture_file)
+oui_init = oui.WLANMGTTagOUI(capture_dir, capture_file)
+wfa_init = wfa.WLANMGTTagWFA(capture_dir, capture_file)
 
 
 def fields_frame():
@@ -292,14 +318,65 @@ def values_wlan(packet, layer):
 	return value_list
 
 
-def fields_wlan_mgt():
-	# WLAN mgt fields
-	fields_list = []
+def fields_wlan_mgt_fixed():
+	fields_list = ['fixed_timestamp',
+	               'fixed_beacon',
+	               'fixed_capabilities',
+	               'fixed_capabilities_ess',
+	               'fixed_capabilities_ibss',
+	               'fixed_capabilities_cfpoll_ap',
+	               'fixed_capabilities_privacy',
+	               'fixed_capabilities_preamble',
+	               'fixed_capabilities_pbcc',
+	               'fixed_capabilities_agility',
+	               'fixed_capabilities_spec_man',
+	               'fixed_capabilities_short_slot_time',
+	               'fixed_capabilities_apsd',
+	               'fixed_capabilities_radio_measurement',
+	               'fixed_capabilities_dsss_ofdm',
+	               'fixed_capabilities_del_blk_ack',
+	               'fixed_capabilities_imm_blk_ack']
 	return fields_list
 
 
-def values_wlan_mgt(packet, layer):
-	value_list = []
+def values_wlan_mgt_fixed(packet, layer):
+	value_list = [layer.fixed_timestamp(packet),
+	              layer.fixed_beacon(packet),
+	              layer.fixed_capabilities(packet),
+	              layer.fixed_capabilities_ess(packet),
+	              layer.fixed_capabilities_ibss(packet),
+	              layer.fixed_capabilities_cfpoll_ap(packet),
+	              layer.fixed_capabilities_privacy(packet),
+	              layer.fixed_capabilities_preamble(packet),
+	              layer.fixed_capabilities_pbcc(packet),
+	              layer.fixed_capabilities_agility(packet),
+	              layer.fixed_capabilities_spec_man(packet),
+	              layer.fixed_capabilities_short_slot_time(packet),
+	              layer.fixed_capabilities_apsd(packet),
+	              layer.fixed_capabilities_radio_measurement(packet),
+	              layer.fixed_capabilities_dsss_ofdm(packet),
+	              layer.fixed_capabilities_del_blk_ack(packet),
+	              layer.fixed_capabilities_imm_blk_ack(packet)]
+	return value_list
+
+
+def fields_wlan_mgt_tag_ssid():
+	fields_list = ['ssid']
+	return fields_list
+
+
+def values_wlan_mgt_tag_ssid(packet, layer):
+	value_list = [layer.ssid(packet)]
+	return value_list
+
+
+def fields_wlan_mgt_tag_supported_rates():
+	fields_list = ['supported_rates']
+	return fields_list
+
+
+def values_wlan_mgt_tag_supported_rates(packet, layer):
+	value_list = [layer.supported_rates(packet)]
 	return value_list
 
 
@@ -308,16 +385,20 @@ def fields():
 	              + fields_radiotap() \
 	              + fields_wlan_radio() \
 	              + fields_wlan() \
-	              + fields_wlan_mgt()
+	              + fields_wlan_mgt_fixed() \
+	              + fields_wlan_mgt_tag_ssid() \
+	              + fields_wlan_mgt_tag_supported_rates()
 	return fields_list
 
 
 def values(packet):
-	values_list = values_frame(packet, beacon_frame_0) \
-	              + values_radiotap(packet, beacon_radiotap_0) \
-	              + values_wlan_radio(packet, beacon_wlan_radio_0) \
-	              + values_wlan(packet, beacon_wlan_0) \
-	              + values_wlan_mgt(packet, beacon_wlan_mgt_0)
+	values_list = values_frame(packet, frame_init) \
+	              + values_radiotap(packet, radiotap_init) \
+	              + values_wlan_radio(packet, wlan_radio_init) \
+	              + values_wlan(packet, wlan_init) \
+	              + values_wlan_mgt_fixed(packet, fixed_init) \
+	              + values_wlan_mgt_tag_ssid(packet, ssid_init) \
+	              + values_wlan_mgt_tag_supported_rates(packet, supported_rates_init)
 	return values_list
 
 

@@ -9,10 +9,10 @@ log_beacon_wlan_radio = create_logger(logger_name=__name__, fmt='%(message)s')
 
 
 class WLANRadio(MGT):
-	def __init__(self, capture_dir, capture_name, layer_name):
+	def __init__(self, capture_dir, capture_name):
 		MGT.__init__(self, capture_dir, capture_name)
 
-		self.layer_name = str(layer_name).lower()
+		self.layer_name = 'wlan_radio'
 
 	def phy(self, packet):
 		field_name = self.layer_name + '.' + 'phy'

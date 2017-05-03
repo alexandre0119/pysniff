@@ -9,11 +9,10 @@ log_beacon_radiotap = create_logger(logger_name=__name__, fmt='%(message)s')
 
 
 class Radiotap(MGT):
-	def __init__(self, capture_dir, capture_name, layer_name):
+	def __init__(self, capture_dir, capture_name):
 		MGT.__init__(self, capture_dir, capture_name)
 
-		self.layer_name = str(layer_name).lower()
-
+		self.layer_name = 'radiotap'
 		self.present_name = 'present'
 		self.flags_name = 'flags'
 		self.channel_name = 'channel'

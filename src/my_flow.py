@@ -12,7 +12,7 @@ import src.my_sniff.mgt.beacon.frame as beacon_frame
 import src.my_sniff.mgt.beacon.radiotap as beacon_radiotab
 import src.my_sniff.mgt.beacon.wlan_radio as beacon_wlan_radio
 import src.my_sniff.mgt.beacon.wlan as beacon_wlan
-import src.my_sniff.mgt.beacon.wlan_mgt as beacon_wlan_mgt
+import src.my_sniff.mgt.beacon.wlan_mgt_fixed as beacon_wlan_mgt_fixed
 import src.my_sniff.counter as counter
 import src.my_sniff.mgt.beacon.beacon as beacon
 from src.my_misc.my_logging import create_logger
@@ -24,20 +24,16 @@ def main_flow():
 	capture_dir = config_basic.capture_dir()
 	capture_file= config_basic.capture_file()
 	init = class_init.Init(capture_dir, capture_file)
-	beacon_frame_0 = beacon_frame.Frame(capture_dir, capture_file, 'Frame')
-	beacon_radiotab_0 = beacon_radiotab.Radiotap(capture_dir, capture_file, 'radiotap')
-	beacon_wlan_radio_0 = beacon_wlan_radio.WLANRadio(capture_dir, capture_file, 'wlan_radio')
-	beacon_wlan_0 = beacon_wlan.WLAN(capture_dir, capture_file, 'wlan')
-	beacon_wlan_mgt_0 = beacon_wlan_mgt.WLANMGT(capture_dir, capture_file, 'wlan_mgt')
+	beacon_fixed_init = beacon_wlan_mgt_fixed.WLANMGTFixed(capture_dir, capture_file)
 
 	capture = init.capture_file_path
 
 	cap = init.file_capture(capture)
 
 
-	print(beacon_wlan_mgt_0.rsn_pcs_count(cap[81]))
-	print(beacon_wlan_mgt_0.ht_mcsset(cap[81]))
-	print(beacon_wlan_mgt_0.ap_channel_report_channel_list(cap[81]))
+	print(beacon_fixed_init.fixed_timestamp(cap[81]))
+	print(beacon_fixed_init.fixed_capabilities_ess(cap[81]))
+	print(beacon_fixed_init.display_wlan_mgt_fixed_capabilities(cap[81]))
 
 	testtest = beacon.beacon_df(capture, config_beacon.bssid(), 1)
 	# print(testtest.columns)
