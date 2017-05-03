@@ -35,9 +35,9 @@ def main_flow():
 	cap = init.file_capture(capture)
 
 
-	print(beacon_wlan_mgt_0.fixed_beacon(cap[0]))
-	print(beacon_wlan_mgt_0.tim_partial_virtual_bitmap(cap[0]))
-	print(beacon_wlan_mgt_0.testtest(cap[0]))
+	print(beacon_wlan_mgt_0.rsn_pcs_count(cap[81]))
+	print(beacon_wlan_mgt_0.ht_mcsset(cap[81]))
+	print(beacon_wlan_mgt_0.ap_channel_report_channel_list(cap[81]))
 
 	# testtest = beacon.beacon_df(capture, config_beacon.bssid(), 1)
 	# print(testtest.columns)
