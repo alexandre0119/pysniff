@@ -22,7 +22,7 @@ import src.my_sniff.mgt.beacon.wlan_mgt_tag_tim as tim
 import src.my_sniff.mgt.beacon.wlan_mgt_tag_rsn as rsn
 import src.my_sniff.mgt.beacon.wlan_mgt_tag_ht_cap as ht_cap
 import src.my_sniff.mgt.beacon.wlan_mgt_tag_ht_info as ht_info
-import src.my_sniff.mgt.beacon.wlan_mgt_tag_channel_report as channel_report
+import src.my_sniff.mgt.beacon.wlan_mgt_tag_ap_channel_report as channel_report
 import src.my_sniff.mgt.beacon.wlan_mgt_tag_extcap as extcap
 import src.my_sniff.mgt.beacon.wlan_mgt_tag_vht_cap as vht_cap
 import src.my_sniff.mgt.beacon.wlan_mgt_tag_vht_op as vht_op
@@ -53,7 +53,7 @@ rsn_init = rsn.WLANMGTTagRSN(capture_dir, capture_file)
 ht_cap_init = ht_cap.WLANMGTTagHTCap(capture_dir, capture_file)
 ht_info_init = ht_info.WLANMGTTagHTInfo(capture_dir, capture_file)
 channel_report_init = channel_report.WLANMGTTagChannelReport(capture_dir, capture_file)
-extcap_init = extcap.WLANMGTTagSSID(capture_dir, capture_file)
+extcap_init = extcap.WLANMGTTagExtCap(capture_dir, capture_file)
 vht_cap_init = vht_cap.WLANMGTTagVHTCap(capture_dir, capture_file)
 vht_op_init = vht_op.WLANMGTTagVHTOp(capture_dir, capture_file)
 oui_init = oui.WLANMGTTagOUI(capture_dir, capture_file)
@@ -80,20 +80,12 @@ def fields_frame():
 
 
 def values_frame(packet, layer):
-	value_list = [layer.interface_id(packet),
-	              layer.encap_type(packet),
-	              layer.time(packet),
-	              layer.offset_shift(packet),
-	              layer.time_epoch(packet),
-	              layer.time_delta(packet),
-	              layer.time_delta_displayed(packet),
-	              layer.time_relative(packet),
-	              layer.number(packet),
-	              layer.len(packet),
-	              layer.cap_len(packet),
-	              layer.marked(packet),
-	              layer.ignored(packet),
-	              layer.protocols(packet)]
+	value_list = []
+
+	for i in fields_frame():
+		result = getattr(layer, i)(packet)
+		value_list.append(result)
+
 	return value_list
 
 
@@ -158,61 +150,12 @@ def fields_radiotap():
 
 
 def values_radiotap(packet, layer):
-	value_list = [layer.version(packet),
-	              layer.pad(packet),
-	              layer.length(packet),
-	              layer.present_word(packet),
-	              layer.present_tsft(packet),
-	              layer.present_flags(packet),
-	              layer.present_rate(packet),
-	              layer.present_channel(packet),
-	              layer.present_fhss(packet),
-	              layer.present_dbm_antsignal(packet),
-	              layer.present_dbm_antnoise(packet),
-	              layer.present_lock_quality(packet),
-	              layer.present_tx_attenuation(packet),
-	              layer.present_db_tx_attenuation(packet),
-	              layer.present_dbm_tx_power(packet),
-	              layer.present_antenna(packet),
-	              layer.present_db_antsignal(packet),
-	              layer.present_db_antnoise(packet),
-	              layer.present_rxflags(packet),
-	              layer.present_xchannel(packet),
-	              layer.present_mcs(packet),
-	              layer.present_ampdu(packet),
-	              layer.present_vht(packet),
-	              layer.present_reserved(packet),
-	              layer.present_rtap_ns(packet),
-	              layer.present_vendor_ns(packet),
-	              layer.present_ext(packet),
-	              layer.mactime(packet),
-	              layer.flags(packet),
-	              layer.flags_cfp(packet),
-	              layer.flags_preamble(packet),
-	              layer.flags_wep(packet),
-	              layer.flags_frag(packet),
-	              layer.flags_fcs(packet),
-	              layer.flags_datapad(packet),
-	              layer.flags_badfcs(packet),
-	              layer.flags_shortgi(packet),
-	              layer.datarate(packet),
-	              layer.channel_freq(packet),
-	              layer.channel_flags(packet),
-	              layer.channel_flags_turbo(packet),
-	              layer.channel_flags_cck(packet),
-	              layer.channel_flags_ofdm(packet),
-	              layer.channel_flags_2ghz(packet),
-	              layer.channel_flags_5ghz(packet),
-	              layer.channel_flags_passive(packet),
-	              layer.channel_flags_dynamic(packet),
-	              layer.channel_flags_gfsk(packet),
-	              layer.channel_flags_gsm(packet),
-	              layer.channel_flags_sturbo(packet),
-	              layer.channel_flags_half(packet),
-	              layer.channel_flags_quarter(packet),
-	              layer.dbm_antsignal(packet),
-	              layer.dbm_antnoise(packet),
-	              layer.antenna(packet)]
+	value_list = []
+
+	for i in fields_radiotap():
+		result = getattr(layer, i)(packet)
+		value_list.append(result)
+
 	return value_list
 
 
@@ -232,23 +175,19 @@ def fields_wlan_radio():
 
 
 def values_wlan_radio(packet, layer):
-	value_list = [layer.phy(packet),
-	              layer.turbo_type_11a(packet),
-	              layer.data_rate(packet),
-	              layer.channel(packet),
-	              layer.frequency(packet),
-	              layer.signal_dbm(packet),
-	              layer.noise_dbm(packet),
-	              layer.timestamp(packet),
-	              layer.duration(packet),
-	              layer.preamble(packet)]
+	value_list = []
+
+	for i in fields_wlan_radio():
+		result = getattr(layer, i)(packet)
+		value_list.append(result)
+
 	return value_list
 
 
 def fields_wlan():
 	# WLAN fields
 	fields_list = ['fc_type_subtype',
-	               'fc',
+	               'fc_tree',
 	               'fc_version',
 	               'fc_type',
 	               'fc_subtype',
@@ -283,38 +222,12 @@ def fields_wlan():
 
 
 def values_wlan(packet, layer):
-	value_list = [layer.fc_type_subtype(packet),
-	              layer.fc_tree(packet),
-	              layer.fc_version(packet),
-	              layer.fc_type(packet),
-	              layer.fc_subtype(packet),
-	              layer.flags(packet),
-	              layer.fc_ds(packet),
-	              layer.fc_tods(packet),
-	              layer.fc_fromds(packet),
-	              layer.fc_frag(packet),
-	              layer.fc_retry(packet),
-	              layer.fc_pwrmgt(packet),
-	              layer.fc_moredata(packet),
-	              layer.fc_protected(packet),
-	              layer.fc_order(packet),
-	              layer.duration(packet),
-	              layer.ra(packet),
-	              layer.ra_resolved(packet),
-	              layer.da(packet),
-	              layer.da_resolved(packet),
-	              layer.ta(packet),
-	              layer.ta_resolved(packet),
-	              layer.sa(packet),
-	              layer.sa_resolved(packet),
-	              layer.bssid(packet),
-	              layer.bssid_resolved(packet),
-	              layer.addr(packet),
-	              layer.addr_resolved(packet),
-	              layer.frag(packet),
-	              layer.seq(packet),
-	              layer.fcs(packet),
-	              layer.fcs_status(packet)]
+	value_list = []
+
+	for i in fields_wlan():
+		result = getattr(layer, i)(packet)
+		value_list.append(result)
+
 	return value_list
 
 
@@ -340,23 +253,12 @@ def fields_wlan_mgt_fixed():
 
 
 def values_wlan_mgt_fixed(packet, layer):
-	value_list = [layer.fixed_timestamp(packet),
-	              layer.fixed_beacon(packet),
-	              layer.fixed_capabilities(packet),
-	              layer.fixed_capabilities_ess(packet),
-	              layer.fixed_capabilities_ibss(packet),
-	              layer.fixed_capabilities_cfpoll_ap(packet),
-	              layer.fixed_capabilities_privacy(packet),
-	              layer.fixed_capabilities_preamble(packet),
-	              layer.fixed_capabilities_pbcc(packet),
-	              layer.fixed_capabilities_agility(packet),
-	              layer.fixed_capabilities_spec_man(packet),
-	              layer.fixed_capabilities_short_slot_time(packet),
-	              layer.fixed_capabilities_apsd(packet),
-	              layer.fixed_capabilities_radio_measurement(packet),
-	              layer.fixed_capabilities_dsss_ofdm(packet),
-	              layer.fixed_capabilities_del_blk_ack(packet),
-	              layer.fixed_capabilities_imm_blk_ack(packet)]
+	value_list = []
+
+	for i in fields_wlan_mgt_fixed():
+		result = getattr(layer, i)(packet)
+		value_list.append(result)
+
 	return value_list
 
 
@@ -366,7 +268,12 @@ def fields_wlan_mgt_tag_ssid():
 
 
 def values_wlan_mgt_tag_ssid(packet, layer):
-	value_list = [layer.ssid(packet)]
+	value_list = []
+
+	for i in fields_wlan_mgt_tag_ssid():
+		result = getattr(layer, i)(packet)
+		value_list.append(result)
+
 	return value_list
 
 
@@ -376,7 +283,399 @@ def fields_wlan_mgt_tag_supported_rates():
 
 
 def values_wlan_mgt_tag_supported_rates(packet, layer):
-	value_list = [layer.supported_rates(packet)]
+	value_list = []
+
+	for i in fields_wlan_mgt_tag_supported_rates():
+		result = getattr(layer, i)(packet)
+		value_list.append(result)
+
+	return value_list
+
+
+def fields_wlan_mgt_tag_current_channel():
+	fields_list = ['ds_current_channel']
+	return fields_list
+
+
+def values_wlan_mgt_tag_current_channel(packet, layer):
+	value_list = []
+
+	for i in fields_wlan_mgt_tag_current_channel():
+		result = getattr(layer, i)(packet)
+		value_list.append(result)
+
+	return value_list
+
+
+def fields_wlan_mgt_tag_tim():
+	fields_list = ['tim_dtim_count',
+	               'tim_dtim_period',
+	               'tim_bmapctl',
+	               'tim_bmapctl_multicast',
+	               'tim_bmapctl_offset',
+	               'tim_partial_virtual_bitmap',
+	               'tim_aid']
+	return fields_list
+
+
+def values_wlan_mgt_tag_tim(packet, layer):
+	value_list = []
+
+	for i in fields_wlan_mgt_tag_tim():
+		result = getattr(layer, i)(packet)
+		value_list.append(result)
+
+	return value_list
+
+
+def fields_wlan_mgt_tag_rsn():
+	fields_list = ['rsn_version',
+	               'rsn_gcs',
+	               'rsn_gcs_oui',
+	               'rsn_gcs_type',
+	               'rsn_pcs_count',
+	               'rsn_pcs',
+	               'rsn_pcs_oui',
+	               'rsn_pcs_type',
+	               'rsn_akms_count',
+	               'rsn_akms',
+	               'rsn_akms_oui',
+	               'rsn_akms_type',
+	               'rsn_capabilities',
+	               'rsn_capabilities_preauth',
+	               'rsn_capabilities_no_pairwise',
+	               'rsn_capabilities_ptksa_replay_counter',
+	               'rsn_capabilities_gtksa_replay_counter',
+	               'rsn_capabilities_mfpr',
+	               'rsn_capabilities_mfpc',
+	               'rsn_capabilities_jmr',
+	               'rsn_capabilities_peerkey']
+	return fields_list
+
+
+def values_wlan_mgt_tag_rsn(packet, layer):
+	value_list = []
+
+	for i in fields_wlan_mgt_tag_rsn():
+		result = getattr(layer, i)(packet)
+		value_list.append(result)
+
+	return value_list
+
+
+def fields_wlan_mgt_tag_ht_cap():
+	fields_list = ['ht_capabilities',
+	               'ht_capabilities_ldpccoding',
+	               'ht_capabilities_width',
+	               'ht_capabilities_sm',
+	               'ht_capabilities_green',
+	               'ht_capabilities_short20',
+	               'ht_capabilities_short40',
+	               'ht_capabilities_txstbc',
+	               'ht_capabilities_rxstbc',
+	               'ht_capabilities_delayedblockack',
+	               'ht_capabilities_amsdu',
+	               'ht_capabilities_dsscck',
+	               'ht_capabilities_psmp',
+	               'ht_capabilities_40mhzintolerant',
+	               'ht_capabilities_lsig',
+	               'ht_ampduparam',
+	               'ht_ampduparam_maxlength',
+	               'ht_ampduparam_mpdudensity',
+	               'ht_ampduparam_reserved',
+	               'ht_mcsset',
+	               'ht_mcsset_rxbitmask',
+	               'ht_mcsset_rxbitmask_0to7',
+	               'ht_mcsset_rxbitmask_8to15',
+	               'ht_mcsset_rxbitmask_16to23',
+	               'ht_mcsset_rxbitmask_24to31',
+	               'ht_mcsset_rxbitmask_32',
+	               'ht_mcsset_rxbitmask_33to38',
+	               'ht_mcsset_rxbitmask_39to52',
+	               'ht_mcsset_rxbitmask_53to76',
+	               'ht_mcsset_highestdatarate',
+	               'ht_mcsset_txsetdefined',
+	               'ht_mcsset_txrxmcsnotequal',
+	               'ht_mcsset_txmaxss',
+	               'ht_mcsset_txunequalmod',
+	               'htex_capabilities',
+	               'htex_capabilities_pco',
+	               'htex_capabilities_transtime',
+	               'htex_capabilities_mcs',
+	               'htex_capabilities_htc',
+	               'htex_capabilities_rdresponder',
+	               'txbf',
+	               'txbf_txbf',
+	               'txbf_rxss',
+	               'txbf_txss',
+	               'txbf_rxndp',
+	               'txbf_txndp',
+	               'txbf_impltxbf',
+	               'txbf_calibration',
+	               'txbf_csi',
+	               'txbf_fm_uncompressed_tbf',
+	               'txbf_fm_compressed_tbf',
+	               'txbf_rcsi',
+	               'txbf_fm_uncompressed_rbf',
+	               'txbf_fm_compressed_bf',
+	               'txbf_mingroup',
+	               'txbf_csinumant',
+	               'txbf_fm_uncompressed_maxant',
+	               'txbf_fm_compressed_maxant',
+	               'txbf_csi_maxrows',
+	               'txbf_channelest',
+	               'txbf_reserved',
+	               'asel',
+	               'asel_capable',
+	               'asel_txcsi',
+	               'asel_txif',
+	               'asel_csi',
+	               'asel_if',
+	               'asel_rx',
+	               'asel_sppdu',
+	               'asel_reserved']
+	return fields_list
+
+
+def values_wlan_mgt_tag_ht_cap(packet, layer):
+	value_list = []
+
+	for i in fields_wlan_mgt_tag_ht_cap():
+		result = getattr(layer, i)(packet)
+		value_list.append(result)
+
+	return value_list
+
+
+def fields_wlan_mgt_tag_ht_info():
+	fields_list = ['ht_info_primarychannel',
+	               'ht_info_delim1',
+	               'ht_info_secchanoffset',
+	               'ht_info_chanwidth',
+	               'ht_info_rifs',
+	               'ht_info_psmponly',
+	               'ht_info',
+	               'ht_info_delim2',
+	               'ht_info_operatingmode',
+	               'ht_info_greenfield',
+	               'ht_info_burstlim',
+	               'ht_info_obssnonht',
+	               'ht_info_reserved1',
+	               'ht_info_delim3',
+	               'ht_info_reserved2',
+	               'ht_info_dualbeacon',
+	               'ht_info_dualcts',
+	               'ht_info_secondarybeacon',
+	               'ht_info_lsigprotsupport',
+	               'ht_info_pco_active',
+	               'ht_info_pco_phase',
+	               'ht_info_reserved3']
+	return fields_list
+
+
+def values_wlan_mgt_tag_ht_info(packet, layer):
+	value_list = []
+
+	for i in fields_wlan_mgt_tag_ht_info():
+		result = getattr(layer, i)(packet)
+		value_list.append(result)
+
+	return value_list
+
+
+def fields_wlan_mgt_tag_ap_channel_report():
+	fields_list = ['ap_channel_report_operating_class',
+	               'ap_channel_report_channel_list']
+	return fields_list
+
+
+def values_wlan_mgt_tag_ap_channel_report(packet, layer):
+	value_list = []
+
+	for i in fields_wlan_mgt_tag_ap_channel_report():
+		result = getattr(layer, i)(packet)
+		value_list.append(result)
+
+	return value_list
+
+
+def fields_wlan_mgt_tag_extcap():
+	fields_list = ['extcap',
+	               'extcap_b0',
+	               'extcap_b2',
+	               'extcap_b3',
+	               'extcap_b4',
+	               'extcap_b5',
+	               'extcap_b6',
+	               'extcap_b7',
+	               'extcap_b8',
+	               'extcap_b9',
+	               'extcap_b10',
+	               'extcap_b11',
+	               'extcap_b12',
+	               'extcap_b13',
+	               'extcap_b14',
+	               'extcap_b15',
+	               'extcap_b16',
+	               'extcap_b17',
+	               'extcap_b18',
+	               'extcap_b19',
+	               'extcap_b20',
+	               'extcap_b21',
+	               'extcap_b22',
+	               'extcap_b23',
+	               'extcap_b24',
+	               'extcap_b25',
+	               'extcap_b26',
+	               'extcap_b27',
+	               'extcap_b28',
+	               'extcap_b29',
+	               'extcap_b30',
+	               'extcap_b31',
+	               'extcap_b32',
+	               'extcap_b33',
+	               'extcap_b34',
+	               'extcap_b35',
+	               'extcap_b36',
+	               'extcap_b37',
+	               'extcap_b38',
+	               'extcap_b39',
+	               'extcap_b40',
+	               'extcap_serv_int_granularity',
+	               'extcap_b44',
+	               'extcap_b45',
+	               'extcap_b46',
+	               'extcap_b47',
+	               'extcap_b48',
+	               'extcap_o7',
+	               'extcap_b61',
+	               'extcap_b62',
+	               'extcap_b63',
+	               'extcap_o8']
+	return fields_list
+
+
+def values_wlan_mgt_tag_extcap(packet, layer):
+	value_list = []
+
+	for i in fields_wlan_mgt_tag_extcap():
+		result = getattr(layer, i)(packet)
+		value_list.append(result)
+
+	return value_list
+
+
+def fields_wlan_mgt_tag_vht_cap():
+	fields_list = ['vht_capabilities',
+	               'vht_capabilities_maxmpdulength',
+	               'vht_capabilities_supportedchanwidthset',
+	               'vht_capabilities_rxldpc',
+	               'vht_capabilities_short80',
+	               'vht_capabilities_short160',
+	               'vht_capabilities_txstbc',
+	               'vht_capabilities_rxstbc',
+	               'vht_capabilities_subeamformer',
+	               'vht_capabilities_subeamformee',
+	               'vht_capabilities_beamformerants',
+	               'vht_capabilities_soundingdimensions',
+	               'vht_capabilities_mubeamformer',
+	               'vht_capabilities_mubeamformee',
+	               'vht_capabilities_vhttxoppse',
+	               'vht_capabilities_vhthtc',
+	               'vht_capabilities_maxampdu',
+	               'vht_capabilities_linkadapt',
+	               'vht_capabilities_rxpatconsist',
+	               'vht_capabilities_txpatconsist',
+	               'vht_reserved',
+	               'vht_mcsset_rxmcsmap',
+	               'vht_mcsset_rxmcsmap_ss1',
+	               'vht_mcsset_rxmcsmap_ss2',
+	               'vht_mcsset_rxmcsmap_ss3',
+	               'vht_mcsset_rxmcsmap_ss4',
+	               'vht_mcsset_rxmcsmap_ss5',
+	               'vht_mcsset_rxmcsmap_ss6',
+	               'vht_mcsset_rxmcsmap_ss7',
+	               'vht_mcsset_rxmcsmap_ss8',
+	               'vht_mcsset_rxhighestlonggirate',
+	               'vht_mcsset_txmcsmap',
+	               'vht_mcsset_txmcsmap_ss1',
+	               'vht_mcsset_txmcsmap_ss2',
+	               'vht_mcsset_txmcsmap_ss3',
+	               'vht_mcsset_txmcsmap_ss4',
+	               'vht_mcsset_txmcsmap_ss5',
+	               'vht_mcsset_txmcsmap_ss6',
+	               'vht_mcsset_txmcsmap_ss7',
+	               'vht_mcsset_txmcsmap_ss8',
+	               'vht_mcsset_txhighestlonggirate']
+	return fields_list
+
+
+def values_wlan_mgt_tag_vht_cap(packet, layer):
+	value_list = []
+
+	for i in fields_wlan_mgt_tag_vht_cap():
+		result = getattr(layer, i)(packet)
+		value_list.append(result)
+
+	return value_list
+
+
+def fields_wlan_mgt_tag_vht_op():
+	fields_list = ['vht_op_channelwidth',
+	               'vht_op_channelcenter0',
+	               'vht_op_channelcenter1',
+	               'vht_op_basicmcsmap',
+	               'vht_op_basicmcsmap_ss1',
+	               'vht_op_basicmcsmap_ss2',
+	               'vht_op_basicmcsmap_ss3',
+	               'vht_op_basicmcsmap_ss4',
+	               'vht_op_basicmcsmap_ss5',
+	               'vht_op_basicmcsmap_ss6',
+	               'vht_op_basicmcsmap_ss7',
+	               'vht_op_basicmcsmap_ss8']
+	return fields_list
+
+
+def values_wlan_mgt_tag_vht_op(packet, layer):
+	value_list = []
+
+	for i in fields_wlan_mgt_tag_vht_op():
+		result = getattr(layer, i)(packet)
+		value_list.append(result)
+
+	return value_list
+
+
+def fields_wlan_mgt_tag_wfa():
+	fields_list = ['wfa_ie_type',
+	               'wfa_ie_wme_subtype',
+	               'wfa_ie_wme_version',
+	               'wfa_ie_wme_qos_info',
+	               'wfa_ie_wme_qos_info_ap_u_apsd',
+	               'wfa_ie_wme_qos_info_ap_parameter_set_count',
+	               'wfa_ie_wme_qos_info_ap_reservedt',
+	               'wfa_ie_wme_reserved',
+	               'wfa_ie_wme_acp_aci_aifsn',
+	               'wfa_ie_wme_acp_aci',
+	               'wfa_ie_wme_acp_acm',
+	               'wfa_ie_wme_acp_aifsn',
+	               'wfa_ie_wme_acp_reserved',
+	               'wfa_ie_wme_acp_ecw',
+	               'wfa_ie_wme_acp_ecw_max',
+	               'wfa_ie_wme_acp_ecw_min',
+	               'wfa_ie_wme_acp_cw_max',
+	               'wfa_ie_wme_acp_cw_min',
+	               'wfa_ie_wme_acp_txop_limit']
+	return fields_list
+
+
+def values_wlan_mgt_tag_wfa(packet, layer):
+	value_list = []
+
+	for i in fields_wlan_mgt_tag_wfa():
+		result = getattr(layer, i)(packet)
+		value_list.append(result)
+
 	return value_list
 
 
@@ -387,7 +686,17 @@ def fields():
 	              + fields_wlan() \
 	              + fields_wlan_mgt_fixed() \
 	              + fields_wlan_mgt_tag_ssid() \
-	              + fields_wlan_mgt_tag_supported_rates()
+	              + fields_wlan_mgt_tag_supported_rates() \
+	              + fields_wlan_mgt_tag_current_channel() \
+	              + fields_wlan_mgt_tag_tim() \
+	              + fields_wlan_mgt_tag_rsn() \
+	              + fields_wlan_mgt_tag_ht_cap() \
+	              + fields_wlan_mgt_tag_ht_info() \
+	              + fields_wlan_mgt_tag_ap_channel_report() \
+	              + fields_wlan_mgt_tag_extcap() \
+	              + fields_wlan_mgt_tag_vht_cap() \
+	              + fields_wlan_mgt_tag_vht_op() \
+	              + fields_wlan_mgt_tag_wfa()
 	return fields_list
 
 
@@ -398,7 +707,17 @@ def values(packet):
 	              + values_wlan(packet, wlan_init) \
 	              + values_wlan_mgt_fixed(packet, fixed_init) \
 	              + values_wlan_mgt_tag_ssid(packet, ssid_init) \
-	              + values_wlan_mgt_tag_supported_rates(packet, supported_rates_init)
+	              + values_wlan_mgt_tag_supported_rates(packet, supported_rates_init) \
+	              + values_wlan_mgt_tag_current_channel(packet, current_channel_init) \
+	              + values_wlan_mgt_tag_tim(packet, tim_init) \
+	              + values_wlan_mgt_tag_rsn(packet, rsn_init) \
+	              + values_wlan_mgt_tag_ht_cap(packet, ht_cap_init) \
+	              + values_wlan_mgt_tag_ht_info(packet, ht_info_init) \
+	              + values_wlan_mgt_tag_ap_channel_report(packet, channel_report_init) \
+	              + values_wlan_mgt_tag_extcap(packet, extcap_init) \
+	              + values_wlan_mgt_tag_vht_cap(packet, vht_cap_init) \
+	              + values_wlan_mgt_tag_vht_op(packet, vht_op_init) \
+	              + values_wlan_mgt_tag_wfa(packet, wfa_init)
 	return values_list
 
 

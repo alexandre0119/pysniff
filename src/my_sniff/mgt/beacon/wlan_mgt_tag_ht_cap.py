@@ -448,4 +448,3 @@ class WLANMGTTagHTCap(MGT):
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
-

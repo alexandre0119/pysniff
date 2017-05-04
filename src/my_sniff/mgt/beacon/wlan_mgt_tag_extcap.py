@@ -9,7 +9,7 @@ from src.my_misc.my_logging import create_logger
 log_beacon_wlan_mgt_tag_ssid = create_logger(logger_name=__name__, fmt='%(message)s')
 
 
-class WLANMGTTagSSID(MGT):
+class WLANMGTTagExtCap(MGT):
 	def __init__(self, capture_dir, capture_name):
 		MGT.__init__(self, capture_dir, capture_name)
 

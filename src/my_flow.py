@@ -33,7 +33,7 @@ def main_flow():
 
 	print(beacon_fixed_init.fixed_timestamp(cap[81]))
 	print(beacon_fixed_init.fixed_capabilities_ess(cap[81]))
-	print(beacon_fixed_init.display_wlan_mgt_fixed_capabilities(cap[81]))
+	print(beacon_fixed_init.fixed_capabilities_ess(cap[81]))
 
 	testtest = beacon.beacon_df(capture, config_beacon.bssid(), 1)
 	# print(testtest.columns)
