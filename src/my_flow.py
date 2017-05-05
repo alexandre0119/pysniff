@@ -31,18 +31,18 @@ def main_flow():
 	cap = init.file_capture(capture)
 
 
-	print(beacon_fixed_init.fixed_timestamp(cap[81]))
-	print(beacon_fixed_init.fixed_capabilities_ess(cap[81]))
-	print(beacon_fixed_init.fixed_capabilities_ess(cap[81]))
-
-	testtest = beacon.beacon_df(capture, config_beacon.bssid(), 1)
-	# print(testtest.columns)
+	# print(beacon_fixed_init.fixed_timestamp(cap[81]))
+	# print(beacon_fixed_init.fixed_capabilities_ess(cap[81]))
+	# print(beacon_fixed_init.fixed_capabilities_ess(cap[81]))
+	#
+	# testtest = beacon.beacon_df(capture, config_beacon.bssid(), 1)
+	# # print(testtest.columns)
 
 	result_summary = []
 
-	# beacon_result = beacon.check_beacon_df(capture, config_beacon.bssid(), '0')
-	# for i in beacon_result[2]:
-	# 	print(i)
+	beacon_result = beacon.check_beacon_df(capture, config_beacon.bssid(), '0')
+	for i in beacon_result[1]:
+		print(i)
 
 	# result_summary.append({'Beacon': beacon_result})
 	# print(result_summary)

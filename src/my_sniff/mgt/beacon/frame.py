@@ -67,7 +67,7 @@ class Frame(MGT):
 		str_value = str(value)
 		return str_value
 
-	def len(self, packet):
+	def frame_len(self, packet):
 		field_name = self.layer_name + '.' + 'len'
 		value = packet.frame_info.get_field_value(field_name)
 		str_value = str(value)
@@ -132,7 +132,7 @@ class Frame(MGT):
 			           Frame.time_delta_displayed(self, packet),
 			           Frame.time_relative(self, packet),
 			           Frame.number(self, packet),
-			           Frame.len(self, packet), int(Frame.len(self, packet)) * 8,
+			           Frame.frame_len(self, packet), int(Frame.frame_len(self, packet)) * 8,
 			           Frame.cap_len(self, packet), int(Frame.cap_len(self, packet)) * 8,
 			           Frame.marked(self, packet),
 			           Frame.ignored(self, packet),
