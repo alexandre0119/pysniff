@@ -7,6 +7,7 @@
       <w>extcap</w>
       <w>malform</w>
       <w>multicast</w>
+      <w>pcapng</w>
       <w>ssid</w>
       <w>wlan</w>
     </words>

@@ -242,8 +242,8 @@ class Radiotap(MGT):
 		str_value = str(value)
 		return str_value
 
-	def flags(self, packet):
-		field_name = self.layer_name + '.' + self.flags_name
+	def radiotap_flags(self, packet):
+		field_name = self.layer_name + '.' + 'flags'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value

@@ -118,7 +118,7 @@ def fields_radiotap():
 	               'present_vendor_ns',
 	               'present_ext',
 	               'mactime',
-	               'flags',
+	               'radiotap_flags',
 	               'flags_cfp',
 	               'flags_preamble',
 	               'flags_wep',
@@ -756,7 +756,8 @@ def beacon_df(capture, bssid, to_csv):
 	df.index = df['count']
 	df.index.name = 'Index'
 
-	if to_csv == 1:
+	to_csv = str(to_csv)
+	if to_csv == '1':
 		df.to_csv(cfg_beacon.csv_save_path(), encoding="utf-8")
 
 	return df
@@ -786,6 +787,13 @@ def check_beacon_df_warp_1(enable, df, row, row_index, col, ref_data):
 		index = row_index
 		get_value = row[col]
 		ref_value = ref_data
+		print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+		print(get_value, '!!!!!!!!!!')
+		print(type(get_value))
+		print('########################################')
+		print(ref_value, '@@@@@@@@@@@')
+		print(type(ref_value))
+		print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
 		if get_value == ref_value:
 			pass_list.append([index, col, check_beacon_df_warp_0('p', ref_value, get_value)])
 			df.loc[index, col] = check_beacon_df_warp_0('p', ref_value, get_value)
@@ -811,8 +819,9 @@ def check_beacon_df_warp_2(pass_list_all, fail_list_all, skip_list_all, new_list
 
 
 def check_beacon_df_warp_3(df, row, row_index, pass_list_all, fail_list_all, skip_list_all):
-	for i_field in fields_frame():
-		# log_beacon.info('Check data for row[{0}], col[{1}]'.format(row_index, i_field))
+	fields = fields_frame() + fields_radiotap()
+	for i_field in fields:
+		log_beacon.info('Check data for row[{0}], col[{1}]'.format(row_index, i_field))
 		col = i_field
 		enable = getattr(cfg_beacon, i_field)()[0]
 		ref_data = getattr(cfg_beacon, i_field)()[1]

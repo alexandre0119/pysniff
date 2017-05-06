@@ -1,26 +1,38 @@
-# To-Do
-1. Overall all packet analysis
-    * Get all packet type, percentage, and 
-    pie chart.
-    
-2. Beacon frame 
-    * All field get data
-    * All field data reference data
+# To-Do   
+1. Beacon frame 
+    * All field reference data (377 count in total) to set in config file;
+        * Frame layer - complete
+        * Radiotap/WLAN/WLAN_Radio/WLAN_MGT layers - todo
     * All field data check
-    * Report summary
+        * Frame layer - complete
+        * Radiotap/WLAN/WLAN_Radio/WLAN_MGT layers - todo
+2. Report summary
+    * To csv
+        * Original all fields data to csv - complete
+        * Compare ref data vs get data results to csv - todo
+    * Console Pass field, Fail fields, Skip fields display
+    * Log file
 
-
+3. Overall all packet analysis
+    * Get all packet type, percentage, and pie chart.
 
 # Issue
 1. Beacon frame 'supported_rates'
-    * Only able to get the first value
-    due to Pyshark lib issue
+    * Only able to get the first value due to Pyshark lib issue
+    * Will try to find another method to fix it later
 
 # Completed
-1. Beacon frame/radiotap/wlan/wlan_radio layers
+1. Beacon
+    * All field get data from pcapng file
+        * Frame/Radiotap/WLAN/WLAN_Radio/WLAN_MGT layers
+    * Report summary
+        * Console Pass field, Fail fields, Skip fields display
+        * Log file
 
-
-
+  
+    
+      
+  
 Dear All,
 
 I am using Pyshark to parse Wireshark sniffer log, and I used exported Json format file (based on pcapny file) to find field names when use 'get_field_value' function to retrieve field value. 
