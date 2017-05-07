@@ -17,163 +17,163 @@ class Radiotap(MGT):
 		self.flags_name = 'flags'
 		self.channel_name = 'channel'
 
-	def version(self, packet):
+	def radiotap_version(self, packet):
 		field_name = self.layer_name + '.' + 'version'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def pad(self, packet):
+	def radiotap_pad(self, packet):
 		field_name = self.layer_name + '.' + 'pad'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def length(self, packet):
+	def radiotap_length(self, packet):
 		field_name = self.layer_name + '.' + 'length'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def present_word(self, packet):
+	def radiotap_present_word(self, packet):
 		field_name = self.layer_name + '.' + self.present_name + '.' + 'word'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def present_tsft(self, packet):
+	def radiotap_present_tsft(self, packet):
 		field_name = self.layer_name + '.' + self.present_name + '.' + 'tsft'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def present_flags(self, packet):
+	def radiotap_present_flags(self, packet):
 		field_name = self.layer_name + '.' + self.present_name + '.' + 'flags'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def present_rate(self, packet):
+	def radiotap_present_rate(self, packet):
 		field_name = self.layer_name + '.' + self.present_name + '.' + 'rate'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def present_channel(self, packet):
+	def radiotap_present_channel(self, packet):
 		field_name = self.layer_name + '.' + self.present_name + '.' + 'channel'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def present_fhss(self, packet):
+	def radiotap_present_fhss(self, packet):
 		field_name = self.layer_name + '.' + self.present_name + '.' + 'fhss'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def present_dbm_antsignal(self, packet):
+	def radiotap_present_dbm_antsignal(self, packet):
 		field_name = self.layer_name + '.' + self.present_name + '.' + 'dbm_antsignal'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def present_dbm_antnoise(self, packet):
+	def radiotap_present_dbm_antnoise(self, packet):
 		field_name = self.layer_name + '.' + self.present_name + '.' + 'dbm_antnoise'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def present_lock_quality(self, packet):
+	def radiotap_present_lock_quality(self, packet):
 		field_name = self.layer_name + '.' + self.present_name + '.' + 'lock_quality'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def present_tx_attenuation(self, packet):
+	def radiotap_present_tx_attenuation(self, packet):
 		field_name = self.layer_name + '.' + self.present_name + '.' + 'tx_attenuation'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def present_db_tx_attenuation(self, packet):
+	def radiotap_present_db_tx_attenuation(self, packet):
 		field_name = self.layer_name + '.' + self.present_name + '.' + 'db_tx_attenuation'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def present_dbm_tx_power(self, packet):
+	def radiotap_present_dbm_tx_power(self, packet):
 		field_name = self.layer_name + '.' + self.present_name + '.' + 'dbm_tx_power'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def present_antenna(self, packet):
+	def radiotap_present_antenna(self, packet):
 		field_name = self.layer_name + '.' + self.present_name + '.' + 'antenna'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def present_db_antsignal(self, packet):
+	def radiotap_present_db_antsignal(self, packet):
 		field_name = self.layer_name + '.' + self.present_name + '.' + 'db_antsignal'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def present_db_antnoise(self, packet):
+	def radiotap_present_db_antnoise(self, packet):
 		field_name = self.layer_name + '.' + self.present_name + '.' + 'db_antnoise'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def present_rxflags(self, packet):
+	def radiotap_present_rxflags(self, packet):
 		field_name = self.layer_name + '.' + self.present_name + '.' + 'rxflags'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def present_xchannel(self, packet):
+	def radiotap_present_xchannel(self, packet):
 		field_name = self.layer_name + '.' + self.present_name + '.' + 'xchannel'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def present_mcs(self, packet):
+	def radiotap_present_mcs(self, packet):
 		field_name = self.layer_name + '.' + self.present_name + '.' + 'mcs'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def present_ampdu(self, packet):
+	def radiotap_present_ampdu(self, packet):
 		field_name = self.layer_name + '.' + self.present_name + '.' + 'ampdu'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def present_vht(self, packet):
+	def radiotap_present_vht(self, packet):
 		field_name = self.layer_name + '.' + self.present_name + '.' + 'vht'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def present_reserved(self, packet):
+	def radiotap_present_reserved(self, packet):
 		field_name = self.layer_name + '.' + self.present_name + '.' + 'reserved'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def present_rtap_ns(self, packet):
+	def radiotap_present_rtap_ns(self, packet):
 		field_name = self.layer_name + '.' + self.present_name + '.' + 'rtap_ns'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def present_vendor_ns(self, packet):
+	def radiotap_present_vendor_ns(self, packet):
 		field_name = self.layer_name + '.' + self.present_name + '.' + 'vendor_ns'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def present_ext(self, packet):
+	def radiotap_present_ext(self, packet):
 		field_name = self.layer_name + '.' + self.present_name + '.' + 'ext'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
@@ -207,36 +207,37 @@ class Radiotap(MGT):
 .{23}.. .... .... ....  .... .... .... .... = Bit-30: vendor_ns
 {24}... .... .... ....  .... .... .... .... = Bit-31: ext
 ----------------------------------------------------------------------
-		""".format(Radiotap.present_word(self, packet), hex2bin.hex2bin_format(Radiotap.present_word(self, packet)),
-		           Radiotap.present_tsft(self, packet),
-		           Radiotap.present_flags(self, packet),
-		           Radiotap.present_rate(self, packet),
-		           Radiotap.present_channel(self, packet),
-		           Radiotap.present_fhss(self, packet),
-		           Radiotap.present_dbm_antsignal(self, packet),
-		           Radiotap.present_dbm_antnoise(self, packet),
-		           Radiotap.present_lock_quality(self, packet),
-		           Radiotap.present_tx_attenuation(self, packet),
-		           Radiotap.present_db_tx_attenuation(self, packet),
-		           Radiotap.present_dbm_tx_power(self, packet),
-		           Radiotap.present_antenna(self, packet),
-		           Radiotap.present_db_antsignal(self, packet),
-		           Radiotap.present_db_antnoise(self, packet),
-		           Radiotap.present_rxflags(self, packet),
-		           Radiotap.present_xchannel(self, packet),
-		           Radiotap.present_mcs(self, packet),
-		           Radiotap.present_ampdu(self, packet),
-		           Radiotap.present_vht(self, packet),
-		           Radiotap.present_reserved(self, packet),
-		           Radiotap.present_rtap_ns(self, packet),
-		           Radiotap.present_vendor_ns(self, packet),
-		           Radiotap.present_ext(self, packet),
+		""".format(Radiotap.radiotap_present_word(self, packet),
+		           hex2bin.hex2bin_format(Radiotap.radiotap_present_word(self, packet)),
+		           Radiotap.radiotap_present_tsft(self, packet),
+		           Radiotap.radiotap_present_flags(self, packet),
+		           Radiotap.radiotap_present_rate(self, packet),
+		           Radiotap.radiotap_present_channel(self, packet),
+		           Radiotap.radiotap_present_fhss(self, packet),
+		           Radiotap.radiotap_present_dbm_antsignal(self, packet),
+		           Radiotap.radiotap_present_dbm_antnoise(self, packet),
+		           Radiotap.radiotap_present_lock_quality(self, packet),
+		           Radiotap.radiotap_present_tx_attenuation(self, packet),
+		           Radiotap.radiotap_present_db_tx_attenuation(self, packet),
+		           Radiotap.radiotap_present_dbm_tx_power(self, packet),
+		           Radiotap.radiotap_present_antenna(self, packet),
+		           Radiotap.radiotap_present_db_antsignal(self, packet),
+		           Radiotap.radiotap_present_db_antnoise(self, packet),
+		           Radiotap.radiotap_present_rxflags(self, packet),
+		           Radiotap.radiotap_present_xchannel(self, packet),
+		           Radiotap.radiotap_present_mcs(self, packet),
+		           Radiotap.radiotap_present_ampdu(self, packet),
+		           Radiotap.radiotap_present_vht(self, packet),
+		           Radiotap.radiotap_present_reserved(self, packet),
+		           Radiotap.radiotap_present_rtap_ns(self, packet),
+		           Radiotap.radiotap_present_vendor_ns(self, packet),
+		           Radiotap.radiotap_present_ext(self, packet),
 		           self.present_name.upper())
 		log_beacon_radiotap.info(radiotap_present_str)
 
 	# return radiotap_present_str
 
-	def mactime(self, packet):
+	def radiotap_mactime(self, packet):
 		field_name = self.layer_name + '.' + 'mactime'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
@@ -248,49 +249,49 @@ class Radiotap(MGT):
 		str_value = str(value)
 		return str_value
 
-	def flags_cfp(self, packet):
+	def radiotap_flags_cfp(self, packet):
 		field_name = self.layer_name + '.' + self.flags_name + '.' + 'cfp'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def flags_preamble(self, packet):
+	def radiotap_flags_preamble(self, packet):
 		field_name = self.layer_name + '.' + self.flags_name + '.' + 'preamble'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def flags_wep(self, packet):
+	def radiotap_flags_wep(self, packet):
 		field_name = self.layer_name + '.' + self.flags_name + '.' + 'wep'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def flags_frag(self, packet):
+	def radiotap_flags_frag(self, packet):
 		field_name = self.layer_name + '.' + self.flags_name + '.' + 'frag'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def flags_fcs(self, packet):
+	def radiotap_flags_fcs(self, packet):
 		field_name = self.layer_name + '.' + self.flags_name + '.' + 'fcs'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def flags_datapad(self, packet):
+	def radiotap_flags_datapad(self, packet):
 		field_name = self.layer_name + '.' + self.flags_name + '.' + 'datapad'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def flags_badfcs(self, packet):
+	def radiotap_flags_badfcs(self, packet):
 		field_name = self.layer_name + '.' + self.flags_name + '.' + 'badfcs'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def flags_shortgi(self, packet):
+	def radiotap_flags_shortgi(self, packet):
 		field_name = self.layer_name + '.' + self.flags_name + '.' + 'shortgi'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
@@ -309,105 +310,106 @@ class Radiotap(MGT):
 .... .... .... ....  .... .... .{8}.. .... = Bit-06: badfcs
 .... .... .... ....  .... .... {9}... .... = Bit-07: shortgi
 ----------------------------------------------------------------------
-		""".format(Radiotap.flags(self, packet), hex2bin.hex2bin_format(Radiotap.flags(self, packet)),
-		           Radiotap.flags_cfp(self, packet),
-		           Radiotap.flags_preamble(self, packet),
-		           Radiotap.flags_wep(self, packet),
-		           Radiotap.flags_frag(self, packet),
-		           Radiotap.flags_fcs(self, packet),
-		           Radiotap.flags_datapad(self, packet),
-		           Radiotap.flags_badfcs(self, packet),
-		           Radiotap.flags_shortgi(self, packet),
+		""".format(Radiotap.radiotap_flags(self, packet),
+		           hex2bin.hex2bin_format(Radiotap.radiotap_flags(self, packet)),
+		           Radiotap.radiotap_flags_cfp(self, packet),
+		           Radiotap.radiotap_flags_preamble(self, packet),
+		           Radiotap.radiotap_flags_wep(self, packet),
+		           Radiotap.radiotap_flags_frag(self, packet),
+		           Radiotap.radiotap_flags_fcs(self, packet),
+		           Radiotap.radiotap_flags_datapad(self, packet),
+		           Radiotap.radiotap_flags_badfcs(self, packet),
+		           Radiotap.radiotap_flags_shortgi(self, packet),
 		           self.flags_name.upper())
 		log_beacon_radiotap.info(radiotap_flags_str)
 
 	# return radiotap_flags_str
 
-	def datarate(self, packet):
+	def radiotap_datarate(self, packet):
 		field_name = self.layer_name + '.' + 'datarate'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def channel_freq(self, packet):
+	def radiotap_channel_freq(self, packet):
 		field_name = self.layer_name + '.' + self.channel_name + '.' + 'freq'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def channel_flags(self, packet):
+	def radiotap_channel_flags(self, packet):
 		field_name = self.layer_name + '.' + self.channel_name + '.' + self.flags_name
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def channel_flags_turbo(self, packet):
+	def radiotap_channel_flags_turbo(self, packet):
 		field_name = self.layer_name + '.' + self.channel_name + '.' + self.flags_name + '.' + 'turbo'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def channel_flags_cck(self, packet):
+	def radiotap_channel_flags_cck(self, packet):
 		field_name = self.layer_name + '.' + self.channel_name + '.' + self.flags_name + '.' + 'cck'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def channel_flags_ofdm(self, packet):
+	def radiotap_channel_flags_ofdm(self, packet):
 		field_name = self.layer_name + '.' + self.channel_name + '.' + self.flags_name + '.' + 'ofdm'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def channel_flags_2ghz(self, packet):
+	def radiotap_channel_flags_2ghz(self, packet):
 		field_name = self.layer_name + '.' + self.channel_name + '.' + self.flags_name + '.' + '2ghz'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def channel_flags_5ghz(self, packet):
+	def radiotap_channel_flags_5ghz(self, packet):
 		field_name = self.layer_name + '.' + self.channel_name + '.' + self.flags_name + '.' + '5ghz'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def channel_flags_passive(self, packet):
+	def radiotap_channel_flags_passive(self, packet):
 		field_name = self.layer_name + '.' + self.channel_name + '.' + self.flags_name + '.' + 'passive'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def channel_flags_dynamic(self, packet):
+	def radiotap_channel_flags_dynamic(self, packet):
 		field_name = self.layer_name + '.' + self.channel_name + '.' + self.flags_name + '.' + 'dynamic'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def channel_flags_gfsk(self, packet):
+	def radiotap_channel_flags_gfsk(self, packet):
 		field_name = self.layer_name + '.' + self.channel_name + '.' + self.flags_name + '.' + 'gfsk'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def channel_flags_gsm(self, packet):
+	def radiotap_channel_flags_gsm(self, packet):
 		field_name = self.layer_name + '.' + self.channel_name + '.' + self.flags_name + '.' + 'gsm'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def channel_flags_sturbo(self, packet):
+	def radiotap_channel_flags_sturbo(self, packet):
 		field_name = self.layer_name + '.' + self.channel_name + '.' + self.flags_name + '.' + 'sturbo'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def channel_flags_half(self, packet):
+	def radiotap_channel_flags_half(self, packet):
 		field_name = self.layer_name + '.' + self.channel_name + '.' + self.flags_name + '.' + 'half'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def channel_flags_quarter(self, packet):
+	def radiotap_channel_flags_quarter(self, packet):
 		field_name = self.layer_name + '.' + self.channel_name + '.' + self.flags_name + '.' + 'quarter'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
@@ -431,37 +433,38 @@ class Radiotap(MGT):
 .... .... .... ....  .{12}.. .... .... .... = Bit-14: half
 .... .... .... ....  {13}... .... .... .... = Bit-15: quarter
 ----------------------------------------------------------------------
-		""".format(Radiotap.channel_flags(self, packet), hex2bin.hex2bin_format(Radiotap.channel_flags(self, packet)),
-		           Radiotap.channel_flags_turbo(self, packet),
-		           Radiotap.channel_flags_cck(self, packet),
-		           Radiotap.channel_flags_ofdm(self, packet),
-		           Radiotap.channel_flags_2ghz(self, packet),
-		           Radiotap.channel_flags_5ghz(self, packet),
-		           Radiotap.channel_flags_passive(self, packet),
-		           Radiotap.channel_flags_dynamic(self, packet),
-		           Radiotap.channel_flags_gfsk(self, packet),
-		           Radiotap.channel_flags_gsm(self, packet),
-		           Radiotap.channel_flags_sturbo(self, packet),
-		           Radiotap.channel_flags_half(self, packet),
-		           Radiotap.channel_flags_quarter(self, packet),
+		""".format(Radiotap.radiotap_channel_flags(self, packet),
+		           hex2bin.hex2bin_format(Radiotap.radiotap_channel_flags(self, packet)),
+		           Radiotap.radiotap_channel_flags_turbo(self, packet),
+		           Radiotap.radiotap_channel_flags_cck(self, packet),
+		           Radiotap.radiotap_channel_flags_ofdm(self, packet),
+		           Radiotap.radiotap_channel_flags_2ghz(self, packet),
+		           Radiotap.radiotap_channel_flags_5ghz(self, packet),
+		           Radiotap.radiotap_channel_flags_passive(self, packet),
+		           Radiotap.radiotap_channel_flags_dynamic(self, packet),
+		           Radiotap.radiotap_channel_flags_gfsk(self, packet),
+		           Radiotap.radiotap_channel_flags_gsm(self, packet),
+		           Radiotap.radiotap_channel_flags_sturbo(self, packet),
+		           Radiotap.radiotap_channel_flags_half(self, packet),
+		           Radiotap.radiotap_channel_flags_quarter(self, packet),
 		           self.channel_name.upper() + '.' + self.flags_name.upper())
 		log_beacon_radiotap.info(radiotap_channel_flags_str)
 
 	# return radiotap_channel_flags_str
 
-	def dbm_antsignal(self, packet):
+	def radiotap_dbm_antsignal(self, packet):
 		field_name = self.layer_name + '.' + 'dbm_antsignal'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def dbm_antnoise(self, packet):
+	def radiotap_dbm_antnoise(self, packet):
 		field_name = self.layer_name + '.' + 'dbm_antnoise'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def antenna(self, packet):
+	def radiotap_antenna(self, packet):
 		field_name = self.layer_name + '.' + 'antenna'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
@@ -488,15 +491,15 @@ class Radiotap(MGT):
 09. Antenna: {8}
 ----------------------------------------------------------------------
 ======================================================================
-						""".format(Radiotap.version(self, packet),
-			                       Radiotap.pad(self, packet),
-			                       Radiotap.length(self, packet),
-			                       Radiotap.mactime(self, packet),
-			                       Radiotap.datarate(self, packet),
-			                       Radiotap.channel_freq(self, packet),
-			                       Radiotap.dbm_antsignal(self, packet),
-			                       Radiotap.dbm_antnoise(self, packet),
-			                       Radiotap.antenna(self, packet),
+						""".format(Radiotap.radiotap_version(self, packet),
+			                       Radiotap.radiotap_pad(self, packet),
+			                       Radiotap.radiotap_length(self, packet),
+			                       Radiotap.radiotap_mactime(self, packet),
+			                       Radiotap.radiotap_datarate(self, packet),
+			                       Radiotap.radiotap_channel_freq(self, packet),
+			                       Radiotap.radiotap_dbm_antsignal(self, packet),
+			                       Radiotap.radiotap_dbm_antnoise(self, packet),
+			                       Radiotap.radiotap_antenna(self, packet),
 			                       self.layer_name.upper())
 			log_beacon_radiotap.info(radiotap_str)
 			Radiotap.display_radiotap_present(self, packet)

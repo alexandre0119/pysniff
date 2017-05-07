@@ -2,38 +2,35 @@
 # -*- coding: utf-8 -*-
 # Author: Alex Wang
 
-import pandas as pd
 # Import config file settings
 import src.my_config.config_basic as config_basic
 import src.my_config.config_beacon as config_beacon
 # Import class init
 import src.my_sniff.class_init as class_init
-import src.my_sniff.mgt.beacon.frame as beacon_frame
-import src.my_sniff.mgt.beacon.radiotap as beacon_radiotap
-import src.my_sniff.mgt.beacon.wlan_radio as beacon_wlan_radio
-import src.my_sniff.mgt.beacon.wlan as beacon_wlan
-import src.my_sniff.mgt.beacon.wlan_mgt_fixed as beacon_wlan_mgt_fixed
-import src.my_sniff.counter as counter
 import src.my_sniff.mgt.beacon.beacon as beacon
+import src.my_sniff.mgt.beacon.radiotap as beacon_radiotap
+import src.my_sniff.mgt.beacon.wlan as beacon_wlan
 from src.my_misc.my_logging import create_logger
+
 log_flow = create_logger(logger_name=__name__, fmt='%(message)s')
+
 
 def main_flow():
 	log_flow.info('\n================ Program started ================\n')
 
 	capture_dir = config_basic.capture_dir()
-	capture_file= config_basic.capture_file()
+	capture_file = config_basic.capture_file()
 	init = class_init.Init(capture_dir, capture_file)
 	beacon_radiotap_init = beacon_radiotap.Radiotap(capture_dir, capture_file)
+	beacon_wlan_init = beacon_wlan.WLAN(capture_dir, capture_file)
 
 	capture = init.capture_file_path
 
 	cap = init.file_capture(capture)
 
-
 	# print(beacon_fixed_init.fixed_timestamp(cap[81]))
 	# print(beacon_fixed_init.fixed_capabilities_ess(cap[81]))
-	# print(beacon_fixed_init.fixed_capabilities_ess(cap[81]))
+	# print(beacon_wlan_init.wlan_ta_resolved(cap[81]))
 
 	# print(type(beacon_radiotap_init.flags(cap[81])))
 	# print(beacon_radiotap_init.flags(cap[81]))
@@ -45,6 +42,7 @@ def main_flow():
 	result_summary = []
 
 	# beacon_df = beacon.beacon_df(capture, config_beacon.bssid(), '1')
+
 	beacon_result = beacon.check_beacon_df(capture, config_beacon.bssid(), '0')
 	# for i in beacon_result[1]:
 	# 	print(i)

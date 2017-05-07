@@ -14,61 +14,61 @@ class WLANRadio(MGT):
 
 		self.layer_name = 'wlan_radio'
 
-	def phy(self, packet):
+	def wlan_radio_phy(self, packet):
 		field_name = self.layer_name + '.' + 'phy'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def turbo_type_11a(self, packet):
+	def wlan_radio_turbo_type_11a(self, packet):
 		field_name = self.layer_name + '.' + '11a_turbo_type'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def data_rate(self, packet):
+	def wlan_radio_data_rate(self, packet):
 		field_name = self.layer_name + '.' + 'data_rate'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def channel(self, packet):
+	def wlan_radio_channel(self, packet):
 		field_name = self.layer_name + '.' + 'channel'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def frequency(self, packet):
+	def wlan_radio_frequency(self, packet):
 		field_name = self.layer_name + '.' + 'frequency'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def signal_dbm(self, packet):
+	def wlan_radio_signal_dbm(self, packet):
 		field_name = self.layer_name + '.' + 'signal_dbm'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def noise_dbm(self, packet):
+	def wlan_radio_noise_dbm(self, packet):
 		field_name = self.layer_name + '.' + 'noise_dbm'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def timestamp(self, packet):
+	def wlan_radio_timestamp(self, packet):
 		field_name = self.layer_name + '.' + 'timestamp'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def duration(self, packet):
+	def wlan_radio_duration(self, packet):
 		field_name = self.layer_name + '.' + 'duration'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def preamble(self, packet):
+	def wlan_radio_preamble(self, packet):
 		field_name = self.layer_name + '.' + 'preamble'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
@@ -96,16 +96,16 @@ class WLANRadio(MGT):
 09. Preamble: {9} us 
 ----------------------------------------------------------------------
 ======================================================================
-						""".format(WLANRadio.phy(self, packet),
-			                       WLANRadio.turbo_type_11a(self, packet),
-			                       WLANRadio.data_rate(self, packet),
-			                       WLANRadio.channel(self, packet),
-			                       WLANRadio.frequency(self, packet),
-			                       WLANRadio.signal_dbm(self, packet),
-			                       WLANRadio.noise_dbm(self, packet),
-			                       WLANRadio.timestamp(self, packet),
-			                       WLANRadio.duration(self, packet),
-			                       WLANRadio.preamble(self, packet),
+						""".format(WLANRadio.wlan_radio_phy(self, packet),
+			                       WLANRadio.wlan_radio_turbo_type_11a(self, packet),
+			                       WLANRadio.wlan_radio_data_rate(self, packet),
+			                       WLANRadio.wlan_radio_channel(self, packet),
+			                       WLANRadio.wlan_radio_frequency(self, packet),
+			                       WLANRadio.wlan_radio_signal_dbm(self, packet),
+			                       WLANRadio.wlan_radio_noise_dbm(self, packet),
+			                       WLANRadio.wlan_radio_timestamp(self, packet),
+			                       WLANRadio.wlan_radio_duration(self, packet),
+			                       WLANRadio.wlan_radio_preamble(self, packet),
 			                       self.layer_name.upper())
 			log_beacon_wlan_radio.info(wlan_radio_str)
 			# return wlan_radio_str

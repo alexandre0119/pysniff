@@ -13,55 +13,55 @@ class Frame(MGT):
 
 		self.layer_name = 'frame'
 
-	def interface_id(self, packet):
+	def frame_interface_id(self, packet):
 		field_name = self.layer_name + '.' + 'interface_id'
 		value = packet.frame_info.get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def encap_type(self, packet):
+	def frame_encap_type(self, packet):
 		field_name = self.layer_name + '.' + 'encap_type'
 		value = packet.frame_info.get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def time(self, packet):
+	def frame_time(self, packet):
 		field_name = self.layer_name + '.' + 'time'
 		value = packet.frame_info.get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def offset_shift(self, packet):
+	def frame_offset_shift(self, packet):
 		field_name = self.layer_name + '.' + 'offset_shift'
 		value = packet.frame_info.get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def time_epoch(self, packet):
+	def frame_time_epoch(self, packet):
 		field_name = self.layer_name + '.' + 'time_epoch'
 		value = packet.frame_info.get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def time_delta(self, packet):
+	def frame_time_delta(self, packet):
 		field_name = self.layer_name + '.' + 'time_delta'
 		value = packet.frame_info.get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def time_delta_displayed(self, packet):
+	def frame_time_delta_displayed(self, packet):
 		field_name = self.layer_name + '.' + 'time_delta_displayed'
 		value = packet.frame_info.get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def time_relative(self, packet):
+	def frame_time_relative(self, packet):
 		field_name = self.layer_name + '.' + 'time_relative'
 		value = packet.frame_info.get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def number(self, packet):
+	def frame_number(self, packet):
 		field_name = self.layer_name + '.' + 'number'
 		value = packet.frame_info.get_field_value(field_name)
 		str_value = str(value)
@@ -73,25 +73,25 @@ class Frame(MGT):
 		str_value = str(value)
 		return str_value
 
-	def cap_len(self, packet):
+	def frame_cap_len(self, packet):
 		field_name = self.layer_name + '.' + 'cap_len'
 		value = packet.frame_info.get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def marked(self, packet):
+	def frame_marked(self, packet):
 		field_name = self.layer_name + '.' + 'marked'
 		value = packet.frame_info.get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def ignored(self, packet):
+	def frame_ignored(self, packet):
 		field_name = self.layer_name + '.' + 'ignored'
 		value = packet.frame_info.get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def protocols(self, packet):
+	def frame_protocols(self, packet):
 		field_name = self.layer_name + '.' + 'protocols'
 		value = packet.frame_info.get_field_value(field_name)
 		str_value = str(value)
@@ -123,20 +123,20 @@ class Frame(MGT):
 14. Protocols in frame: {15}
 ----------------------------------------------------------------------
 ======================================================================
-			""".format(Frame.interface_id(self, packet),
-			           Frame.encap_type(self, packet),
-			           Frame.time(self, packet),
-			           Frame.offset_shift(self, packet),
-			           Frame.time_epoch(self, packet),
-			           Frame.time_delta(self, packet),
-			           Frame.time_delta_displayed(self, packet),
-			           Frame.time_relative(self, packet),
-			           Frame.number(self, packet),
+			""".format(Frame.frame_interface_id(self, packet),
+			           Frame.frame_encap_type(self, packet),
+			           Frame.frame_time(self, packet),
+			           Frame.frame_offset_shift(self, packet),
+			           Frame.frame_time_epoch(self, packet),
+			           Frame.frame_time_delta(self, packet),
+			           Frame.frame_time_delta_displayed(self, packet),
+			           Frame.frame_time_relative(self, packet),
+			           Frame.frame_number(self, packet),
 			           Frame.frame_len(self, packet), int(Frame.frame_len(self, packet)) * 8,
-			           Frame.cap_len(self, packet), int(Frame.cap_len(self, packet)) * 8,
-			           Frame.marked(self, packet),
-			           Frame.ignored(self, packet),
-			           Frame.protocols(self, packet))
+			           Frame.frame_cap_len(self, packet), int(Frame.frame_cap_len(self, packet)) * 8,
+			           Frame.frame_marked(self, packet),
+			           Frame.frame_ignored(self, packet),
+			           Frame.frame_protocols(self, packet))
 			log_beacon_frame.info(frame_str)
 			# return frame_str
 		else:

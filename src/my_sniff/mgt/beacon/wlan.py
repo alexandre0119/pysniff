@@ -15,91 +15,91 @@ class WLAN(MGT):
 		self.layer_name = 'wlan'
 		self.fc = 'fc'
 
-	def fc_type_subtype(self, packet):
+	def wlan_fc_type_subtype(self, packet):
 		field_name = self.layer_name + '.' + self.fc + '.' + 'type_subtype'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def fc_tree(self, packet):
+	def wlan_fc_tree(self, packet):
 		field_name = self.layer_name + '.' + self.fc
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def fc_version(self, packet):
+	def wlan_fc_version(self, packet):
 		field_name = self.layer_name + '.' + self.fc + '.' + 'version'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def fc_type(self, packet):
+	def wlan_fc_type(self, packet):
 		field_name = self.layer_name + '.' + self.fc + '.' + 'type'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def fc_subtype(self, packet):
+	def wlan_fc_subtype(self, packet):
 		field_name = self.layer_name + '.' + self.fc + '.' + 'subtype'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def flags(self, packet):
+	def wlan_flags(self, packet):
 		field_name = self.layer_name + '.' + 'flags'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def fc_ds(self, packet):
+	def wlan_fc_ds(self, packet):
 		field_name = self.layer_name + '.' + self.fc + '.' + 'ds'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def fc_tods(self, packet):
+	def wlan_fc_tods(self, packet):
 		field_name = self.layer_name + '.' + self.fc + '.' + 'tods'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def fc_fromds(self, packet):
+	def wlan_fc_fromds(self, packet):
 		field_name = self.layer_name + '.' + self.fc + '.' + 'fromds'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def fc_frag(self, packet):
+	def wlan_fc_frag(self, packet):
 		field_name = self.layer_name + '.' + self.fc + '.' + 'frag'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def fc_retry(self, packet):
+	def wlan_fc_retry(self, packet):
 		field_name = self.layer_name + '.' + self.fc + '.' + 'retry'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def fc_pwrmgt(self, packet):
+	def wlan_fc_pwrmgt(self, packet):
 		field_name = self.layer_name + '.' + self.fc + '.' + 'pwrmgt'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def fc_moredata(self, packet):
+	def wlan_fc_moredata(self, packet):
 		field_name = self.layer_name + '.' + self.fc + '.' + 'moredata'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def fc_protected(self, packet):
+	def wlan_fc_protected(self, packet):
 		field_name = self.layer_name + '.' + self.fc + '.' + 'protected'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def fc_order(self, packet):
+	def wlan_fc_order(self, packet):
 		field_name = self.layer_name + '.' + self.fc + '.' + 'order'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
@@ -114,11 +114,12 @@ class WLAN(MGT):
 3. Type: {4}
 4. Subtype: {5}
 ----------------------------------------------------------------------
-		""".format(WLAN.fc_tree(self, packet), hex2bin.hex2bin_format(WLAN.fc_tree(self, packet)),
-		           WLAN.fc_type_subtype(self, packet),
-		           WLAN.fc_version(self, packet),
-		           WLAN.fc_type(self, packet),
-		           WLAN.fc_subtype(self, packet),
+		""".format(WLAN.wlan_fc_tree(self, packet),
+		           hex2bin.hex2bin_format(WLAN.wlan_fc_tree(self, packet)),
+		           WLAN.wlan_fc_type_subtype(self, packet),
+		           WLAN.wlan_fc_version(self, packet),
+		           WLAN.wlan_fc_type(self, packet),
+		           WLAN.wlan_fc_subtype(self, packet),
 		           self.fc.upper())
 		log_beacon_wlan.info(wlan_fc_str)
 	# return wlan_fc_str
@@ -137,118 +138,119 @@ fc.moredata: {8}
 fc.protected: {9}
 fc.order: {10}
 ----------------------------------------------------------------------
-		""".format(WLAN.flags(self, packet), hex2bin.hex2bin_format(WLAN.flags(self, packet)),
-		           WLAN.fc_ds(self, packet),
-		           WLAN.fc_tods(self, packet),
-		           WLAN.fc_fromds(self, packet),
-		           WLAN.fc_frag(self, packet),
-		           WLAN.fc_frag(self, packet),
-		           WLAN.fc_retry(self, packet),
-		           WLAN.fc_pwrmgt(self, packet),
-		           WLAN.fc_moredata(self, packet),
-		           WLAN.fc_protected(self, packet),
+		""".format(WLAN.wlan_flags(self, packet),
+		           hex2bin.hex2bin_format(WLAN.wlan_flags(self, packet)),
+		           WLAN.wlan_fc_ds(self, packet),
+		           WLAN.wlan_fc_tods(self, packet),
+		           WLAN.wlan_fc_fromds(self, packet),
+		           WLAN.wlan_fc_frag(self, packet),
+		           WLAN.wlan_fc_frag(self, packet),
+		           WLAN.wlan_fc_retry(self, packet),
+		           WLAN.wlan_fc_pwrmgt(self, packet),
+		           WLAN.wlan_fc_moredata(self, packet),
+		           WLAN.wlan_fc_protected(self, packet),
 		           self.fc.upper())
 		log_beacon_wlan.info(wlan_flags_str)
 
 	# return radiotap_flags_str
 
-	def duration(self, packet):
+	def wlan_duration(self, packet):
 		field_name = self.layer_name + '.' + 'duration'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def ra(self, packet):
+	def wlan_ra(self, packet):
 		field_name = self.layer_name + '.' + 'ra'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def ra_resolved(self, packet):
+	def wlan_ra_resolved(self, packet):
 		field_name = self.layer_name + '.' + 'ra_resolved'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def da(self, packet):
+	def wlan_da(self, packet):
 		field_name = self.layer_name + '.' + 'da'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def da_resolved(self, packet):
+	def wlan_da_resolved(self, packet):
 		field_name = self.layer_name + '.' + 'da_resolved'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def ta(self, packet):
+	def wlan_ta(self, packet):
 		field_name = self.layer_name + '.' + 'ta'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def ta_resolved(self, packet):
+	def wlan_ta_resolved(self, packet):
 		field_name = self.layer_name + '.' + 'ta_resolved'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def sa(self, packet):
+	def wlan_sa(self, packet):
 		field_name = self.layer_name + '.' + 'sa'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def sa_resolved(self, packet):
+	def wlan_sa_resolved(self, packet):
 		field_name = self.layer_name + '.' + 'sa_resolved'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def bssid(self, packet):
+	def wlan_bssid(self, packet):
 		field_name = self.layer_name + '.' + 'bssid'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def bssid_resolved(self, packet):
+	def wlan_bssid_resolved(self, packet):
 		field_name = self.layer_name + '.' + 'bssid_resolved'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def addr(self, packet):
+	def wlan_addr(self, packet):
 		field_name = self.layer_name + '.' + 'addr'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def addr_resolved(self, packet):
+	def wlan_addr_resolved(self, packet):
 		field_name = self.layer_name + '.' + 'addr_resolved'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def frag(self, packet):
+	def wlan_frag(self, packet):
 		field_name = self.layer_name + '.' + 'frag'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def seq(self, packet):
+	def wlan_seq(self, packet):
 		field_name = self.layer_name + '.' + 'seq'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def fcs(self, packet):
+	def wlan_fcs(self, packet):
 		field_name = self.layer_name + '.' + 'fcs'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def fcs_status(self, packet):
+	def wlan_fcs_status(self, packet):
 		field_name = self.layer_name + '.' + 'fcs' + '.' + 'status'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)

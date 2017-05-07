@@ -61,20 +61,20 @@ wfa_init = wfa.WLANMGTTagWFA(capture_dir, capture_file)
 
 def fields_frame():
 	# Frame fields
-	fields_list = ['interface_id',
-	               'encap_type',
-	               'time',
-	               'offset_shift',
-	               'time_epoch',
-	               'time_delta',
-	               'time_delta_displayed',
-	               'time_relative',
-	               'number',
+	fields_list = ['frame_interface_id',
+	               'frame_encap_type',
+	               'frame_time',
+	               'frame_offset_shift',
+	               'frame_time_epoch',
+	               'frame_time_delta',
+	               'frame_time_delta_displayed',
+	               'frame_time_relative',
+	               'frame_number',
 	               'frame_len',
-	               'cap_len',
-	               'marked',
-	               'ignored',
-	               'protocols']
+	               'frame_cap_len',
+	               'frame_marked',
+	               'frame_ignored',
+	               'frame_protocols']
 	return fields_list
 
 
@@ -90,61 +90,61 @@ def values_frame(packet, layer):
 
 def fields_radiotap():
 	# Radiotap fields
-	fields_list = ['version',
-	               'pad',
-	               'length',
-	               'present_word',
-	               'present_tsft',
-	               'present_flags',
-	               'present_rate',
-	               'present_channel',
-	               'present_fhss',
-	               'present_dbm_antsignal',
-	               'present_dbm_antnoise',
-	               'present_lock_quality',
-	               'present_tx_attenuation',
-	               'present_db_tx_attenuation',
-	               'present_dbm_tx_power',
-	               'present_antenna',
-	               'present_db_antsignal',
-	               'present_db_antnoise',
-	               'present_rxflags',
-	               'present_xchannel',
-	               'present_mcs',
-	               'present_ampdu',
-	               'present_vht',
-	               'present_reserved',
-	               'present_rtap_ns',
-	               'present_vendor_ns',
-	               'present_ext',
-	               'mactime',
+	fields_list = ['radiotap_version',
+	               'radiotap_pad',
+	               'radiotap_length',
+	               'radiotap_present_word',
+	               'radiotap_present_tsft',
+	               'radiotap_present_flags',
+	               'radiotap_present_rate',
+	               'radiotap_present_channel',
+	               'radiotap_present_fhss',
+	               'radiotap_present_dbm_antsignal',
+	               'radiotap_present_dbm_antnoise',
+	               'radiotap_present_lock_quality',
+	               'radiotap_present_tx_attenuation',
+	               'radiotap_present_db_tx_attenuation',
+	               'radiotap_present_dbm_tx_power',
+	               'radiotap_present_antenna',
+	               'radiotap_present_db_antsignal',
+	               'radiotap_present_db_antnoise',
+	               'radiotap_present_rxflags',
+	               'radiotap_present_xchannel',
+	               'radiotap_present_mcs',
+	               'radiotap_present_ampdu',
+	               'radiotap_present_vht',
+	               'radiotap_present_reserved',
+	               'radiotap_present_rtap_ns',
+	               'radiotap_present_vendor_ns',
+	               'radiotap_present_ext',
+	               'radiotap_mactime',
 	               'radiotap_flags',
-	               'flags_cfp',
-	               'flags_preamble',
-	               'flags_wep',
-	               'flags_frag',
-	               'flags_fcs',
-	               'flags_datapad',
-	               'flags_badfcs',
-	               'flags_shortgi',
-	               'datarate',
-	               'channel_freq',
-	               'channel_flags',
-	               'channel_flags_turbo',
-	               'channel_flags_cck',
-	               'channel_flags_ofdm',
-	               'channel_flags_2ghz',
-	               'channel_flags_5ghz',
-	               'channel_flags_passive',
-	               'channel_flags_dynamic',
-	               'channel_flags_gfsk',
-	               'channel_flags_gsm',
-	               'channel_flags_sturbo',
-	               'channel_flags_half',
-	               'channel_flags_quarter',
-	               'dbm_antsignal',
-	               'dbm_antnoise',
-	               'antenna']
+	               'radiotap_flags_cfp',
+	               'radiotap_flags_preamble',
+	               'radiotap_flags_wep',
+	               'radiotap_flags_frag',
+	               'radiotap_flags_fcs',
+	               'radiotap_flags_datapad',
+	               'radiotap_flags_badfcs',
+	               'radiotap_flags_shortgi',
+	               'radiotap_datarate',
+	               'radiotap_channel_freq',
+	               'radiotap_channel_flags',
+	               'radiotap_channel_flags_turbo',
+	               'radiotap_channel_flags_cck',
+	               'radiotap_channel_flags_ofdm',
+	               'radiotap_channel_flags_2ghz',
+	               'radiotap_channel_flags_5ghz',
+	               'radiotap_channel_flags_passive',
+	               'radiotap_channel_flags_dynamic',
+	               'radiotap_channel_flags_gfsk',
+	               'radiotap_channel_flags_gsm',
+	               'radiotap_channel_flags_sturbo',
+	               'radiotap_channel_flags_half',
+	               'radiotap_channel_flags_quarter',
+	               'radiotap_dbm_antsignal',
+	               'radiotap_dbm_antnoise',
+	               'radiotap_antenna']
 	return fields_list
 
 
@@ -160,16 +160,16 @@ def values_radiotap(packet, layer):
 
 def fields_wlan_radio():
 	# WLAN Radio
-	fields_list = ['phy',
-	               'turbo_type_11a',
-	               'data_rate',
-	               'channel',
-	               'frequency',
-	               'signal_dbm',
-	               'noise_dbm',
-	               'timestamp',
-	               'duration',
-	               'preamble']
+	fields_list = ['wlan_radio_phy',
+	               'wlan_radio_turbo_type_11a',
+	               'wlan_radio_data_rate',
+	               'wlan_radio_channel',
+	               'wlan_radio_frequency',
+	               'wlan_radio_signal_dbm',
+	               'wlan_radio_noise_dbm',
+	               'wlan_radio_timestamp',
+	               'wlan_radio_duration',
+	               'wlan_radio_preamble']
 	return fields_list
 
 
@@ -185,38 +185,38 @@ def values_wlan_radio(packet, layer):
 
 def fields_wlan():
 	# WLAN fields
-	fields_list = ['fc_type_subtype',
-	               'fc_tree',
-	               'fc_version',
-	               'fc_type',
-	               'fc_subtype',
-	               'flags',
-	               'fc_ds',
-	               'fc_tods',
-	               'fc_fromds',
-	               'fc_frag',
-	               'fc_retry',
-	               'fc_pwrmgt',
-	               'fc_moredata',
-	               'fc_protected',
-	               'fc_order',
-	               'duration',
-	               'ra',
-	               'ra_resolved',
-	               'da',
-	               'da_resolved',
-	               'ta',
-	               'ta_resolved',
-	               'sa',
-	               'sa_resolved',
-	               'bssid',
-	               'bssid_resolved',
-	               'addr',
-	               'addr_resolved',
-	               'frag',
-	               'seq',
-	               'fcs',
-	               'fcs_status']
+	fields_list = ['wlan_fc_type_subtype',
+	               'wlan_fc_tree',
+	               'wlan_fc_version',
+	               'wlan_fc_type',
+	               'wlan_fc_subtype',
+	               'wlan_flags',
+	               'wlan_fc_ds',
+	               'wlan_fc_tods',
+	               'wlan_fc_fromds',
+	               'wlan_fc_frag',
+	               'wlan_fc_retry',
+	               'wlan_fc_pwrmgt',
+	               'wlan_fc_moredata',
+	               'wlan_fc_protected',
+	               'wlan_fc_order',
+	               'wlan_duration',
+	               'wlan_ra',
+	               'wlan_ra_resolved',
+	               'wlan_da',
+	               'wlan_da_resolved',
+	               'wlan_ta',
+	               'wlan_ta_resolved',
+	               'wlan_sa',
+	               'wlan_sa_resolved',
+	               'wlan_bssid',
+	               'wlan_bssid_resolved',
+	               'wlan_addr',
+	               'wlan_addr_resolved',
+	               'wlan_frag',
+	               'wlan_seq',
+	               'wlan_fcs',
+	               'wlan_fcs_status']
 	return fields_list
 
 
@@ -787,13 +787,8 @@ def check_beacon_df_warp_1(enable, df, row, row_index, col, ref_data):
 		index = row_index
 		get_value = row[col]
 		ref_value = ref_data
-		print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
-		print(get_value, '!!!!!!!!!!')
-		print(type(get_value))
-		print('########################################')
-		print(ref_value, '@@@@@@@@@@@')
-		print(type(ref_value))
-		print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+		print(get_value)
+		print(ref_value)
 		if get_value == ref_value:
 			pass_list.append([index, col, check_beacon_df_warp_0('p', ref_value, get_value)])
 			df.loc[index, col] = check_beacon_df_warp_0('p', ref_value, get_value)
@@ -819,8 +814,9 @@ def check_beacon_df_warp_2(pass_list_all, fail_list_all, skip_list_all, new_list
 
 
 def check_beacon_df_warp_3(df, row, row_index, pass_list_all, fail_list_all, skip_list_all):
-	fields = fields_frame() + fields_radiotap()
-	for i_field in fields:
+	fields_all = fields_frame() + fields_radiotap() + fields_wlan_radio() + fields_wlan()
+	# fields_all = fields_wlan_radio()
+	for i_field in fields_all:
 		log_beacon.info('Check data for row[{0}], col[{1}]'.format(row_index, i_field))
 		col = i_field
 		enable = getattr(cfg_beacon, i_field)()[0]
@@ -843,17 +839,6 @@ def check_beacon_df(capture, bssid, to_csv):
 
 		check_beacon_df_warp_3(df_copy, row, row_index,
 		                       pass_list_all, fail_list_all, skip_list_all)
-
-		# interface_id = check_beacon_df_warp_1(cfg_beacon.interface_id()[0],
-		#                                       df_copy, row, index, 'interface_id',
-		#                                       cfg_beacon.interface_id()[1])
-		# check_beacon_df_warp_2(pass_list_all, fail_list_all, skip_list_all, interface_id)
-		#
-		# encap_type = check_beacon_df_warp_1(cfg_beacon.encap_type()[0],
-		#                                     df_copy, row, index, 'encap_type',
-		#                                     cfg_beacon.encap_type()[1])
-		# check_beacon_df_warp_2(pass_list_all, fail_list_all, skip_list_all, encap_type)
-
 
 	df_copy.to_csv(cfg_beacon.csv_save_path_1(), encoding="utf-8")
 
