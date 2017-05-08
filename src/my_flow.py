@@ -10,13 +10,17 @@ import src.my_sniff.class_init as class_init
 import src.my_sniff.mgt.beacon.beacon as beacon
 import src.my_sniff.mgt.beacon.radiotap as beacon_radiotap
 import src.my_sniff.mgt.beacon.wlan as beacon_wlan
+import src.my_misc.my_decorator as my_decorator  # Decorator
 from src.my_misc.my_logging import create_logger
 
 log_flow = create_logger(logger_name=__name__, fmt='%(message)s')
 
 
 def main_flow():
-	log_flow.info('\n================ Program started ================\n')
+	# starter: 1: enable logging; 0[0]: return not formatted time; 0[1]: return formatted time
+	my_decorator.main_flow_starter(1)
+	start_time = my_decorator.main_flow_starter(0)[0]
+	# start_time_formatted = my_decorator.main_flow_starter(0)[1]
 
 	capture_dir = config_basic.capture_dir()
 	capture_file = config_basic.capture_file()
@@ -58,4 +62,12 @@ def main_flow():
 	#               '\n===========================================================\n'.format(df)
 	# log_flow.info(str_summary)
 
-	log_flow.info('\n================ Program complete ================\n')
+
+	# ender: 1: logging; 0[0]: not formatted time; 0[1] formatted time
+	my_decorator.main_flow_ender(1)
+	end_time = my_decorator.main_flow_ender(0)[0]
+	# end_time_formatted = my_decorator.main_flow_ender(0)[1]
+
+	# run_time: 1: logging; 0: get time
+	# delta_time = my_decorator.main_flow_run_time(start_time, end_time, 0)
+	my_decorator.main_flow_run_time(start_time, end_time, 1)
