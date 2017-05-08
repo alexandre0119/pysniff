@@ -17,103 +17,103 @@ class WLANMGTFixed(MGT):
 		self.fixed = 'fixed'
 		self.capabilities = 'capabilities'
 
-	def fixed_timestamp(self, packet):
+	def wlan_mgt_fixed_timestamp(self, packet):
 		field_name = self.layer_name + '.' + self.fixed + '.' + 'timestamp'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def fixed_beacon(self, packet):
+	def wlan_mgt_fixed_beacon(self, packet):
 		field_name = self.layer_name + '.' + self.fixed + '.' + 'beacon'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def fixed_capabilities(self, packet):
+	def wlan_mgt_fixed_capabilities(self, packet):
 		field_name = self.layer_name + '.' + self.fixed + '.' + self.capabilities
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def fixed_capabilities_ess(self, packet):
+	def wlan_mgt_fixed_capabilities_ess(self, packet):
 		field_name = self.layer_name + '.' + self.fixed + '.' + self.capabilities + '.' + 'ess'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def fixed_capabilities_ibss(self, packet):
+	def wlan_mgt_fixed_capabilities_ibss(self, packet):
 		field_name = self.layer_name + '.' + self.fixed + '.' + self.capabilities + '.' + 'ibss'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def fixed_capabilities_cfpoll_ap(self, packet):
+	def wlan_mgt_fixed_capabilities_cfpoll_ap(self, packet):
 		field_name = self.layer_name + '.' + self.fixed + '.' + self.capabilities + '.' + 'cfpoll.ap'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def fixed_capabilities_privacy(self, packet):
+	def wlan_mgt_fixed_capabilities_privacy(self, packet):
 		field_name = self.layer_name + '.' + self.fixed + '.' + self.capabilities + '.' + 'privacy'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def fixed_capabilities_preamble(self, packet):
+	def wlan_mgt_fixed_capabilities_preamble(self, packet):
 		field_name = self.layer_name + '.' + self.fixed + '.' + self.capabilities + '.' + 'preamble'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def fixed_capabilities_pbcc(self, packet):
+	def wlan_mgt_fixed_capabilities_pbcc(self, packet):
 		field_name = self.layer_name + '.' + self.fixed + '.' + self.capabilities + '.' + 'pbcc'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def fixed_capabilities_agility(self, packet):
+	def wlan_mgt_fixed_capabilities_agility(self, packet):
 		field_name = self.layer_name + '.' + self.fixed + '.' + self.capabilities + '.' + 'agility'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def fixed_capabilities_spec_man(self, packet):
+	def wlan_mgt_fixed_capabilities_spec_man(self, packet):
 		field_name = self.layer_name + '.' + self.fixed + '.' + self.capabilities + '.' + 'spec_man'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def fixed_capabilities_short_slot_time(self, packet):
+	def wlan_mgt_fixed_capabilities_short_slot_time(self, packet):
 		field_name = self.layer_name + '.' + self.fixed + '.' + self.capabilities + '.' + 'short_slot_time'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def fixed_capabilities_apsd(self, packet):
+	def wlan_mgt_fixed_capabilities_apsd(self, packet):
 		field_name = self.layer_name + '.' + self.fixed + '.' + self.capabilities + '.' + 'apsd'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def fixed_capabilities_radio_measurement(self, packet):
+	def wlan_mgt_fixed_capabilities_radio_measurement(self, packet):
 		field_name = self.layer_name + '.' + self.fixed + '.' + self.capabilities + '.' + 'radio_measurement'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def fixed_capabilities_dsss_ofdm(self, packet):
+	def wlan_mgt_fixed_capabilities_dsss_ofdm(self, packet):
 		field_name = self.layer_name + '.' + self.fixed + '.' + self.capabilities + '.' + 'dsss_ofdm'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def fixed_capabilities_del_blk_ack(self, packet):
+	def wlan_mgt_fixed_capabilities_del_blk_ack(self, packet):
 		field_name = self.layer_name + '.' + self.fixed + '.' + self.capabilities + '.' + 'del_blk_ack'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def fixed_capabilities_imm_blk_ack(self, packet):
+	def wlan_mgt_fixed_capabilities_imm_blk_ack(self, packet):
 		field_name = self.layer_name + '.' + self.fixed + '.' + self.capabilities + '.' + 'imm_blk_ack'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
@@ -140,22 +140,22 @@ class WLANMGTFixed(MGT):
 .{14}.. .... .... .... = Bit-13: del_blk_ack
 {15}... .... .... .... = Bit-14: imm_blk_ack
 ----------------------------------------------------------------------
-		""".format(WLANMGTFixed.fixed_capabilities(self, packet),
-		           hex2bin.hex2bin_format(WLANMGTFixed.fixed_capabilities(self, packet)),
-		           WLANMGTFixed.fixed_capabilities_ess(self, packet),
-		           WLANMGTFixed.fixed_capabilities_ibss(self, packet),
-		           WLANMGTFixed.fixed_capabilities_cfpoll_ap(self, packet),
-		           WLANMGTFixed.fixed_capabilities_privacy(self, packet),
-		           WLANMGTFixed.fixed_capabilities_preamble(self, packet),
-		           WLANMGTFixed.fixed_capabilities_pbcc(self, packet),
-		           WLANMGTFixed.fixed_capabilities_agility(self, packet),
-		           WLANMGTFixed.fixed_capabilities_spec_man(self, packet),
-		           WLANMGTFixed.fixed_capabilities_short_slot_time(self, packet),
-		           WLANMGTFixed.fixed_capabilities_apsd(self, packet),
-		           WLANMGTFixed.fixed_capabilities_radio_measurement(self, packet),
-		           WLANMGTFixed.fixed_capabilities_dsss_ofdm(self, packet),
-		           WLANMGTFixed.fixed_capabilities_del_blk_ack(self, packet),
-		           WLANMGTFixed.fixed_capabilities_imm_blk_ack(self, packet),
+		""".format(WLANMGTFixed.wlan_mgt_fixed_capabilities(self, packet),
+		           hex2bin.hex2bin_format(WLANMGTFixed.wlan_mgt_fixed_capabilities(self, packet)),
+		           WLANMGTFixed.wlan_mgt_fixed_capabilities_ess(self, packet),
+		           WLANMGTFixed.wlan_mgt_fixed_capabilities_ibss(self, packet),
+		           WLANMGTFixed.wlan_mgt_fixed_capabilities_cfpoll_ap(self, packet),
+		           WLANMGTFixed.wlan_mgt_fixed_capabilities_privacy(self, packet),
+		           WLANMGTFixed.wlan_mgt_fixed_capabilities_preamble(self, packet),
+		           WLANMGTFixed.wlan_mgt_fixed_capabilities_pbcc(self, packet),
+		           WLANMGTFixed.wlan_mgt_fixed_capabilities_agility(self, packet),
+		           WLANMGTFixed.wlan_mgt_fixed_capabilities_spec_man(self, packet),
+		           WLANMGTFixed.wlan_mgt_fixed_capabilities_short_slot_time(self, packet),
+		           WLANMGTFixed.wlan_mgt_fixed_capabilities_apsd(self, packet),
+		           WLANMGTFixed.wlan_mgt_fixed_capabilities_radio_measurement(self, packet),
+		           WLANMGTFixed.wlan_mgt_fixed_capabilities_dsss_ofdm(self, packet),
+		           WLANMGTFixed.wlan_mgt_fixed_capabilities_del_blk_ack(self, packet),
+		           WLANMGTFixed.wlan_mgt_fixed_capabilities_imm_blk_ack(self, packet),
 		           self.fixed.upper() + '_' + self.capabilities.upper())
 		log_beacon_wlan_mgt_fixed.info(wlan_mgt_fixed_capabilities_str)
 

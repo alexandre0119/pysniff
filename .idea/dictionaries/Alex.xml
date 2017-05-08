@@ -1,11 +1,19 @@
 <component name="ProjectDictionaryState">
   <dictionary name="Alex">
     <words>
+      <w>akms</w>
       <w>badfcs</w>
       <w>datapad</w>
+      <w>datarate</w>
       <w>encap</w>
+      <w>highestdatarate</w>
+      <w>limi</w>
+      <w>mcsset</w>
+      <w>peerkey</w>
       <w>radiotab</w>
       <w>radiotap</w>
+      <w>rxbitmask</w>
+      <w>txop</w>
     </words>
   </dictionary>
 </component>

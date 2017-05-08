@@ -30,6 +30,7 @@ import src.my_sniff.mgt.beacon.wlan_mgt_tag_oui as oui
 import src.my_sniff.mgt.beacon.wlan_mgt_tag_wfa as wfa
 # Set logger
 from src.my_misc.my_logging import create_logger
+
 log_beacon = create_logger(logger_name=__name__, fmt='%(message)s')
 
 capture_dir = cfg_basic.capture_dir()  # capture file directory
@@ -75,14 +76,20 @@ def fields_frame():
 	               'frame_marked',
 	               'frame_ignored',
 	               'frame_protocols']
-	return fields_list
+
+	fields_list_check = ['frame_interface_id',
+	                     'frame_encap_type',
+	                     'frame_len',
+	                     'frame_cap_len',
+	                     'frame_protocols']
+	return fields_list, fields_list_check
 
 
 def values_frame(packet, layer):
 	value_list = []
 
-	for i in fields_frame():
-		result = getattr(layer, i)(packet)
+	for i_field in fields_frame()[0]:
+		result = getattr(layer, i_field)(packet)
 		value_list.append(result)
 
 	return value_list
@@ -145,14 +152,24 @@ def fields_radiotap():
 	               'radiotap_dbm_antsignal',
 	               'radiotap_dbm_antnoise',
 	               'radiotap_antenna']
-	return fields_list
+
+	fields_list_check = ['radiotap_version',
+	                     'radiotap_pad',
+	                     'radiotap_length',
+	                     'radiotap_present_word',
+	                     'radiotap_flags',
+	                     'radiotap_datarate',
+	                     'radiotap_channel_freq',
+	                     'radiotap_channel_flags',
+	                     'radiotap_antenna']
+	return fields_list, fields_list_check
 
 
 def values_radiotap(packet, layer):
 	value_list = []
 
-	for i in fields_radiotap():
-		result = getattr(layer, i)(packet)
+	for i_field in fields_radiotap()[0]:
+		result = getattr(layer, i_field)(packet)
 		value_list.append(result)
 
 	return value_list
@@ -170,14 +187,21 @@ def fields_wlan_radio():
 	               'wlan_radio_timestamp',
 	               'wlan_radio_duration',
 	               'wlan_radio_preamble']
-	return fields_list
+	fields_list_check = ['wlan_radio_phy',
+	                     'wlan_radio_turbo_type_11a',
+	                     'wlan_radio_data_rate',
+	                     'wlan_radio_channel',
+	                     'wlan_radio_frequency',
+	                     'wlan_radio_duration',
+	                     'wlan_radio_preamble']
+	return fields_list, fields_list_check
 
 
 def values_wlan_radio(packet, layer):
 	value_list = []
 
-	for i in fields_wlan_radio():
-		result = getattr(layer, i)(packet)
+	for i_field in fields_wlan_radio()[0]:
+		result = getattr(layer, i_field)(packet)
 		value_list.append(result)
 
 	return value_list
@@ -217,486 +241,583 @@ def fields_wlan():
 	               'wlan_seq',
 	               'wlan_fcs',
 	               'wlan_fcs_status']
-	return fields_list
+	fields_list_check = ['wlan_fc_type_subtype',
+	                     'wlan_fc_tree',
+	                     'wlan_fc_version',
+	                     'wlan_fc_type',
+	                     'wlan_fc_subtype',
+	                     'wlan_flags',
+	                     'wlan_duration',
+	                     'wlan_ra',
+	                     'wlan_da',
+	                     'wlan_ta',
+	                     'wlan_sa',
+	                     'wlan_bssid',
+	                     'wlan_addr',
+	                     'wlan_frag',
+	                     'wlan_fcs_status']
+	return fields_list, fields_list_check
 
 
 def values_wlan(packet, layer):
 	value_list = []
 
-	for i in fields_wlan():
-		result = getattr(layer, i)(packet)
+	for i_field in fields_wlan()[0]:
+		result = getattr(layer, i_field)(packet)
 		value_list.append(result)
 
 	return value_list
 
 
 def fields_wlan_mgt_fixed():
-	fields_list = ['fixed_timestamp',
-	               'fixed_beacon',
-	               'fixed_capabilities',
-	               'fixed_capabilities_ess',
-	               'fixed_capabilities_ibss',
-	               'fixed_capabilities_cfpoll_ap',
-	               'fixed_capabilities_privacy',
-	               'fixed_capabilities_preamble',
-	               'fixed_capabilities_pbcc',
-	               'fixed_capabilities_agility',
-	               'fixed_capabilities_spec_man',
-	               'fixed_capabilities_short_slot_time',
-	               'fixed_capabilities_apsd',
-	               'fixed_capabilities_radio_measurement',
-	               'fixed_capabilities_dsss_ofdm',
-	               'fixed_capabilities_del_blk_ack',
-	               'fixed_capabilities_imm_blk_ack']
-	return fields_list
+	fields_list = ['wlan_mgt_fixed_timestamp',
+	               'wlan_mgt_fixed_beacon',
+	               'wlan_mgt_fixed_capabilities',
+	               'wlan_mgt_fixed_capabilities_ess',
+	               'wlan_mgt_fixed_capabilities_ibss',
+	               'wlan_mgt_fixed_capabilities_cfpoll_ap',
+	               'wlan_mgt_fixed_capabilities_privacy',
+	               'wlan_mgt_fixed_capabilities_preamble',
+	               'wlan_mgt_fixed_capabilities_pbcc',
+	               'wlan_mgt_fixed_capabilities_agility',
+	               'wlan_mgt_fixed_capabilities_spec_man',
+	               'wlan_mgt_fixed_capabilities_short_slot_time',
+	               'wlan_mgt_fixed_capabilities_apsd',
+	               'wlan_mgt_fixed_capabilities_radio_measurement',
+	               'wlan_mgt_fixed_capabilities_dsss_ofdm',
+	               'wlan_mgt_fixed_capabilities_del_blk_ack',
+	               'wlan_mgt_fixed_capabilities_imm_blk_ack']
+	fields_list_check = ['wlan_mgt_fixed_beacon',
+	                     'wlan_mgt_fixed_capabilities']
+	return fields_list, fields_list_check
 
 
 def values_wlan_mgt_fixed(packet, layer):
 	value_list = []
 
-	for i in fields_wlan_mgt_fixed():
-		result = getattr(layer, i)(packet)
+	for i_field in fields_wlan_mgt_fixed()[0]:
+		result = getattr(layer, i_field)(packet)
 		value_list.append(result)
 
 	return value_list
 
 
 def fields_wlan_mgt_tag_ssid():
-	fields_list = ['ssid']
-	return fields_list
+	fields_list = ['wlan_mgt_ssid']
+	fields_list_check = ['wlan_mgt_ssid']
+	return fields_list, fields_list_check
 
 
 def values_wlan_mgt_tag_ssid(packet, layer):
 	value_list = []
 
-	for i in fields_wlan_mgt_tag_ssid():
-		result = getattr(layer, i)(packet)
+	for i_field in fields_wlan_mgt_tag_ssid()[0]:
+		result = getattr(layer, i_field)(packet)
 		value_list.append(result)
 
 	return value_list
 
 
 def fields_wlan_mgt_tag_supported_rates():
-	fields_list = ['supported_rates']
-	return fields_list
+	fields_list = ['wlan_mgt_supported_rates']
+	fields_list_check = ['wlan_mgt_supported_rates']
+	return fields_list, fields_list_check
 
 
 def values_wlan_mgt_tag_supported_rates(packet, layer):
 	value_list = []
 
-	for i in fields_wlan_mgt_tag_supported_rates():
-		result = getattr(layer, i)(packet)
+	for i_field in fields_wlan_mgt_tag_supported_rates()[0]:
+		result = getattr(layer, i_field)(packet)
 		value_list.append(result)
 
 	return value_list
 
 
 def fields_wlan_mgt_tag_current_channel():
-	fields_list = ['ds_current_channel']
-	return fields_list
+	fields_list = ['wlan_mgt_ds_current_channel']
+	fields_list_check = ['wlan_mgt_ds_current_channel']
+	return fields_list, fields_list_check
 
 
 def values_wlan_mgt_tag_current_channel(packet, layer):
 	value_list = []
 
-	for i in fields_wlan_mgt_tag_current_channel():
-		result = getattr(layer, i)(packet)
+	for i_field in fields_wlan_mgt_tag_current_channel()[0]:
+		result = getattr(layer, i_field)(packet)
 		value_list.append(result)
 
 	return value_list
 
 
 def fields_wlan_mgt_tag_tim():
-	fields_list = ['tim_dtim_count',
-	               'tim_dtim_period',
-	               'tim_bmapctl',
-	               'tim_bmapctl_multicast',
-	               'tim_bmapctl_offset',
-	               'tim_partial_virtual_bitmap',
-	               'tim_aid']
-	return fields_list
+	fields_list = ['wlan_mgt_tim_dtim_count',
+	               'wlan_mgt_tim_dtim_period',
+	               'wlan_mgt_tim_bmapctl',
+	               'wlan_mgt_tim_bmapctl_multicast',
+	               'wlan_mgt_tim_bmapctl_offset',
+	               'wlan_mgt_tim_partial_virtual_bitmap',
+	               'wlan_mgt_tim_aid']
+	fields_list_check = ['wlan_mgt_tim_dtim_count',
+	                     'wlan_mgt_tim_dtim_period',
+	                     'wlan_mgt_tim_bmapctl',
+	                     'wlan_mgt_tim_partial_virtual_bitmap',
+	                     'wlan_mgt_tim_aid']
+	return fields_list, fields_list_check
 
 
 def values_wlan_mgt_tag_tim(packet, layer):
 	value_list = []
 
-	for i in fields_wlan_mgt_tag_tim():
-		result = getattr(layer, i)(packet)
+	for i_field in fields_wlan_mgt_tag_tim()[0]:
+		result = getattr(layer, i_field)(packet)
 		value_list.append(result)
 
 	return value_list
 
 
 def fields_wlan_mgt_tag_rsn():
-	fields_list = ['rsn_version',
-	               'rsn_gcs',
-	               'rsn_gcs_oui',
-	               'rsn_gcs_type',
-	               'rsn_pcs_count',
-	               'rsn_pcs',
-	               'rsn_pcs_oui',
-	               'rsn_pcs_type',
-	               'rsn_akms_count',
-	               'rsn_akms',
-	               'rsn_akms_oui',
-	               'rsn_akms_type',
-	               'rsn_capabilities',
-	               'rsn_capabilities_preauth',
-	               'rsn_capabilities_no_pairwise',
-	               'rsn_capabilities_ptksa_replay_counter',
-	               'rsn_capabilities_gtksa_replay_counter',
-	               'rsn_capabilities_mfpr',
-	               'rsn_capabilities_mfpc',
-	               'rsn_capabilities_jmr',
-	               'rsn_capabilities_peerkey']
-	return fields_list
+	fields_list = ['wlan_mgt_rsn_version',
+	               'wlan_mgt_rsn_gcs',
+	               'wlan_mgt_rsn_gcs_oui',
+	               'wlan_mgt_rsn_gcs_type',
+	               'wlan_mgt_rsn_pcs_count',
+	               'wlan_mgt_rsn_pcs',
+	               'wlan_mgt_rsn_pcs_oui',
+	               'wlan_mgt_rsn_pcs_type',
+	               'wlan_mgt_rsn_akms_count',
+	               'wlan_mgt_rsn_akms',
+	               'wlan_mgt_rsn_akms_oui',
+	               'wlan_mgt_rsn_akms_type',
+	               'wlan_mgt_rsn_capabilities',
+	               'wlan_mgt_rsn_capabilities_preauth',
+	               'wlan_mgt_rsn_capabilities_no_pairwise',
+	               'wlan_mgt_rsn_capabilities_ptksa_replay_counter',
+	               'wlan_mgt_rsn_capabilities_gtksa_replay_counter',
+	               'wlan_mgt_rsn_capabilities_mfpr',
+	               'wlan_mgt_rsn_capabilities_mfpc',
+	               'wlan_mgt_rsn_capabilities_jmr',
+	               'wlan_mgt_rsn_capabilities_peerkey']
+	fields_list_check = ['wlan_mgt_rsn_version',
+	                     'wlan_mgt_rsn_gcs',
+	                     'wlan_mgt_rsn_pcs_count',
+	                     'wlan_mgt_rsn_pcs',
+	                     'wlan_mgt_rsn_akms_count',
+	                     'wlan_mgt_rsn_akms',
+	                     'wlan_mgt_rsn_capabilities']
+	return fields_list, fields_list_check
 
 
 def values_wlan_mgt_tag_rsn(packet, layer):
 	value_list = []
 
-	for i in fields_wlan_mgt_tag_rsn():
-		result = getattr(layer, i)(packet)
+	for i_field in fields_wlan_mgt_tag_rsn()[0]:
+		result = getattr(layer, i_field)(packet)
 		value_list.append(result)
 
 	return value_list
 
 
 def fields_wlan_mgt_tag_ht_cap():
-	fields_list = ['ht_capabilities',
-	               'ht_capabilities_ldpccoding',
-	               'ht_capabilities_width',
-	               'ht_capabilities_sm',
-	               'ht_capabilities_green',
-	               'ht_capabilities_short20',
-	               'ht_capabilities_short40',
-	               'ht_capabilities_txstbc',
-	               'ht_capabilities_rxstbc',
-	               'ht_capabilities_delayedblockack',
-	               'ht_capabilities_amsdu',
-	               'ht_capabilities_dsscck',
-	               'ht_capabilities_psmp',
-	               'ht_capabilities_40mhzintolerant',
-	               'ht_capabilities_lsig',
-	               'ht_ampduparam',
-	               'ht_ampduparam_maxlength',
-	               'ht_ampduparam_mpdudensity',
-	               'ht_ampduparam_reserved',
-	               'ht_mcsset',
-	               'ht_mcsset_rxbitmask',
-	               'ht_mcsset_rxbitmask_0to7',
-	               'ht_mcsset_rxbitmask_8to15',
-	               'ht_mcsset_rxbitmask_16to23',
-	               'ht_mcsset_rxbitmask_24to31',
-	               'ht_mcsset_rxbitmask_32',
-	               'ht_mcsset_rxbitmask_33to38',
-	               'ht_mcsset_rxbitmask_39to52',
-	               'ht_mcsset_rxbitmask_53to76',
-	               'ht_mcsset_highestdatarate',
-	               'ht_mcsset_txsetdefined',
-	               'ht_mcsset_txrxmcsnotequal',
-	               'ht_mcsset_txmaxss',
-	               'ht_mcsset_txunequalmod',
-	               'htex_capabilities',
-	               'htex_capabilities_pco',
-	               'htex_capabilities_transtime',
-	               'htex_capabilities_mcs',
-	               'htex_capabilities_htc',
-	               'htex_capabilities_rdresponder',
-	               'txbf',
-	               'txbf_txbf',
-	               'txbf_rxss',
-	               'txbf_txss',
-	               'txbf_rxndp',
-	               'txbf_txndp',
-	               'txbf_impltxbf',
-	               'txbf_calibration',
-	               'txbf_csi',
-	               'txbf_fm_uncompressed_tbf',
-	               'txbf_fm_compressed_tbf',
-	               'txbf_rcsi',
-	               'txbf_fm_uncompressed_rbf',
-	               'txbf_fm_compressed_bf',
-	               'txbf_mingroup',
-	               'txbf_csinumant',
-	               'txbf_fm_uncompressed_maxant',
-	               'txbf_fm_compressed_maxant',
-	               'txbf_csi_maxrows',
-	               'txbf_channelest',
-	               'txbf_reserved',
-	               'asel',
-	               'asel_capable',
-	               'asel_txcsi',
-	               'asel_txif',
-	               'asel_csi',
-	               'asel_if',
-	               'asel_rx',
-	               'asel_sppdu',
-	               'asel_reserved']
-	return fields_list
+	fields_list = ['wlan_mgt_ht_capabilities',
+	               'wlan_mgt_ht_capabilities_ldpccoding',
+	               'wlan_mgt_ht_capabilities_width',
+	               'wlan_mgt_ht_capabilities_sm',
+	               'wlan_mgt_ht_capabilities_green',
+	               'wlan_mgt_ht_capabilities_short20',
+	               'wlan_mgt_ht_capabilities_short40',
+	               'wlan_mgt_ht_capabilities_txstbc',
+	               'wlan_mgt_ht_capabilities_rxstbc',
+	               'wlan_mgt_ht_capabilities_delayedblockack',
+	               'wlan_mgt_ht_capabilities_amsdu',
+	               'wlan_mgt_ht_capabilities_dsscck',
+	               'wlan_mgt_ht_capabilities_psmp',
+	               'wlan_mgt_ht_capabilities_40mhzintolerant',
+	               'wlan_mgt_ht_capabilities_lsig',
+	               'wlan_mgt_ht_ampduparam',
+	               'wlan_mgt_ht_ampduparam_maxlength',
+	               'wlan_mgt_ht_ampduparam_mpdudensity',
+	               'wlan_mgt_ht_ampduparam_reserved',
+	               'wlan_mgt_ht_mcsset',
+	               'wlan_mgt_ht_mcsset_rxbitmask',
+	               'wlan_mgt_ht_mcsset_rxbitmask_0to7',
+	               'wlan_mgt_ht_mcsset_rxbitmask_8to15',
+	               'wlan_mgt_ht_mcsset_rxbitmask_16to23',
+	               'wlan_mgt_ht_mcsset_rxbitmask_24to31',
+	               'wlan_mgt_ht_mcsset_rxbitmask_32',
+	               'wlan_mgt_ht_mcsset_rxbitmask_33to38',
+	               'wlan_mgt_ht_mcsset_rxbitmask_39to52',
+	               'wlan_mgt_ht_mcsset_rxbitmask_53to76',
+	               'wlan_mgt_ht_mcsset_highestdatarate',
+	               'wlan_mgt_ht_mcsset_txsetdefined',
+	               'wlan_mgt_ht_mcsset_txrxmcsnotequal',
+	               'wlan_mgt_ht_mcsset_txmaxss',
+	               'wlan_mgt_ht_mcsset_txunequalmod',
+	               'wlan_mgt_htex_capabilities',
+	               'wlan_mgt_htex_capabilities_pco',
+	               'wlan_mgt_htex_capabilities_transtime',
+	               'wlan_mgt_htex_capabilities_mcs',
+	               'wlan_mgt_htex_capabilities_htc',
+	               'wlan_mgt_htex_capabilities_rdresponder',
+	               'wlan_mgt_txbf',
+	               'wlan_mgt_txbf_txbf',
+	               'wlan_mgt_txbf_rxss',
+	               'wlan_mgt_txbf_txss',
+	               'wlan_mgt_txbf_rxndp',
+	               'wlan_mgt_txbf_txndp',
+	               'wlan_mgt_txbf_impltxbf',
+	               'wlan_mgt_txbf_calibration',
+	               'wlan_mgt_txbf_csi',
+	               'wlan_mgt_txbf_fm_uncompressed_tbf',
+	               'wlan_mgt_txbf_fm_compressed_tbf',
+	               'wlan_mgt_txbf_rcsi',
+	               'wlan_mgt_txbf_fm_uncompressed_rbf',
+	               'wlan_mgt_txbf_fm_compressed_bf',
+	               'wlan_mgt_txbf_mingroup',
+	               'wlan_mgt_txbf_csinumant',
+	               'wlan_mgt_txbf_fm_uncompressed_maxant',
+	               'wlan_mgt_txbf_fm_compressed_maxant',
+	               'wlan_mgt_txbf_csi_maxrows',
+	               'wlan_mgt_txbf_channelest',
+	               'wlan_mgt_txbf_reserved',
+	               'wlan_mgt_asel',
+	               'wlan_mgt_asel_capable',
+	               'wlan_mgt_asel_txcsi',
+	               'wlan_mgt_asel_txif',
+	               'wlan_mgt_asel_csi',
+	               'wlan_mgt_asel_if',
+	               'wlan_mgt_asel_rx',
+	               'wlan_mgt_asel_sppdu',
+	               'wlan_mgt_asel_reserved']
+	fields_list_check = ['wlan_mgt_ht_capabilities',
+	                     'wlan_mgt_ht_ampduparam',
+	                     'wlan_mgt_ht_mcsset',
+	                     'wlan_mgt_ht_mcsset_rxbitmask',
+	                     'wlan_mgt_ht_mcsset_rxbitmask_0to7',
+	                     'wlan_mgt_ht_mcsset_rxbitmask_8to15',
+	                     'wlan_mgt_ht_mcsset_rxbitmask_16to23',
+	                     'wlan_mgt_ht_mcsset_rxbitmask_24to31',
+	                     'wlan_mgt_ht_mcsset_rxbitmask_32',
+	                     'wlan_mgt_ht_mcsset_rxbitmask_33to38',
+	                     'wlan_mgt_ht_mcsset_rxbitmask_39to52',
+	                     'wlan_mgt_ht_mcsset_rxbitmask_53to76',
+	                     'wlan_mgt_ht_mcsset_highestdatarate',
+	                     'wlan_mgt_ht_mcsset_txsetdefined',
+	                     'wlan_mgt_ht_mcsset_txrxmcsnotequal',
+	                     'wlan_mgt_ht_mcsset_txmaxss',
+	                     'wlan_mgt_ht_mcsset_txunequalmod',
+	                     'wlan_mgt_htex_capabilities',
+	                     'wlan_mgt_txbf',
+	                     'wlan_mgt_asel']
+	return fields_list, fields_list_check
 
 
 def values_wlan_mgt_tag_ht_cap(packet, layer):
 	value_list = []
 
-	for i in fields_wlan_mgt_tag_ht_cap():
-		result = getattr(layer, i)(packet)
+	for i_field in fields_wlan_mgt_tag_ht_cap()[0]:
+		result = getattr(layer, i_field)(packet)
 		value_list.append(result)
 
 	return value_list
 
 
 def fields_wlan_mgt_tag_ht_info():
-	fields_list = ['ht_info_primarychannel',
-	               'ht_info_delim1',
-	               'ht_info_secchanoffset',
-	               'ht_info_chanwidth',
-	               'ht_info_rifs',
-	               'ht_info_psmponly',
-	               'ht_info',
-	               'ht_info_delim2',
-	               'ht_info_operatingmode',
-	               'ht_info_greenfield',
-	               'ht_info_burstlim',
-	               'ht_info_obssnonht',
-	               'ht_info_reserved1',
-	               'ht_info_delim3',
-	               'ht_info_reserved2',
-	               'ht_info_dualbeacon',
-	               'ht_info_dualcts',
-	               'ht_info_secondarybeacon',
-	               'ht_info_lsigprotsupport',
-	               'ht_info_pco_active',
-	               'ht_info_pco_phase',
-	               'ht_info_reserved3']
-	return fields_list
+	fields_list = ['wlan_mgt_ht_info_primarychannel',
+	               'wlan_mgt_ht_info_delim1',
+	               'wlan_mgt_ht_info_secchanoffset',
+	               'wlan_mgt_ht_info_chanwidth',
+	               'wlan_mgt_ht_info_rifs',
+	               'wlan_mgt_ht_info_psmponly',
+	               'wlan_mgt_ht_info',
+	               'wlan_mgt_ht_info_delim2',
+	               'wlan_mgt_ht_info_operatingmode',
+	               'wlan_mgt_ht_info_greenfield',
+	               'wlan_mgt_ht_info_burstlim',
+	               'wlan_mgt_ht_info_obssnonht',
+	               'wlan_mgt_ht_info_reserved1',
+	               'wlan_mgt_ht_info_delim3',
+	               'wlan_mgt_ht_info_reserved2',
+	               'wlan_mgt_ht_info_dualbeacon',
+	               'wlan_mgt_ht_info_dualcts',
+	               'wlan_mgt_ht_info_secondarybeacon',
+	               'wlan_mgt_ht_info_lsigprotsupport',
+	               'wlan_mgt_ht_info_pco_active',
+	               'wlan_mgt_ht_info_pco_phase',
+	               'wlan_mgt_ht_info_reserved3']
+	fields_list_check = ['wlan_mgt_ht_info_primarychannel',
+	                     'wlan_mgt_ht_info_delim1',
+	                     'wlan_mgt_ht_info_delim2',
+	                     'wlan_mgt_ht_info_delim3']
+	return fields_list, fields_list_check
 
 
 def values_wlan_mgt_tag_ht_info(packet, layer):
 	value_list = []
 
-	for i in fields_wlan_mgt_tag_ht_info():
-		result = getattr(layer, i)(packet)
+	for i_field in fields_wlan_mgt_tag_ht_info()[0]:
+		result = getattr(layer, i_field)(packet)
 		value_list.append(result)
 
 	return value_list
 
 
 def fields_wlan_mgt_tag_ap_channel_report():
-	fields_list = ['ap_channel_report_operating_class',
-	               'ap_channel_report_channel_list']
-	return fields_list
+	fields_list = ['wlan_mgt_ap_channel_report_operating_class',
+	               'wlan_mgt_ap_channel_report_channel_list']
+	fields_list_check = ['wlan_mgt_ap_channel_report_operating_class',
+	                     'wlan_mgt_ap_channel_report_channel_list']
+	return fields_list, fields_list_check
 
 
 def values_wlan_mgt_tag_ap_channel_report(packet, layer):
 	value_list = []
 
-	for i in fields_wlan_mgt_tag_ap_channel_report():
-		result = getattr(layer, i)(packet)
+	for i_field in fields_wlan_mgt_tag_ap_channel_report()[0]:
+		result = getattr(layer, i_field)(packet)
 		value_list.append(result)
 
 	return value_list
 
 
 def fields_wlan_mgt_tag_extcap():
-	fields_list = ['extcap',
-	               'extcap_b0',
-	               'extcap_b2',
-	               'extcap_b3',
-	               'extcap_b4',
-	               'extcap_b5',
-	               'extcap_b6',
-	               'extcap_b7',
-	               'extcap_b8',
-	               'extcap_b9',
-	               'extcap_b10',
-	               'extcap_b11',
-	               'extcap_b12',
-	               'extcap_b13',
-	               'extcap_b14',
-	               'extcap_b15',
-	               'extcap_b16',
-	               'extcap_b17',
-	               'extcap_b18',
-	               'extcap_b19',
-	               'extcap_b20',
-	               'extcap_b21',
-	               'extcap_b22',
-	               'extcap_b23',
-	               'extcap_b24',
-	               'extcap_b25',
-	               'extcap_b26',
-	               'extcap_b27',
-	               'extcap_b28',
-	               'extcap_b29',
-	               'extcap_b30',
-	               'extcap_b31',
-	               'extcap_b32',
-	               'extcap_b33',
-	               'extcap_b34',
-	               'extcap_b35',
-	               'extcap_b36',
-	               'extcap_b37',
-	               'extcap_b38',
-	               'extcap_b39',
-	               'extcap_b40',
-	               'extcap_serv_int_granularity',
-	               'extcap_b44',
-	               'extcap_b45',
-	               'extcap_b46',
-	               'extcap_b47',
-	               'extcap_b48',
-	               'extcap_o7',
-	               'extcap_b61',
-	               'extcap_b62',
-	               'extcap_b63',
-	               'extcap_o8']
-	return fields_list
+	fields_list = ['wlan_mgt_extcap',
+	               'wlan_mgt_extcap_b0',
+	               'wlan_mgt_extcap_b2',
+	               'wlan_mgt_extcap_b3',
+	               'wlan_mgt_extcap_b4',
+	               'wlan_mgt_extcap_b5',
+	               'wlan_mgt_extcap_b6',
+	               'wlan_mgt_extcap_b7',
+	               'wlan_mgt_extcap_b8',
+	               'wlan_mgt_extcap_b9',
+	               'wlan_mgt_extcap_b10',
+	               'wlan_mgt_extcap_b11',
+	               'wlan_mgt_extcap_b12',
+	               'wlan_mgt_extcap_b13',
+	               'wlan_mgt_extcap_b14',
+	               'wlan_mgt_extcap_b15',
+	               'wlan_mgt_extcap_b16',
+	               'wlan_mgt_extcap_b17',
+	               'wlan_mgt_extcap_b18',
+	               'wlan_mgt_extcap_b19',
+	               'wlan_mgt_extcap_b20',
+	               'wlan_mgt_extcap_b21',
+	               'wlan_mgt_extcap_b22',
+	               'wlan_mgt_extcap_b23',
+	               'wlan_mgt_extcap_b24',
+	               'wlan_mgt_extcap_b25',
+	               'wlan_mgt_extcap_b26',
+	               'wlan_mgt_extcap_b27',
+	               'wlan_mgt_extcap_b28',
+	               'wlan_mgt_extcap_b29',
+	               'wlan_mgt_extcap_b30',
+	               'wlan_mgt_extcap_b31',
+	               'wlan_mgt_extcap_b32',
+	               'wlan_mgt_extcap_b33',
+	               'wlan_mgt_extcap_b34',
+	               'wlan_mgt_extcap_b35',
+	               'wlan_mgt_extcap_b36',
+	               'wlan_mgt_extcap_b37',
+	               'wlan_mgt_extcap_b38',
+	               'wlan_mgt_extcap_b39',
+	               'wlan_mgt_extcap_b40',
+	               'wlan_mgt_extcap_serv_int_granularity',
+	               'wlan_mgt_extcap_b44',
+	               'wlan_mgt_extcap_b45',
+	               'wlan_mgt_extcap_b46',
+	               'wlan_mgt_extcap_b47',
+	               'wlan_mgt_extcap_b48',
+	               'wlan_mgt_extcap_o7',
+	               'wlan_mgt_extcap_b61',
+	               'wlan_mgt_extcap_b62',
+	               'wlan_mgt_extcap_b63',
+	               'wlan_mgt_extcap_o8']
+	fields_list_check = ['wlan_mgt_extcap',
+	                     'wlan_mgt_extcap_b61',
+	                     'wlan_mgt_extcap_b62',
+	                     'wlan_mgt_extcap_b63',
+	                     'wlan_mgt_extcap_o8']
+	return fields_list, fields_list_check
 
 
 def values_wlan_mgt_tag_extcap(packet, layer):
 	value_list = []
 
-	for i in fields_wlan_mgt_tag_extcap():
-		result = getattr(layer, i)(packet)
+	for i_field in fields_wlan_mgt_tag_extcap()[0]:
+		result = getattr(layer, i_field)(packet)
 		value_list.append(result)
 
 	return value_list
 
 
 def fields_wlan_mgt_tag_vht_cap():
-	fields_list = ['vht_capabilities',
-	               'vht_capabilities_maxmpdulength',
-	               'vht_capabilities_supportedchanwidthset',
-	               'vht_capabilities_rxldpc',
-	               'vht_capabilities_short80',
-	               'vht_capabilities_short160',
-	               'vht_capabilities_txstbc',
-	               'vht_capabilities_rxstbc',
-	               'vht_capabilities_subeamformer',
-	               'vht_capabilities_subeamformee',
-	               'vht_capabilities_beamformerants',
-	               'vht_capabilities_soundingdimensions',
-	               'vht_capabilities_mubeamformer',
-	               'vht_capabilities_mubeamformee',
-	               'vht_capabilities_vhttxoppse',
-	               'vht_capabilities_vhthtc',
-	               'vht_capabilities_maxampdu',
-	               'vht_capabilities_linkadapt',
-	               'vht_capabilities_rxpatconsist',
-	               'vht_capabilities_txpatconsist',
-	               'vht_reserved',
-	               'vht_mcsset_rxmcsmap',
-	               'vht_mcsset_rxmcsmap_ss1',
-	               'vht_mcsset_rxmcsmap_ss2',
-	               'vht_mcsset_rxmcsmap_ss3',
-	               'vht_mcsset_rxmcsmap_ss4',
-	               'vht_mcsset_rxmcsmap_ss5',
-	               'vht_mcsset_rxmcsmap_ss6',
-	               'vht_mcsset_rxmcsmap_ss7',
-	               'vht_mcsset_rxmcsmap_ss8',
-	               'vht_mcsset_rxhighestlonggirate',
-	               'vht_mcsset_txmcsmap',
-	               'vht_mcsset_txmcsmap_ss1',
-	               'vht_mcsset_txmcsmap_ss2',
-	               'vht_mcsset_txmcsmap_ss3',
-	               'vht_mcsset_txmcsmap_ss4',
-	               'vht_mcsset_txmcsmap_ss5',
-	               'vht_mcsset_txmcsmap_ss6',
-	               'vht_mcsset_txmcsmap_ss7',
-	               'vht_mcsset_txmcsmap_ss8',
-	               'vht_mcsset_txhighestlonggirate']
-	return fields_list
+	fields_list = ['wlan_mgt_vht_capabilities',
+	               'wlan_mgt_vht_capabilities_maxmpdulength',
+	               'wlan_mgt_vht_capabilities_supportedchanwidthset',
+	               'wlan_mgt_vht_capabilities_rxldpc',
+	               'wlan_mgt_vht_capabilities_short80',
+	               'wlan_mgt_vht_capabilities_short160',
+	               'wlan_mgt_vht_capabilities_txstbc',
+	               'wlan_mgt_vht_capabilities_rxstbc',
+	               'wlan_mgt_vht_capabilities_subeamformer',
+	               'wlan_mgt_vht_capabilities_subeamformee',
+	               'wlan_mgt_vht_capabilities_beamformerants',
+	               'wlan_mgt_vht_capabilities_soundingdimensions',
+	               'wlan_mgt_vht_capabilities_mubeamformer',
+	               'wlan_mgt_vht_capabilities_mubeamformee',
+	               'wlan_mgt_vht_capabilities_vhttxoppse',
+	               'wlan_mgt_vht_capabilities_vhthtc',
+	               'wlan_mgt_vht_capabilities_maxampdu',
+	               'wlan_mgt_vht_capabilities_linkadapt',
+	               'wlan_mgt_vht_capabilities_rxpatconsist',
+	               'wlan_mgt_vht_capabilities_txpatconsist',
+	               'wlan_mgt_vht_reserved',
+	               'wlan_mgt_vht_mcsset_rxmcsmap',
+	               'wlan_mgt_vht_mcsset_rxmcsmap_ss1',
+	               'wlan_mgt_vht_mcsset_rxmcsmap_ss2',
+	               'wlan_mgt_vht_mcsset_rxmcsmap_ss3',
+	               'wlan_mgt_vht_mcsset_rxmcsmap_ss4',
+	               'wlan_mgt_vht_mcsset_rxmcsmap_ss5',
+	               'wlan_mgt_vht_mcsset_rxmcsmap_ss6',
+	               'wlan_mgt_vht_mcsset_rxmcsmap_ss7',
+	               'wlan_mgt_vht_mcsset_rxmcsmap_ss8',
+	               'wlan_mgt_vht_mcsset_rxhighestlonggirate',
+	               'wlan_mgt_vht_mcsset_txmcsmap',
+	               'wlan_mgt_vht_mcsset_txmcsmap_ss1',
+	               'wlan_mgt_vht_mcsset_txmcsmap_ss2',
+	               'wlan_mgt_vht_mcsset_txmcsmap_ss3',
+	               'wlan_mgt_vht_mcsset_txmcsmap_ss4',
+	               'wlan_mgt_vht_mcsset_txmcsmap_ss5',
+	               'wlan_mgt_vht_mcsset_txmcsmap_ss6',
+	               'wlan_mgt_vht_mcsset_txmcsmap_ss7',
+	               'wlan_mgt_vht_mcsset_txmcsmap_ss8',
+	               'wlan_mgt_vht_mcsset_txhighestlonggirate']
+	fields_list_check = ['wlan_mgt_vht_capabilities',
+	                     'wlan_mgt_vht_mcsset_rxmcsmap',
+	                     'wlan_mgt_vht_mcsset_rxhighestlonggirate',
+	                     'wlan_mgt_vht_mcsset_txmcsmap',
+	                     'wlan_mgt_vht_mcsset_txhighestlonggirate']
+	return fields_list, fields_list_check
 
 
 def values_wlan_mgt_tag_vht_cap(packet, layer):
 	value_list = []
 
-	for i in fields_wlan_mgt_tag_vht_cap():
-		result = getattr(layer, i)(packet)
+	for i_field in fields_wlan_mgt_tag_vht_cap()[0]:
+		result = getattr(layer, i_field)(packet)
 		value_list.append(result)
 
 	return value_list
 
 
 def fields_wlan_mgt_tag_vht_op():
-	fields_list = ['vht_op_channelwidth',
-	               'vht_op_channelcenter0',
-	               'vht_op_channelcenter1',
-	               'vht_op_basicmcsmap',
-	               'vht_op_basicmcsmap_ss1',
-	               'vht_op_basicmcsmap_ss2',
-	               'vht_op_basicmcsmap_ss3',
-	               'vht_op_basicmcsmap_ss4',
-	               'vht_op_basicmcsmap_ss5',
-	               'vht_op_basicmcsmap_ss6',
-	               'vht_op_basicmcsmap_ss7',
-	               'vht_op_basicmcsmap_ss8']
-	return fields_list
+	fields_list = ['wlan_mgt_vht_op_channelwidth',
+	               'wlan_mgt_vht_op_channelcenter0',
+	               'wlan_mgt_vht_op_channelcenter1',
+	               'wlan_mgt_vht_op_basicmcsmap',
+	               'wlan_mgt_vht_op_basicmcsmap_ss1',
+	               'wlan_mgt_vht_op_basicmcsmap_ss2',
+	               'wlan_mgt_vht_op_basicmcsmap_ss3',
+	               'wlan_mgt_vht_op_basicmcsmap_ss4',
+	               'wlan_mgt_vht_op_basicmcsmap_ss5',
+	               'wlan_mgt_vht_op_basicmcsmap_ss6',
+	               'wlan_mgt_vht_op_basicmcsmap_ss7',
+	               'wlan_mgt_vht_op_basicmcsmap_ss8']
+	fields_list_check = ['wlan_mgt_vht_op_channelwidth',
+	                     'wlan_mgt_vht_op_channelcenter0',
+	                     'wlan_mgt_vht_op_channelcenter1',
+	                     'wlan_mgt_vht_op_basicmcsmap']
+	return fields_list, fields_list_check
 
 
 def values_wlan_mgt_tag_vht_op(packet, layer):
 	value_list = []
 
-	for i in fields_wlan_mgt_tag_vht_op():
-		result = getattr(layer, i)(packet)
+	for i_field in fields_wlan_mgt_tag_vht_op()[0]:
+		result = getattr(layer, i_field)(packet)
 		value_list.append(result)
 
 	return value_list
 
 
 def fields_wlan_mgt_tag_wfa():
-	fields_list = ['wfa_ie_type',
-	               'wfa_ie_wme_subtype',
-	               'wfa_ie_wme_version',
-	               'wfa_ie_wme_qos_info',
-	               'wfa_ie_wme_qos_info_ap_u_apsd',
-	               'wfa_ie_wme_qos_info_ap_parameter_set_count',
-	               'wfa_ie_wme_qos_info_ap_reservedt',
-	               'wfa_ie_wme_reserved',
-	               'wfa_ie_wme_acp_aci_aifsn',
-	               'wfa_ie_wme_acp_aci',
-	               'wfa_ie_wme_acp_acm',
-	               'wfa_ie_wme_acp_aifsn',
-	               'wfa_ie_wme_acp_reserved',
-	               'wfa_ie_wme_acp_ecw',
-	               'wfa_ie_wme_acp_ecw_max',
-	               'wfa_ie_wme_acp_ecw_min',
-	               'wfa_ie_wme_acp_cw_max',
-	               'wfa_ie_wme_acp_cw_min',
-	               'wfa_ie_wme_acp_txop_limit']
-	return fields_list
+	fields_list = ['wlan_mgt_wfa_ie_type',
+	               'wlan_mgt_wfa_ie_wme_subtype',
+	               'wlan_mgt_wfa_ie_wme_version',
+	               'wlan_mgt_wfa_ie_wme_qos_info',
+	               'wlan_mgt_wfa_ie_wme_qos_info_ap_u_apsd',
+	               'wlan_mgt_wfa_ie_wme_qos_info_ap_parameter_set_count',
+	               'wlan_mgt_wfa_ie_wme_qos_info_ap_reserved',
+	               'wlan_mgt_wfa_ie_wme_reserved',
+	               'wlan_mgt_wfa_ie_wme_acp_aci_aifsn',
+	               'wlan_mgt_wfa_ie_wme_acp_aci',
+	               'wlan_mgt_wfa_ie_wme_acp_acm',
+	               'wlan_mgt_wfa_ie_wme_acp_aifsn',
+	               'wlan_mgt_wfa_ie_wme_acp_reserved',
+	               'wlan_mgt_wfa_ie_wme_acp_ecw',
+	               'wlan_mgt_wfa_ie_wme_acp_ecw_max',
+	               'wlan_mgt_wfa_ie_wme_acp_ecw_min',
+	               'wlan_mgt_wfa_ie_wme_acp_cw_max',
+	               'wlan_mgt_wfa_ie_wme_acp_cw_min',
+	               'wlan_mgt_wfa_ie_wme_acp_txop_limit']
+	fields_list_check = ['wlan_mgt_wfa_ie_type',
+	                     'wlan_mgt_wfa_ie_wme_subtype',
+	                     'wlan_mgt_wfa_ie_wme_version',
+	                     'wlan_mgt_wfa_ie_wme_qos_info',
+	                     'wlan_mgt_wfa_ie_wme_reserved',
+	                     'wlan_mgt_wfa_ie_wme_acp_aci_aifsn',
+	                     'wlan_mgt_wfa_ie_wme_acp_ecw',
+	                     'wlan_mgt_wfa_ie_wme_acp_txop_limit']
+	return fields_list, fields_list_check
 
 
 def values_wlan_mgt_tag_wfa(packet, layer):
 	value_list = []
 
-	for i in fields_wlan_mgt_tag_wfa():
-		result = getattr(layer, i)(packet)
+	for i_field in fields_wlan_mgt_tag_wfa()[0]:
+		result = getattr(layer, i_field)(packet)
 		value_list.append(result)
 
 	return value_list
 
 
 def fields():
-	fields_list = fields_frame() \
-	              + fields_radiotap() \
-	              + fields_wlan_radio() \
-	              + fields_wlan() \
-	              + fields_wlan_mgt_fixed() \
-	              + fields_wlan_mgt_tag_ssid() \
-	              + fields_wlan_mgt_tag_supported_rates() \
-	              + fields_wlan_mgt_tag_current_channel() \
-	              + fields_wlan_mgt_tag_tim() \
-	              + fields_wlan_mgt_tag_rsn() \
-	              + fields_wlan_mgt_tag_ht_cap() \
-	              + fields_wlan_mgt_tag_ht_info() \
-	              + fields_wlan_mgt_tag_ap_channel_report() \
-	              + fields_wlan_mgt_tag_extcap() \
-	              + fields_wlan_mgt_tag_vht_cap() \
-	              + fields_wlan_mgt_tag_vht_op() \
-	              + fields_wlan_mgt_tag_wfa()
-	return fields_list
+	fields_list = fields_frame()[0] \
+	              + fields_radiotap()[0] \
+	              + fields_wlan_radio()[0] \
+	              + fields_wlan()[0] \
+	              + fields_wlan_mgt_fixed()[0] \
+	              + fields_wlan_mgt_tag_ssid()[0] \
+	              + fields_wlan_mgt_tag_supported_rates()[0] \
+	              + fields_wlan_mgt_tag_current_channel()[0] \
+	              + fields_wlan_mgt_tag_tim()[0] \
+	              + fields_wlan_mgt_tag_rsn()[0] \
+	              + fields_wlan_mgt_tag_ht_cap()[0] \
+	              + fields_wlan_mgt_tag_ht_info()[0] \
+	              + fields_wlan_mgt_tag_ap_channel_report()[0] \
+	              + fields_wlan_mgt_tag_extcap()[0] \
+	              + fields_wlan_mgt_tag_vht_cap()[0] \
+	              + fields_wlan_mgt_tag_vht_op()[0] \
+	              + fields_wlan_mgt_tag_wfa()[0]
+	fields_list_check = fields_frame()[1] \
+	                    + fields_radiotap()[1] \
+	                    + fields_wlan_radio()[1] \
+	                    + fields_wlan()[1] \
+	                    + fields_wlan_mgt_fixed()[1] \
+	                    + fields_wlan_mgt_tag_ssid()[1] \
+	                    + fields_wlan_mgt_tag_supported_rates()[1] \
+	                    + fields_wlan_mgt_tag_current_channel()[1] \
+	                    + fields_wlan_mgt_tag_tim()[1] \
+	                    + fields_wlan_mgt_tag_rsn()[1] \
+	                    + fields_wlan_mgt_tag_ht_cap()[1] \
+	                    + fields_wlan_mgt_tag_ht_info()[1] \
+	                    + fields_wlan_mgt_tag_ap_channel_report()[1] \
+	                    + fields_wlan_mgt_tag_extcap()[1] \
+	                    + fields_wlan_mgt_tag_vht_cap()[1] \
+	                    + fields_wlan_mgt_tag_vht_op()[1] \
+	                    + fields_wlan_mgt_tag_wfa()[1]
+	return fields_list, fields_list_check
 
 
 def values(packet):
@@ -751,7 +872,7 @@ def beacon_df(capture, bssid, to_csv):
 	df = pd.DataFrame(beacon_info_list)
 
 	col_list = ['count']
-	col_list.extend(fields())
+	col_list.extend(fields()[0])
 	df.columns = col_list
 	df.index = df['count']
 	df.index.name = 'Index'
@@ -777,7 +898,6 @@ def check_beacon_df_warp_0(str_option, ref_value, input_value):
 
 
 def check_beacon_df_warp_1(enable, df, row, row_index, col, ref_data):
-
 	pass_list = []
 	fail_list = []
 	skip_list = []
@@ -814,9 +934,9 @@ def check_beacon_df_warp_2(pass_list_all, fail_list_all, skip_list_all, new_list
 
 
 def check_beacon_df_warp_3(df, row, row_index, pass_list_all, fail_list_all, skip_list_all):
-	fields_all = fields_frame() + fields_radiotap() + fields_wlan_radio() + fields_wlan()
-	# fields_all = fields_wlan_radio()
-	for i_field in fields_all:
+	# fields_all = fields_frame() + fields_radiotap() + fields_wlan_radio() + fields_wlan()
+	fields_to_check = fields()[1]
+	for i_field in fields_to_check:
 		log_beacon.info('Check data for row[{0}], col[{1}]'.format(row_index, i_field))
 		col = i_field
 		enable = getattr(cfg_beacon, i_field)()[0]
@@ -836,7 +956,6 @@ def check_beacon_df(capture, bssid, to_csv):
 
 	# Loop for DF rows: index: index number, row: row data content
 	for row_index, row in df.iterrows():
-
 		check_beacon_df_warp_3(df_copy, row, row_index,
 		                       pass_list_all, fail_list_all, skip_list_all)
 

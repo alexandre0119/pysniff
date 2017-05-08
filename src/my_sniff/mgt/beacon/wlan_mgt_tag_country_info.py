@@ -16,44 +16,44 @@ class WLANMGTTagCountryInfo(MGT):
 		self.layer_name = 'wlan_mgt'
 
 	# Note: only able to get the 1st tag number
-	def tag_number(self, packet):
+	def wlan_mgt_tag_number(self, packet):
 		field_name = self.layer_name + '.' + 'tag.number'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
 	# Note: only able to get the 1st tag length
-	def tag_length(self, packet):
+	def wlan_mgt_tag_length(self, packet):
 		field_name = self.layer_name + '.' + 'tag.length'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def country_info_code(self, packet):
+	def wlan_mgt_country_info_code(self, packet):
 		field_name = self.layer_name + '.' + 'country_info.code'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def country_info_environment(self, packet):
+	def wlan_mgt_country_info_environment(self, packet):
 		field_name = self.layer_name + '.' + 'country_info.environment'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def country_info_fnm_fcn(self, packet):
+	def wlan_mgt_country_info_fnm_fcn(self, packet):
 		field_name = self.layer_name + '.' + 'country_info.fnm.fcn'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def country_info_fnm_nc(self, packet):
+	def wlan_mgt_country_info_fnm_nc(self, packet):
 		field_name = self.layer_name + '.' + 'country_info.fnm.nc'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)
 		return str_value
 
-	def country_info_fnm_mtplt(self, packet):
+	def wlan_mgt_country_info_fnm_mtplt(self, packet):
 		field_name = self.layer_name + '.' + 'country_info.fnm.mtpl'
 		value = packet[self.layer_name].get_field_value(field_name)
 		str_value = str(value)

@@ -109,55 +109,6 @@ def frame_encap_type():
 	return enable, value
 
 
-def frame_time():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['Frame'].get('time_enable'))
-	value = str(config_beacon['Frame'].get('time_value'))
-	return enable, value
-
-
-def frame_offset_shift():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['Frame'].get('offset_shift_enable'))
-	value = str(config_beacon['Frame'].get('offset_shift_value'))
-	return enable, value
-
-
-def frame_time_epoch():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['Frame'].get('time_epoch_enable'))
-	value = str(config_beacon['Frame'].get('time_epoch_value'))
-	return enable, value
-
-
-def frame_time_delta():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['Frame'].get('time_delta_enable'))
-	value = str(config_beacon['Frame'].get('time_delta_value'))
-	return enable, value
-
-
-def frame_time_delta_displayed():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['Frame'].get('time_delta_displayed_enable'))
-	value = str(config_beacon['Frame'].get('time_delta_displayed_value'))
-	return enable, value
-
-
-def frame_time_relative():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['Frame'].get('time_relative_enable'))
-	value = str(config_beacon['Frame'].get('time_relative_value'))
-	return enable, value
-
-
-def frame_number():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['Frame'].get('number_enable'))
-	value = str(config_beacon['Frame'].get('number_value'))
-	return enable, value
-
-
 def frame_len():
 	config_beacon = load_config_beacon()
 	enable = str(config_beacon['Frame'].get('frame_len_enable'))
@@ -169,20 +120,6 @@ def frame_cap_len():
 	config_beacon = load_config_beacon()
 	enable = str(config_beacon['Frame'].get('cap_len_enable'))
 	value = str(config_beacon['Frame'].get('cap_len_value'))
-	return enable, value
-
-
-def frame_marked():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['Frame'].get('marked_enable'))
-	value = str(config_beacon['Frame'].get('marked_value'))
-	return enable, value
-
-
-def frame_ignored():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['Frame'].get('ignored_enable'))
-	value = str(config_beacon['Frame'].get('ignored_value'))
 	return enable, value
 
 
@@ -221,234 +158,10 @@ def radiotap_present_word():
 	return enable, value
 
 
-def radiotap_present_tsft():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['Radiotap'].get('present_tsft_enable'))
-	value = str(config_beacon['Radiotap'].get('present_tsft_value'))
-	return enable, value
-
-
-def radiotap_present_flags():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['Radiotap'].get('present_flags_enable'))
-	value = str(config_beacon['Radiotap'].get('present_flags_value'))
-	return enable, value
-
-
-def radiotap_present_rate():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['Radiotap'].get('present_rate_enable'))
-	value = str(config_beacon['Radiotap'].get('present_rate_value'))
-	return enable, value
-
-
-def radiotap_present_channel():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['Radiotap'].get('present_channel_enable'))
-	value = str(config_beacon['Radiotap'].get('present_channel_value'))
-	return enable, value
-
-
-def radiotap_present_fhss():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['Radiotap'].get('present_fhss_enable'))
-	value = str(config_beacon['Radiotap'].get('present_fhss_value'))
-	return enable, value
-
-
-def radiotap_present_dbm_antsignal():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['Radiotap'].get('present_dbm_antsignal_enable'))
-	value = str(config_beacon['Radiotap'].get('present_dbm_antsignal_value'))
-	return enable, value
-
-
-def radiotap_present_dbm_antnoise():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['Radiotap'].get('present_dbm_antnoise_enable'))
-	value = str(config_beacon['Radiotap'].get('present_dbm_antnoise_value'))
-	return enable, value
-
-
-def radiotap_present_lock_quality():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['Radiotap'].get('present_lock_quality_enable'))
-	value = str(config_beacon['Radiotap'].get('present_lock_quality_value'))
-	return enable, value
-
-
-def radiotap_present_tx_attenuation():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['Radiotap'].get('present_tx_attenuation_enable'))
-	value = str(config_beacon['Radiotap'].get('present_tx_attenuation_value'))
-	return enable, value
-
-
-def radiotap_present_db_tx_attenuation():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['Radiotap'].get('present_db_tx_attenuation_enable'))
-	value = str(config_beacon['Radiotap'].get('present_db_tx_attenuation_value'))
-	return enable, value
-
-
-def radiotap_present_dbm_tx_power():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['Radiotap'].get('present_dbm_tx_power_enable'))
-	value = str(config_beacon['Radiotap'].get('present_dbm_tx_power_value'))
-	return enable, value
-
-
-def radiotap_present_antenna():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['Radiotap'].get('present_antenna_enable'))
-	value = str(config_beacon['Radiotap'].get('present_antenna_value'))
-	return enable, value
-
-
-def radiotap_present_db_antsignal():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['Radiotap'].get('present_db_antsignal_enable'))
-	value = str(config_beacon['Radiotap'].get('present_db_antsignal_value'))
-	return enable, value
-
-
-def radiotap_present_db_antnoise():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['Radiotap'].get('present_db_antnoise_enable'))
-	value = str(config_beacon['Radiotap'].get('present_db_antnoise_value'))
-	return enable, value
-
-
-def radiotap_present_rxflags():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['Radiotap'].get('present_rxflags_enable'))
-	value = str(config_beacon['Radiotap'].get('present_rxflags_value'))
-	return enable, value
-
-
-def radiotap_present_xchannel():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['Radiotap'].get('present_xchannel_enable'))
-	value = str(config_beacon['Radiotap'].get('present_xchannel_value'))
-	return enable, value
-
-
-def radiotap_present_mcs():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['Radiotap'].get('present_mcs_enable'))
-	value = str(config_beacon['Radiotap'].get('present_mcs_value'))
-	return enable, value
-
-
-def radiotap_present_ampdu():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['Radiotap'].get('present_ampdu_enable'))
-	value = str(config_beacon['Radiotap'].get('present_ampdu_value'))
-	return enable, value
-
-
-def radiotap_present_vht():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['Radiotap'].get('present_vht_enable'))
-	value = str(config_beacon['Radiotap'].get('present_vht_value'))
-	return enable, value
-
-
-def radiotap_present_reserved():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['Radiotap'].get('present_reserved_enable'))
-	value = str(config_beacon['Radiotap'].get('present_reserved_value'))
-	return enable, value
-
-
-def radiotap_present_rtap_ns():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['Radiotap'].get('present_rtap_ns_enable'))
-	value = str(config_beacon['Radiotap'].get('present_rtap_ns_value'))
-	return enable, value
-
-
-def radiotap_present_vendor_ns():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['Radiotap'].get('present_vendor_ns_enable'))
-	value = str(config_beacon['Radiotap'].get('present_vendor_ns_value'))
-	return enable, value
-
-
-def radiotap_present_ext():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['Radiotap'].get('present_ext_enable'))
-	value = str(config_beacon['Radiotap'].get('present_ext_value'))
-	return enable, value
-
-
-def radiotap_mactime():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['Radiotap'].get('mactime_enable'))
-	value = str(config_beacon['Radiotap'].get('mactime_value'))
-	return enable, value
-
-
 def radiotap_flags():
 	config_beacon = load_config_beacon()
 	enable = str(config_beacon['Radiotap'].get('flags_enable'))
 	value = str(config_beacon['Radiotap'].get('flags_value'))
-	return enable, value
-
-
-def radiotap_flags_cfp():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['Radiotap'].get('flags_cfp_enable'))
-	value = str(config_beacon['Radiotap'].get('flags_cfp_value'))
-	return enable, value
-
-
-def radiotap_flags_preamble():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['Radiotap'].get('flags_preamble_enable'))
-	value = str(config_beacon['Radiotap'].get('flags_preamble_value'))
-	return enable, value
-
-
-def radiotap_flags_wep():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['Radiotap'].get('flags_wep_enable'))
-	value = str(config_beacon['Radiotap'].get('flags_wep_value'))
-	return enable, value
-
-
-def radiotap_flags_frag():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['Radiotap'].get('flags_frag_enable'))
-	value = str(config_beacon['Radiotap'].get('flags_frag_value'))
-	return enable, value
-
-
-def radiotap_flags_fcs():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['Radiotap'].get('flags_fcs_enable'))
-	value = str(config_beacon['Radiotap'].get('flags_fcs_value'))
-	return enable, value
-
-
-def radiotap_flags_datapad():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['Radiotap'].get('flags_datapad_enable'))
-	value = str(config_beacon['Radiotap'].get('flags_datapad_value'))
-	return enable, value
-
-
-def radiotap_flags_badfcs():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['Radiotap'].get('flags_badfcs_enable'))
-	value = str(config_beacon['Radiotap'].get('flags_badfcs_value'))
-	return enable, value
-
-
-def radiotap_flags_shortgi():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['Radiotap'].get('flags_shortgi_enable'))
-	value = str(config_beacon['Radiotap'].get('flags_shortgi_value'))
 	return enable, value
 
 
@@ -470,104 +183,6 @@ def radiotap_channel_flags():
 	config_beacon = load_config_beacon()
 	enable = str(config_beacon['Radiotap'].get('channel_flags_enable'))
 	value = str(config_beacon['Radiotap'].get('channel_flags_value'))
-	return enable, value
-
-
-def radiotap_channel_flags_turbo():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['Radiotap'].get('channel_flags_turbo_enable'))
-	value = str(config_beacon['Radiotap'].get('channel_flags_turbo_value'))
-	return enable, value
-
-
-def radiotap_channel_flags_cck():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['Radiotap'].get('channel_flags_cck_enable'))
-	value = str(config_beacon['Radiotap'].get('channel_flags_cck_value'))
-	return enable, value
-
-
-def radiotap_channel_flags_ofdm():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['Radiotap'].get('channel_flags_ofdm_enable'))
-	value = str(config_beacon['Radiotap'].get('channel_flags_ofdm_value'))
-	return enable, value
-
-
-def radiotap_channel_flags_2ghz():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['Radiotap'].get('channel_flags_2ghz_enable'))
-	value = str(config_beacon['Radiotap'].get('channel_flags_2ghz_value'))
-	return enable, value
-
-
-def radiotap_channel_flags_5ghz():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['Radiotap'].get('channel_flags_5ghz_enable'))
-	value = str(config_beacon['Radiotap'].get('channel_flags_5ghz_value'))
-	return enable, value
-
-
-def radiotap_channel_flags_passive():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['Radiotap'].get('channel_flags_passive_enable'))
-	value = str(config_beacon['Radiotap'].get('channel_flags_passive_value'))
-	return enable, value
-
-
-def radiotap_channel_flags_dynamic():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['Radiotap'].get('channel_flags_dynamic_enable'))
-	value = str(config_beacon['Radiotap'].get('channel_flags_dynamic_value'))
-	return enable, value
-
-
-def radiotap_channel_flags_gfsk():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['Radiotap'].get('channel_flags_gfsk_enable'))
-	value = str(config_beacon['Radiotap'].get('channel_flags_gfsk_value'))
-	return enable, value
-
-
-def radiotap_channel_flags_gsm():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['Radiotap'].get('channel_flags_gsm_enable'))
-	value = str(config_beacon['Radiotap'].get('channel_flags_gsm_value'))
-	return enable, value
-
-
-def radiotap_channel_flags_sturbo():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['Radiotap'].get('channel_flags_sturbo_enable'))
-	value = str(config_beacon['Radiotap'].get('channel_flags_sturbo_value'))
-	return enable, value
-
-
-def radiotap_channel_flags_half():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['Radiotap'].get('channel_flags_half_enable'))
-	value = str(config_beacon['Radiotap'].get('channel_flags_half_value'))
-	return enable, value
-
-
-def radiotap_channel_flags_quarter():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['Radiotap'].get('channel_flags_quarter_enable'))
-	value = str(config_beacon['Radiotap'].get('channel_flags_quarter_value'))
-	return enable, value
-
-
-def radiotap_dbm_antsignal():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['Radiotap'].get('dbm_antsignal_enable'))
-	value = str(config_beacon['Radiotap'].get('dbm_antsignal_value'))
-	return enable, value
-
-
-def radiotap_dbm_antnoise():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['Radiotap'].get('dbm_antnoise_enable'))
-	value = str(config_beacon['Radiotap'].get('dbm_antnoise_value'))
 	return enable, value
 
 
@@ -610,27 +225,6 @@ def wlan_radio_frequency():
 	config_beacon = load_config_beacon()
 	enable = str(config_beacon['WLAN_Radio'].get('frequency_enable'))
 	value = str(config_beacon['WLAN_Radio'].get('frequency_value'))
-	return enable, value
-
-
-def wlan_radio_signal_dbm():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['WLAN_Radio'].get('signal_dbm_enable'))
-	value = str(config_beacon['WLAN_Radio'].get('signal_dbm_value'))
-	return enable, value
-
-
-def wlan_radio_noise_dbm():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['WLAN_Radio'].get('noise_dbm_enable'))
-	value = str(config_beacon['WLAN_Radio'].get('noise_dbm_value'))
-	return enable, value
-
-
-def wlan_radio_timestamp():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['WLAN_Radio'].get('timestamp_enable'))
-	value = str(config_beacon['WLAN_Radio'].get('timestamp_value'))
 	return enable, value
 
 
@@ -690,69 +284,6 @@ def wlan_flags():
 	return enable, value
 
 
-def wlan_fc_ds():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['WLAN'].get('fc_ds_enable'))
-	value = str(config_beacon['WLAN'].get('fc_ds_value'))
-	return enable, value
-
-
-def wlan_fc_tods():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['WLAN'].get('fc_tods_enable'))
-	value = str(config_beacon['WLAN'].get('fc_tods_value'))
-	return enable, value
-
-
-def wlan_fc_fromds():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['WLAN'].get('fc_fromds_enable'))
-	value = str(config_beacon['WLAN'].get('fc_fromds_value'))
-	return enable, value
-
-
-def wlan_fc_frag():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['WLAN'].get('fc_frag_enable'))
-	value = str(config_beacon['WLAN'].get('fc_frag_value'))
-	return enable, value
-
-
-def wlan_fc_retry():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['WLAN'].get('fc_retry_enable'))
-	value = str(config_beacon['WLAN'].get('fc_retry_value'))
-	return enable, value
-
-
-def wlan_fc_pwrmgt():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['WLAN'].get('fc_pwrmgt_enable'))
-	value = str(config_beacon['WLAN'].get('fc_pwrmgt_value'))
-	return enable, value
-
-
-def wlan_fc_moredata():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['WLAN'].get('fc_moredata_enable'))
-	value = str(config_beacon['WLAN'].get('fc_moredata_value'))
-	return enable, value
-
-
-def wlan_fc_protected():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['WLAN'].get('fc_protected_enable'))
-	value = str(config_beacon['WLAN'].get('fc_protected_value'))
-	return enable, value
-
-
-def wlan_fc_order():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['WLAN'].get('fc_order_enable'))
-	value = str(config_beacon['WLAN'].get('fc_order_value'))
-	return enable, value
-
-
 def wlan_duration():
 	config_beacon = load_config_beacon()
 	enable = str(config_beacon['WLAN'].get('duration_enable'))
@@ -767,23 +298,9 @@ def wlan_ra():
 	return enable, value
 
 
-def wlan_ra_resolved():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['WLAN'].get('ra_resolved_enable'))
-	value = receiver_addr()
-	return enable, value
-
-
 def wlan_da():
 	config_beacon = load_config_beacon()
 	enable = str(config_beacon['WLAN'].get('da_enable'))
-	value = receiver_addr()
-	return enable, value
-
-
-def wlan_da_resolved():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['WLAN'].get('da_resolved_enable'))
 	value = receiver_addr()
 	return enable, value
 
@@ -795,23 +312,9 @@ def wlan_ta():
 	return enable, value
 
 
-def wlan_ta_resolved():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['WLAN'].get('ta_resolved_enable'))
-	value = bssid()
-	return enable, value
-
-
 def wlan_sa():
 	config_beacon = load_config_beacon()
 	enable = str(config_beacon['WLAN'].get('sa_enable'))
-	value = bssid()
-	return enable, value
-
-
-def wlan_sa_resolved():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['WLAN'].get('sa_resolved_enable'))
 	value = bssid()
 	return enable, value
 
@@ -823,23 +326,9 @@ def wlan_bssid():
 	return enable, value
 
 
-def wlan_bssid_resolved():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['WLAN'].get('bssid_resolved_enable'))
-	value = bssid()
-	return enable, value
-
-
 def wlan_addr():
 	config_beacon = load_config_beacon()
 	enable = str(config_beacon['WLAN'].get('addr_enable'))
-	value = receiver_addr()
-	return enable, value
-
-
-def wlan_addr_resolved():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['WLAN'].get('addr_resolved_enable'))
 	value = receiver_addr()
 	return enable, value
 
@@ -851,22 +340,463 @@ def wlan_frag():
 	return enable, value
 
 
-def wlan_seq():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['WLAN'].get('seq_enable'))
-	value = str(config_beacon['WLAN'].get('seq_value'))
-	return enable, value
-
-
-def wlan_fcs():
-	config_beacon = load_config_beacon()
-	enable = str(config_beacon['WLAN'].get('fcs_enable'))
-	value = str(config_beacon['WLAN'].get('fcs_value'))
-	return enable, value
-
-
 def wlan_fcs_status():
 	config_beacon = load_config_beacon()
 	enable = str(config_beacon['WLAN'].get('fcs_status_enable'))
 	value = str(config_beacon['WLAN'].get('fcs_status_value'))
+	return enable, value
+
+
+def wlan_mgt_fixed_beacon():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('fixed_beacon_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('fixed_beacon_value'))
+	return enable, value
+
+
+def wlan_mgt_fixed_capabilities():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('fixed_capabilities_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('fixed_capabilities_value'))
+	return enable, value
+
+
+def wlan_mgt_ssid():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('ssid_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('ssid_value'))
+	return enable, value
+
+
+def wlan_mgt_supported_rates():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('supported_rates_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('supported_rates_value'))
+	return enable, value
+
+
+def wlan_mgt_ds_current_channel():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('ds_current_channel_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('ds_current_channel_value'))
+	return enable, value
+
+
+def wlan_mgt_tim_dtim_count():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('tim_dtim_count_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('tim_dtim_count_value'))
+	return enable, value
+
+
+def wlan_mgt_tim_dtim_period():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('tim_dtim_period_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('tim_dtim_period_value'))
+	return enable, value
+
+
+def wlan_mgt_tim_bmapctl():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('tim_bmapctl_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('tim_bmapctl_value'))
+	return enable, value
+
+
+def wlan_mgt_tim_partial_virtual_bitmap():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('tim_partial_virtual_bitmap_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('tim_partial_virtual_bitmap_value'))
+	return enable, value
+
+
+def wlan_mgt_tim_aid():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('tim_aid_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('tim_aid_value'))
+	return enable, value
+
+
+def wlan_mgt_rsn_version():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('rsn_version_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('rsn_version_value'))
+	return enable, value
+
+
+def wlan_mgt_rsn_gcs():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('rsn_gcs_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('rsn_gcs_value'))
+	return enable, value
+
+
+def wlan_mgt_rsn_pcs_count():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('rsn_pcs_count_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('rsn_pcs_count_value'))
+	return enable, value
+
+
+def wlan_mgt_rsn_pcs():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('rsn_pcs_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('rsn_pcs_value'))
+	return enable, value
+
+
+def wlan_mgt_rsn_akms_count():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('rsn_akms_count_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('rsn_akms_count_value'))
+	return enable, value
+
+
+def wlan_mgt_rsn_akms():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('rsn_akms_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('rsn_akms_value'))
+	return enable, value
+
+
+def wlan_mgt_rsn_capabilities():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('rsn_capabilities_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('rsn_capabilities_value'))
+	return enable, value
+
+
+def wlan_mgt_ht_capabilities():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('ht_capabilities_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('ht_capabilities_value'))
+	return enable, value
+
+
+def wlan_mgt_ht_ampduparam():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('ht_ampduparam_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('ht_ampduparam_value'))
+	return enable, value
+
+
+def wlan_mgt_ht_mcsset():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('ht_mcsset_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('ht_mcsset_value'))
+	return enable, value
+
+
+def wlan_mgt_ht_mcsset_rxbitmask():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('ht_mcsset_rxbitmask_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('ht_mcsset_rxbitmask_value'))
+	return enable, value
+
+
+def wlan_mgt_ht_mcsset_rxbitmask_0to7():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('ht_mcsset_rxbitmask_0to7_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('ht_mcsset_rxbitmask_0to7_value'))
+	return enable, value
+
+
+def wlan_mgt_ht_mcsset_rxbitmask_8to15():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('ht_mcsset_rxbitmask_8to15_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('ht_mcsset_rxbitmask_8to15_value'))
+	return enable, value
+
+
+def wlan_mgt_ht_mcsset_rxbitmask_16to23():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('ht_mcsset_rxbitmask_16to23_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('ht_mcsset_rxbitmask_16to23_value'))
+	return enable, value
+
+
+def wlan_mgt_ht_mcsset_rxbitmask_24to31():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('ht_mcsset_rxbitmask_24to31_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('ht_mcsset_rxbitmask_24to31_value'))
+	return enable, value
+
+
+def wlan_mgt_ht_mcsset_rxbitmask_32():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('ht_mcsset_rxbitmask_32_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('ht_mcsset_rxbitmask_32_value'))
+	return enable, value
+
+
+def wlan_mgt_ht_mcsset_rxbitmask_33to38():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('ht_mcsset_rxbitmask_33to38_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('ht_mcsset_rxbitmask_33to38_value'))
+	return enable, value
+
+
+def wlan_mgt_ht_mcsset_rxbitmask_39to52():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('ht_mcsset_rxbitmask_39to52_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('ht_mcsset_rxbitmask_39to52_value'))
+	return enable, value
+
+
+def wlan_mgt_ht_mcsset_rxbitmask_53to76():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('ht_mcsset_rxbitmask_53to762_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('ht_mcsset_rxbitmask_53to76_value'))
+	return enable, value
+
+
+def wlan_mgt_ht_mcsset_highestdatarate():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('ht_mcsset_highestdatarate_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('ht_mcsset_highestdatarate_value'))
+	return enable, value
+
+
+def wlan_mgt_ht_mcsset_txsetdefined():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('ht_mcsset_txsetdefined_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('ht_mcsset_txsetdefined_value'))
+	return enable, value
+
+
+def wlan_mgt_ht_mcsset_txrxmcsnotequal():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('ht_mcsset_txrxmcsnotequal_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('ht_mcsset_txrxmcsnotequal_value'))
+	return enable, value
+
+
+def wlan_mgt_ht_mcsset_txmaxss():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('ht_mcsset_txmaxss_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('ht_mcsset_txmaxss_value'))
+	return enable, value
+
+
+def wlan_mgt_ht_mcsset_txunequalmod():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('ht_mcsset_txunequalmod_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('ht_mcsset_txunequalmod_value'))
+	return enable, value
+
+
+def wlan_mgt_htex_capabilities():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('htex_capabilities_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('htex_capabilities_value'))
+	return enable, value
+
+
+def wlan_mgt_txbf():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('txbf_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('txbf_value'))
+	return enable, value
+
+
+def wlan_mgt_asel():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('asel_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('asel_value'))
+	return enable, value
+
+
+def wlan_mgt_ht_info_primarychannel():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('ht_info_primarychannel_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('ht_info_primarychannel_value'))
+	return enable, value
+
+
+def wlan_mgt_ht_info_delim1():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('ht_info_delim1_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('ht_info_delim1_value'))
+	return enable, value
+
+
+def wlan_mgt_ht_info_delim2():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('ht_info_delim2_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('ht_info_delim2_value'))
+	return enable, value
+
+
+def wlan_mgt_ht_info_delim3():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('ht_info_delim3_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('ht_info_delim3_value'))
+	return enable, value
+
+
+def wlan_mgt_ap_channel_report_operating_class():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('ap_channel_report_operating_class_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('ap_channel_report_operating_class_value'))
+	return enable, value
+
+
+def wlan_mgt_ap_channel_report_channel_list():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('ap_channel_report_channel_list_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('ap_channel_report_channel_list_value'))
+	return enable, value
+
+
+def wlan_mgt_extcap():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('extcap_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('extcap_value'))
+	return enable, value
+
+
+def wlan_mgt_extcap_b61():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('extcap_b61_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('extcap_b61_value'))
+	return enable, value
+
+
+def wlan_mgt_extcap_b62():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('extcap_b62_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('extcap_b62_value'))
+	return enable, value
+
+
+def wlan_mgt_extcap_b63():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('extcap_b63_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('extcap_b63_value'))
+	return enable, value
+
+
+def wlan_mgt_extcap_o8():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('extcap_o8_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('extcap_o8_value'))
+	return enable, value
+
+
+def wlan_mgt_vht_capabilities():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('vht_capabilities_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('vht_capabilities_value'))
+	return enable, value
+
+
+def wlan_mgt_vht_mcsset_rxmcsmap():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('vht_mcsset_rxmcsmap_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('vht_mcsset_rxmcsmap_value'))
+	return enable, value
+
+
+def wlan_mgt_vht_mcsset_rxhighestlonggirate():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('vht_mcsset_rxhighestlonggirate_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('vht_mcsset_rxhighestlonggirate_value'))
+	return enable, value
+
+
+def wlan_mgt_vht_mcsset_txmcsmap():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('vht_mcsset_txmcsmap_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('vht_mcsset_txmcsmap_value'))
+	return enable, value
+
+
+def wlan_mgt_vht_mcsset_txhighestlonggirate():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('vht_mcsset_txhighestlonggirate_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('vht_mcsset_txhighestlonggirate_value'))
+	return enable, value
+
+
+def wlan_mgt_vht_op_channelwidth():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('vht_op_channelwidth_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('vht_op_channelwidth_value'))
+	return enable, value
+
+
+def wlan_mgt_vht_op_channelcenter0():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('vht_op_channelcenter0_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('vht_op_channelcenter0_value'))
+	return enable, value
+
+
+def wlan_mgt_vht_op_channelcenter1():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('vht_op_channelcenter1_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('vht_op_channelcenter1_value'))
+	return enable, value
+
+
+def wlan_mgt_vht_op_basicmcsmap():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('vht_op_basicmcsmap_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('vht_op_basicmcsmap_value'))
+	return enable, value
+
+
+def wlan_mgt_wfa_ie_type():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('wfa_ie_type_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('wfa_ie_type_value'))
+	return enable, value
+
+
+def wlan_mgt_wfa_ie_wme_subtype():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('wfa_ie_wme_subtype_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('wfa_ie_wme_subtype_value'))
+	return enable, value
+
+
+def wlan_mgt_wfa_ie_wme_version():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('wfa_ie_wme_version_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('wfa_ie_wme_version_value'))
+	return enable, value
+
+
+def wlan_mgt_wfa_ie_wme_qos_info():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('wfa_ie_wme_qos_info_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('wfa_ie_wme_qos_info_value'))
+	return enable, value
+
+
+def wlan_mgt_wfa_ie_wme_reserved():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('wfa_ie_wme_reserved_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('wfa_ie_wme_reserved_value'))
+	return enable, value
+
+
+def wlan_mgt_wfa_ie_wme_acp_aci_aifsn():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('wfa_ie_wme_acp_aci_aifsn_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('wfa_ie_wme_acp_aci_aifsn_value'))
+	return enable, value
+
+
+def wlan_mgt_wfa_ie_wme_acp_ecw():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('wfa_ie_wme_acp_ecw_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('wfa_ie_wme_acp_ecw_value'))
+	return enable, value
+
+
+def wlan_mgt_wfa_ie_wme_acp_txop_limit():
+	config_beacon = load_config_beacon()
+	enable = str(config_beacon['WLAN_MGT'].get('wfa_ie_wme_acp_txop_limit_enable'))
+	value = str(config_beacon['WLAN_MGT'].get('wfa_ie_wme_acp_txop_limit_value'))
 	return enable, value
