@@ -841,14 +841,7 @@ def values(packet):
 	return values_list
 
 
-def beacon_df(capture, bssid, to_csv):
-	"""
-	Construct beacon DataFrame
-	:param capture: capture file
-	:param bssid: BSSID
-	:param to_csv: [int 1] Enable write to CSV
-	:return: beacon data frame
-	"""
+def beacon_df(capture, bssid, csv_enable, save_file_path):
 	import pandas as pd
 
 	pd.options.display.max_rows = cfg_basic.pd_display_max_row()
@@ -877,9 +870,9 @@ def beacon_df(capture, bssid, to_csv):
 	df.index = df['count']
 	df.index.name = 'Index'
 
-	to_csv = str(to_csv)
-	if to_csv == '1':
-		df.to_csv(cfg_beacon.csv_save_path(), encoding="utf-8")
+	csv_enable_str = str(csv_enable)
+	if csv_enable_str == '1':
+		df.to_csv(save_file_path)
 
 	return df
 
@@ -907,8 +900,7 @@ def check_beacon_df_warp_1(enable, df, row, row_index, col, ref_data):
 		index = row_index
 		get_value = row[col]
 		ref_value = ref_data
-		print(get_value)
-		print(ref_value)
+		log_beacon.info('\tGet value: {0}\n\tRef value: {1}'.format(get_value, ref_value))
 		if get_value == ref_value:
 			pass_list.append([index, col, check_beacon_df_warp_0('p', ref_value, get_value)])
 			df.loc[index, col] = check_beacon_df_warp_0('p', ref_value, get_value)
@@ -937,7 +929,7 @@ def check_beacon_df_warp_3(df, row, row_index, pass_list_all, fail_list_all, ski
 	# fields_all = fields_frame() + fields_radiotap() + fields_wlan_radio() + fields_wlan()
 	fields_to_check = fields()[1]
 	for i_field in fields_to_check:
-		log_beacon.info('Check data for row[{0}], col[{1}]'.format(row_index, i_field))
+		log_beacon.info('\nCheck data for row[{0}], col[{1}]:'.format(row_index, i_field))
 		col = i_field
 		enable = getattr(cfg_beacon, i_field)()[0]
 		ref_data = getattr(cfg_beacon, i_field)()[1]
@@ -946,8 +938,8 @@ def check_beacon_df_warp_3(df, row, row_index, pass_list_all, fail_list_all, ski
 	return df, pass_list_all, fail_list_all, skip_list_all
 
 
-def check_beacon_df(capture, bssid, to_csv):
-	df = beacon_df(capture, bssid, to_csv)
+def check_beacon_df(capture, bssid, csv_enable, save_file_path):
+	df = beacon_df(capture, bssid, csv_enable, save_file_path)
 	df_copy = df.copy()
 
 	pass_list_all = []
@@ -959,6 +951,6 @@ def check_beacon_df(capture, bssid, to_csv):
 		check_beacon_df_warp_3(df_copy, row, row_index,
 		                       pass_list_all, fail_list_all, skip_list_all)
 
-	df_copy.to_csv(cfg_beacon.csv_save_path_1(), encoding="utf-8")
+	df_copy.to_csv(save_file_path)
 
 	return df_copy, pass_list_all, fail_list_all, skip_list_all

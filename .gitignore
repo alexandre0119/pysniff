@@ -1,11 +1,13 @@
 # Created by .ignore support plugin (hsz.mobi)
 .idea/workspace.xml
-/log_this.txt
-/log
+/log/log_this.txt
 src/__pycache__/
 src/my_config/__pycache__/
 src/my_misc/__pycache__/
 src/my_sniff/__pycache__/
 src/my_sniff/mgt/__pycache__/
 src/my_sniff/mgt/beacon/__pycache__/
-/temp.txt
+/capture/assoc.pcapng
+/capture/beacon_sample_0_22-09-73.pcapng
+/capture/sc4_beacon.pcapng
+/capture/assoc.json

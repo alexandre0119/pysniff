@@ -2,15 +2,17 @@
 # -*- coding: utf-8 -*-
 # Author: Alex Wang
 
+
+import os
+import pandas as pd
 # Import config file settings
 import src.my_config.config_basic as config_basic
 import src.my_config.config_beacon as config_beacon
 # Import class init
 import src.my_sniff.class_init as class_init
 import src.my_sniff.mgt.beacon.beacon as beacon
-import src.my_sniff.mgt.beacon.radiotap as beacon_radiotap
-import src.my_sniff.mgt.beacon.wlan as beacon_wlan
 import src.my_misc.my_decorator as my_decorator  # Decorator
+import src.my_misc.my_matplotlib as my_matplotlib
 from src.my_misc.my_logging import create_logger
 
 log_flow = create_logger(logger_name=__name__, fmt='%(message)s')
@@ -24,44 +26,65 @@ def main_flow():
 
 	capture_dir = config_basic.capture_dir()
 	capture_file = config_basic.capture_file()
+	log_path = config_beacon.log_path()
 	init = class_init.Init(capture_dir, capture_file)
-	beacon_radiotap_init = beacon_radiotap.Radiotap(capture_dir, capture_file)
-	beacon_wlan_init = beacon_wlan.WLAN(capture_dir, capture_file)
 
 	capture = init.capture_file_path
 
-	cap = init.file_capture(capture)
+	beacon_df = beacon.beacon_df(capture, config_beacon.bssid(),
+	                             '1',
+	                             os.path.join(log_path, config_beacon.save_file_name('_Data', '.csv')))
 
-	# print(beacon_fixed_init.fixed_timestamp(cap[81]))
-	# print(beacon_fixed_init.fixed_capabilities_ess(cap[81]))
-	# print(beacon_wlan_init.wlan_ta_resolved(cap[81]))
+	beacon_result = beacon.check_beacon_df(capture, config_beacon.bssid(),
+	                                       '0',
+	                                       os.path.join(log_path, config_beacon.save_file_name('_Check', '.csv')))
+	result_pass = pd.DataFrame(beacon_result[1])
+	result_fail = pd.DataFrame(beacon_result[2])
+	result_skip = pd.DataFrame(beacon_result[3])
 
-	# print(type(beacon_radiotap_init.flags(cap[81])))
-	# print(beacon_radiotap_init.flags(cap[81]))
-	# print('!!!!!!!')
+	str_summary = '\n===========================================================' \
+	              '\n------------------------- Summary -------------------------\n\n' \
+	              '\n------------------------- Pass list -------------------------\n' \
+	              '{0}' \
+	              '\n------------------------- Fail list -------------------------\n' \
+	              '{1}' \
+	              '\n------------------------- Skip list -------------------------\n' \
+	              '{2}' \
+	              '\n\n---------------------------------------------------------' \
+	              '\n===========================================================\n'.format(result_pass,
+	                                                                                       result_fail,
+	                                                                                       result_skip)
+	log_flow.info(str_summary)
 
-	# testtest = beacon.beacon_df(capture, config_beacon.bssid(), 1)
-	# # print(testtest.columns)
+	objects_value = [len(result_pass), len(result_fail), len(result_skip)]
+	objects_title = ['Pass: {0}'.format(objects_value[0]),
+	                 'Fail: {0}'.format(objects_value[1]),
+	                 'Skip: {0}'.format(objects_value[2])]
 
-	result_summary = []
+	my_matplotlib.pie_chart(objects_title, objects_value,
+	                        'Check Item Summary',
+	                        'Status',
+	                        'Checked fields count',
+	                        os.path.join(log_path, config_beacon.save_file_name('_summary', '.png')))
 
-	# beacon_df = beacon.beacon_df(capture, config_beacon.bssid(), '1')
+	beacon_df.drop(beacon_df['frame_time_delta_displayed'].index[0])
+	beacon_df.drop(beacon_df['wlan_seq'].index[0])
 
-	beacon_result = beacon.check_beacon_df(capture, config_beacon.bssid(), '0')
-	# for i in beacon_result[1]:
-	# 	print(i)
+	describe_0 = beacon_df['frame_time_delta_displayed'].describe()
+	my_matplotlib.line_chart(beacon_df['count'].tolist(),
+	                         beacon_df['frame_time_delta_displayed'].tolist(),
+	                         'Time Delta Displayed',
+	                         describe_0,
+	                         'Time Delta (s)',
+	                         os.path.join(log_path, config_beacon.save_file_name('_time_delta_displayed', '.png')))
 
-	# result_summary.append({'Beacon': beacon_result})
-	# print(result_summary)
-	#
-	# df = pd.Series(result_summary)
-	# str_summary = '\n===========================================================' \
-	#               '\n------------------------- Summary -------------------------\n\n' \
-	#               '{0}' \
-	#               '\n\n-------------------- Program finished --------------------' \
-	#               '\n===========================================================\n'.format(df)
-	# log_flow.info(str_summary)
-
+	describe_1 = beacon_df['wlan_seq'].describe()
+	my_matplotlib.line_chart(beacon_df['count'].tolist(),
+	                         beacon_df['wlan_seq'].tolist(),
+	                         'WLAN Seq',
+	                         'Count',
+	                         'WLAN Seq',
+	                         os.path.join(log_path, config_beacon.save_file_name('_wlan_seq', '.png')))
 
 	# ender: 1: logging; 0[0]: not formatted time; 0[1] formatted time
 	my_decorator.main_flow_ender(1)

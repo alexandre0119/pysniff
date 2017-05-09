@@ -40,40 +40,43 @@ def load_config_basic():
 	return config_basic
 
 
-def csv_save_path():
+def root_path():
 	import os
-	from src.my_misc.my_time import filename_timestamp
 	config_beacon = load_config_beacon()
 	config_basic = load_config_basic()
 
-	root_path = str(config_basic['Directory'].get('Program_Path'))
-	csv_file_folder = str(config_beacon['Directory'].get('CSV_Save_Folder'))
-	csv_file_path = os.path.join(root_path, csv_file_folder)
+	root_path_str = str(config_basic['Directory'].get('Program_Path'))
+	log_folder = str(config_beacon['Directory'].get('Log_Save_Folder'))
+	log_path_str = os.path.join(root_path_str, log_folder)
 
-	csv_file_prefix = str(config_beacon['Directory'].get('CSV_File_Name_Prefix'))
-	bssid_str = '-'.join(str(config_beacon['Address'].get('bssid')).split(':'))
-	csv_file_name = csv_file_prefix + '_' + bssid_str + '_' + filename_timestamp() + '.csv'
+	if not os.path.exists(log_path_str):
+		os.makedirs(log_path_str)
 
-	csv_path = os.path.join(csv_file_path, csv_file_name)
-	return csv_path
+	return log_path_str
 
 
-def csv_save_path_1():
+def log_path():
 	import os
 	from src.my_misc.my_time import filename_timestamp
 	config_beacon = load_config_beacon()
-	config_basic = load_config_basic()
 
-	root_path = str(config_basic['Directory'].get('Program_Path'))
-	csv_file_folder = str(config_beacon['Directory'].get('CSV_Save_Folder'))
-	csv_file_path = os.path.join(root_path, csv_file_folder)
+	log_subfolder = str(config_beacon['Directory'].get('Log_Save_Folder')) + '_' + filename_timestamp()
+	log_subpath = os.path.join(root_path(), log_subfolder)
 
-	csv_file_prefix = str(config_beacon['Directory'].get('CSV_File_Name_Prefix'))
+	if not os.path.exists(log_subpath):
+		os.makedirs(log_subpath)
+
+	return log_subpath
+
+
+def save_file_name(name_str, file_format):
+	config_beacon = load_config_beacon()
+
+	file_prefix = str(config_beacon['Directory'].get('Log_File_Name_Prefix'))
 	bssid_str = '-'.join(str(config_beacon['Address'].get('bssid')).split(':'))
-	csv_file_name = csv_file_prefix + '_Results' + '_' + bssid_str + '_' + filename_timestamp() + '.csv'
+	file_name = file_prefix + '_' + bssid_str + '_' + name_str + file_format
 
-	csv_path = os.path.join(csv_file_path, csv_file_name)
-	return csv_path
+	return file_name
 
 
 def bssid():
