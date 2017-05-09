@@ -67,10 +67,18 @@ def main_flow():
 	                        'Checked fields count',
 	                        os.path.join(log_path, config_beacon.save_file_name('_summary', '.png')))
 
-	beacon_df.drop(beacon_df['frame_time_delta_displayed'].index[0])
-	beacon_df.drop(beacon_df['wlan_seq'].index[0])
+	beacon_df['frame_time_delta_displayed'] = beacon_df['frame_time_delta_displayed'].drop(beacon_df['frame_time_delta_displayed'].index[0])
+	beacon_df['wlan_seq'] = beacon_df['wlan_seq'].drop(beacon_df['wlan_seq'].index[0])
+	beacon_df['count'] = beacon_df['count'].drop(beacon_df['count'].index[0])
 
-	describe_0 = beacon_df['frame_time_delta_displayed'].describe()
+	beacon_df['frame_time_delta_displayed'] = pd.to_numeric(beacon_df['frame_time_delta_displayed'], errors='coerce')
+	beacon_df['wlan_seq'] = pd.to_numeric(beacon_df['wlan_seq'], errors='coerce')
+	describe_0 = beacon_df['frame_time_delta_displayed'].describe(percentiles=None).round(5)
+	# describe_0 = describe_0.to_dict()
+	describe_1 = beacon_df['wlan_seq'].describe(percentiles=None).round(5)
+	# describe_1 = describe_1.to_dict()
+	print(describe_0)
+	print(describe_1)
 	my_matplotlib.line_chart(beacon_df['count'].tolist(),
 	                         beacon_df['frame_time_delta_displayed'].tolist(),
 	                         'Time Delta Displayed',
@@ -78,11 +86,10 @@ def main_flow():
 	                         'Time Delta (s)',
 	                         os.path.join(log_path, config_beacon.save_file_name('_time_delta_displayed', '.png')))
 
-	describe_1 = beacon_df['wlan_seq'].describe()
 	my_matplotlib.line_chart(beacon_df['count'].tolist(),
 	                         beacon_df['wlan_seq'].tolist(),
 	                         'WLAN Seq',
-	                         'Count',
+	                         describe_1,
 	                         'WLAN Seq',
 	                         os.path.join(log_path, config_beacon.save_file_name('_wlan_seq', '.png')))
 
