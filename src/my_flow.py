@@ -5,6 +5,7 @@
 
 import os
 import pandas as pd
+import numpy as np
 # Import config file settings
 import src.my_config.config_basic as config_basic
 import src.my_config.config_beacon as config_beacon
@@ -16,6 +17,11 @@ import src.my_misc.my_matplotlib as my_matplotlib
 from src.my_misc.my_logging import create_logger
 
 log_flow = create_logger(logger_name=__name__, fmt='%(message)s')
+
+pd.options.display.max_rows = config_basic.pd_display_max_row()
+pd.options.display.float_format = '{:20,.2f}'.format
+pd.set_option('display.float_format', lambda x: '%f' % x)
+pd.set_option('precision', config_basic.pd_precision())
 
 
 def main_flow():
@@ -73,10 +79,16 @@ def main_flow():
 
 	beacon_df['frame_time_delta_displayed'] = pd.to_numeric(beacon_df['frame_time_delta_displayed'], errors='coerce')
 	beacon_df['wlan_seq'] = pd.to_numeric(beacon_df['wlan_seq'], errors='coerce')
-	describe_0 = beacon_df['frame_time_delta_displayed'].describe(percentiles=None).round(5)
-	# describe_0 = describe_0.to_dict()
-	describe_1 = beacon_df['wlan_seq'].describe(percentiles=None).round(5)
-	# describe_1 = describe_1.to_dict()
+	# describe_0 = beacon_df['frame_time_delta_displayed'].describe(percentiles=None).round(5)
+	describe_0 = 'Mean: {0}; Std: {1}; Min: {2}; Max: {3}'.format(np.round(beacon_df['frame_time_delta_displayed'].mean(), decimals=3),
+	                                                              np.round(beacon_df['frame_time_delta_displayed'].std(), decimals=3),
+	                                                              np.round(beacon_df['frame_time_delta_displayed'].min(), decimals=3),
+	                                                              np.round(beacon_df['frame_time_delta_displayed'].max(), decimals=3))
+
+	describe_1 = 'Mean: {0}; Std: {1}; Min: {2}; Max: {3}'.format(np.round(beacon_df['wlan_seq'].mean(), decimals=3),
+	                                                              np.round(beacon_df['wlan_seq'].std(), decimals=3),
+	                                                              np.round(beacon_df['wlan_seq'].min(), decimals=3),
+	                                                              np.round(beacon_df['wlan_seq'].max(), decimals=3))
 	print(describe_0)
 	print(describe_1)
 	my_matplotlib.line_chart(beacon_df['count'].tolist(),
