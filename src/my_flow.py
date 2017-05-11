@@ -105,6 +105,7 @@ def main_flow():
 	                         'WLAN Seq',
 	                         os.path.join(log_path, config_beacon.save_file_name('_wlan_seq', '.png')))
 
+
 	# ender: 1: logging; 0[0]: not formatted time; 0[1] formatted time
 	my_decorator.main_flow_ender(1)
 	end_time = my_decorator.main_flow_ender(0)[0]
