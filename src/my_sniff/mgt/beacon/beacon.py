@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 # Author: Alex Wang
 
+import pandas as pd
 # Import config file setting
 import src.my_config.config_basic as cfg_basic
 import src.my_config.config_beacon as cfg_beacon
@@ -842,8 +843,6 @@ def values(packet):
 
 
 def beacon_df(capture, bssid, csv_enable, save_file_path):
-	import pandas as pd
-
 	pd.options.display.max_rows = cfg_basic.pd_display_max_row()
 	pd.set_option('precision', cfg_basic.pd_precision())
 

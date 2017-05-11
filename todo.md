@@ -1,6 +1,7 @@
 # To-Do   
 1. Prob request frame 
     * Get all fields data from pcapng file
+    * !!! Need to draw code diagram !!!
 
 2. Overall all packet analysis
     * Get all packet type, percentage, and plot chart.
