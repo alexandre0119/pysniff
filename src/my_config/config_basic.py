@@ -55,8 +55,8 @@ def log_folder():
 
 def capture_path():
 	"""
-	Capture file path
-	:return: capture file path
+	Capture file directory path
+	:return: capture file directory path
 	"""
 	import os
 	path = os.path.join(program_path(), capture_folder())
@@ -65,15 +65,15 @@ def capture_path():
 
 def log_path():
 	"""
-	Log file path
-	:return: log file path
+	Log file directory path
+	:return: log file directory path
 	"""
 	import os
 	path = os.path.join(program_path(), log_folder())
 	return path
 
 
-def capture_file():
+def capture_file_name():
 	"""
 	Capture file name
 	:return: capture file name
@@ -83,7 +83,7 @@ def capture_file():
 	return file_name
 
 
-def log_file():
+def log_file_name():
 	"""
 	Log file name
 	:return: log file name
@@ -91,6 +91,36 @@ def log_file():
 	config = load_config()
 	file_name = str(config['File'].get('log_file'))
 	return file_name
+
+
+def capture_file_path():
+	"""
+	Capture file path
+	:return: log file path
+	"""
+	import os
+	path = os.path.join(capture_path(), capture_file_name())
+	return path
+
+
+def log_file_path():
+	"""
+	Log file path
+	:return: Log file path
+	"""
+	import os
+	path = os.path.join(log_path(), log_file_name())
+	return path
+
+
+def pytest_capture_folder():
+	"""
+	Pytest capture file folder
+	:return: Pytest capture file folder
+	"""
+	config = load_config()
+	folder = str(config['Pytest'].get('capture_folder'))
+	return folder
 
 
 def pd_display_max_row():

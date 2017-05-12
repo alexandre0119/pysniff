@@ -9,9 +9,7 @@ import src.my_config.config_basic as cfg_basic
 
 
 def log_file_name():
-	root_path = cfg_basic.log_path()
-	log_name = cfg_basic.log_file()
-	log_file = os.path.join(root_path, log_name)
+	log_file = cfg_basic.log_file_path()
 	return log_file
 
 

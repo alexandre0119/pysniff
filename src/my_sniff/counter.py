@@ -19,7 +19,7 @@ log_counter = create_logger(logger_name=__name__, fmt='%(message)s')
 
 
 capture_dir = config_basic.capture_path()  # capture file directory
-capture_file = config_basic.capture_file()  # capture file name
+capture_file = config_basic.capture_file_name()  # capture file name
 # Init class frame
 beacon_frame_0 = beacon_frame.Frame(capture_dir, capture_file)
 # Init class Beacon WLAN layer

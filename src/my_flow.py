@@ -35,7 +35,7 @@ def main_flow():
 	# start_time_formatted = my_decorator.main_flow_starter(0)[1]
 
 	capture_dir = config_basic.capture_path()
-	capture_file = config_basic.capture_file()
+	capture_file = config_basic.capture_file_name()
 	log_path = config_beacon.log_path()
 	init = class_init.Init(capture_dir, capture_file)
 

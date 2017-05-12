@@ -15,7 +15,7 @@ log_pr = create_logger(logger_name=__name__, fmt='%(message)s')
 
 
 capture_dir = cfg_basic.capture_path()  # capture file directory
-capture_file = cfg_basic.capture_file()  # capture file name
+capture_file = cfg_basic.capture_file_name()  # capture file name
 # Init class: Beacon frame
 frame_init = frame.Frame(capture_dir, capture_file)
 
