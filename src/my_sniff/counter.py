@@ -5,27 +5,26 @@
 # Use to get item count in list
 from collections import Counter
 # Import config file setting
-import src.my_config.config_basic as config_basic
+import src.my_config.config_basic as cfg_basic
 import src.my_config.config_beacon as config_beacon
 # Import class Group
-import src.my_sniff.class_init as class_init
+import src.my_sniff.frame as class_init
 # Import beacon frame layer
-import src.my_sniff.mgt.beacon.frame as beacon_frame
+import src.my_sniff.frame as frame
 # Import Beacon WLAN layer
-import src.my_sniff.mgt.beacon.wlan as beacon_wlan
+import src.my_sniff.mgt.mgt as mgt
 # Set logger
 from src.my_misc.my_logging import create_logger
 log_counter = create_logger(logger_name=__name__, fmt='%(message)s')
 
 
-capture_dir = config_basic.capture_path()  # capture file directory
-capture_file = config_basic.capture_file_name()  # capture file name
+capture_file_path = cfg_basic.capture_file_path()
 # Init class frame
-beacon_frame_0 = beacon_frame.Frame(capture_dir, capture_file)
+beacon_frame_0 = frame.Frame(capture_file_path)
 # Init class Beacon WLAN layer
-beacon_wlan_0 = beacon_wlan.WLAN(capture_dir, capture_file)
+beacon_wlan_0 = mgt.WLAN(capture_file_path)
 # Init class Group
-init = class_init.Init(capture_dir, capture_file)
+init = class_init.Frame(capture_file_path)
 
 
 def group_wlan_others(capture):
@@ -47,7 +46,7 @@ def group_wlan_others(capture):
 		# IF WLAN layer in this packet
 		if 'WLAN' in i_cap:
 			# If WLAN layer NOT contain BSSID info
-			if beacon_wlan_0.bssid(i_cap) == 'None':
+			if beacon_wlan_0.wlan_bssid(i_cap) == 'None':
 				log_counter.info('Index_All {0}: Found packet with WLAN layer but no BSSID.'.format(pkt_counter))
 				# Append to WLAN packet without BSSID info list
 				wlan_no_bssid_list.append({pkt_counter: ['WLAN without BSSID']})
@@ -56,7 +55,7 @@ def group_wlan_others(capture):
 			else:
 				log_counter.info('Index_All {0}: Found packet with WLAN layer and with BSSID.'.format(pkt_counter))
 				# Append to WLAN packet with BSSID info list
-				wlan_bssid_list.append({pkt_counter: [beacon_wlan_0.bssid(i_cap)]})
+				wlan_bssid_list.append({pkt_counter: [beacon_wlan_0.wlan_bssid(i_cap)]})
 				# Increase counter
 				pkt_counter += 1
 		else:
@@ -82,7 +81,7 @@ def group_wlan_bssid(capture, wlan_pkt_list):
 		# Index is the index_all of entire original packet, info is 'WLAN with BSSID'
 		for index, info in i_pkt.items():
 			log_counter.info('Index_BSSID_List {0}: Check BSSID for packet @ Index_All {1}.'.format(counter, index))
-			wlan_bssid_list.append(beacon_wlan_0.bssid(capture[index]))
+			wlan_bssid_list.append(beacon_wlan_0.wlan_bssid(capture[index]))
 			counter += 1
 	# Remove duplicate item in list, and get counter for each BSSID appearance time
 	wlan_bssid_counter = dict(Counter(wlan_bssid_list))

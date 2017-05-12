@@ -33,43 +33,15 @@ def program_path():
 	return path
 
 
-def capture_folder():
-	"""
-	capture file folder
-	:return: capture file folder
-	"""
-	config = load_config()
-	folder = str(config['Directory'].get('capture_folder'))
-	return folder
-
-
-def log_folder():
-	"""
-	Log folder
-	:return: log file folder
-	"""
-	config = load_config()
-	folder = str(config['Directory'].get('log_folder'))
-	return folder
-
-
-def capture_path():
+def capture_dir_path():
 	"""
 	Capture file directory path
 	:return: capture file directory path
 	"""
 	import os
-	path = os.path.join(program_path(), capture_folder())
-	return path
-
-
-def log_path():
-	"""
-	Log file directory path
-	:return: log file directory path
-	"""
-	import os
-	path = os.path.join(program_path(), log_folder())
+	config = load_config()
+	folder = str(config['Directory'].get('capture_folder'))
+	path = os.path.join(program_path(), folder)
 	return path
 
 
@@ -83,6 +55,28 @@ def capture_file_name():
 	return file_name
 
 
+def capture_file_path():
+	"""
+	Capture file path
+	:return: capture file path
+	"""
+	import os
+	path = os.path.join(capture_dir_path(), capture_file_name())
+	return path
+
+
+def log_dir_path():
+	"""
+	Log file directory path
+	:return: log file directory path
+	"""
+	import os
+	config = load_config()
+	folder = str(config['Directory'].get('log_folder'))
+	path = os.path.join(program_path(), folder)
+	return path
+
+
 def log_file_name():
 	"""
 	Log file name
@@ -93,34 +87,46 @@ def log_file_name():
 	return file_name
 
 
-def capture_file_path():
-	"""
-	Capture file path
-	:return: log file path
-	"""
-	import os
-	path = os.path.join(capture_path(), capture_file_name())
-	return path
-
-
 def log_file_path():
 	"""
 	Log file path
 	:return: Log file path
 	"""
 	import os
-	path = os.path.join(log_path(), log_file_name())
+	path = os.path.join(log_dir_path(), log_file_name())
 	return path
 
 
-def pytest_capture_folder():
+def pytest_capture_dir_path():
 	"""
-	Pytest capture file folder
-	:return: Pytest capture file folder
+	Pytest capture file directory path
+	:return: Pytest capture file directory path
 	"""
+	import os
 	config = load_config()
 	folder = str(config['Pytest'].get('capture_folder'))
-	return folder
+	path = os.path.join(program_path(), folder)
+	return path
+
+
+def pytest_capture_file_name():
+	"""
+	Pytest capture file name
+	:return: Pytest capture file name
+	"""
+	config = load_config()
+	file_name = str(config['Pytest'].get('capture_file'))
+	return file_name
+
+
+def pytest_capture_file_path():
+	"""
+	Pytest capture file path
+	:return: Pytest capture file path
+	"""
+	import os
+	path = os.path.join(pytest_capture_dir_path(), pytest_capture_file_name())
+	return path
 
 
 def pd_display_max_row():

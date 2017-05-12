@@ -7,17 +7,16 @@ import pandas as pd
 import src.my_config.config_basic as cfg_basic
 import src.my_config.config_probe_request as cfg_probe_request
 # Import beacon frame layer
-import src.my_sniff.mgt.probe_request.frame as frame
+import src.my_sniff.frame as frame
 # Set logger
 from src.my_misc.my_logging import create_logger
 
 log_pr = create_logger(logger_name=__name__, fmt='%(message)s')
 
 
-capture_dir = cfg_basic.capture_path()  # capture file directory
-capture_file = cfg_basic.capture_file_name()  # capture file name
+capture_file_path = cfg_basic.capture_file_path()
 # Init class: Beacon frame
-frame_init = frame.Frame(capture_dir, capture_file)
+frame_init = frame.Frame(capture_file_path)
 
 
 def fields_frame():

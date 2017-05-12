@@ -3,14 +3,184 @@
 # Author: Alex Wang
 
 import src.my_misc.hex2bin as hex2bin
-from src.my_sniff.mgt.mgt_basic import MGT
+# Set logger
 from src.my_misc.my_logging import create_logger
-log_beacon_radiotap = create_logger(logger_name=__name__, fmt='%(message)s')
+
+log_init = create_logger(logger_name=__name__, fmt='%(message)s')
 
 
-class Radiotap(MGT):
-	def __init__(self, capture_dir, capture_name):
-		MGT.__init__(self, capture_dir, capture_name)
+class Frame(object):
+	def __init__(self, capture_file_path):
+		"""
+		Frame layer
+		:param capture_file_path: sniffer capture file path
+		"""
+		self.layer_name = 'frame'
+		self.capture_file_path = capture_file_path
+
+	def frame_interface_id(self, packet):
+		field_name = self.layer_name + '.' + 'interface_id'
+		value = packet.frame_info.get_field_value(field_name)
+		str_value = str(value)
+		return str_value
+
+	def frame_encap_type(self, packet):
+		field_name = self.layer_name + '.' + 'encap_type'
+		value = packet.frame_info.get_field_value(field_name)
+		str_value = str(value)
+		return str_value
+
+	def frame_time(self, packet):
+		field_name = self.layer_name + '.' + 'time'
+		value = packet.frame_info.get_field_value(field_name)
+		str_value = str(value)
+		return str_value
+
+	def frame_offset_shift(self, packet):
+		field_name = self.layer_name + '.' + 'offset_shift'
+		value = packet.frame_info.get_field_value(field_name)
+		str_value = str(value)
+		return str_value
+
+	def frame_time_epoch(self, packet):
+		field_name = self.layer_name + '.' + 'time_epoch'
+		value = packet.frame_info.get_field_value(field_name)
+		str_value = str(value)
+		return str_value
+
+	def frame_time_delta(self, packet):
+		field_name = self.layer_name + '.' + 'time_delta'
+		value = packet.frame_info.get_field_value(field_name)
+		str_value = str(value)
+		return str_value
+
+	def frame_time_delta_displayed(self, packet):
+		field_name = self.layer_name + '.' + 'time_delta_displayed'
+		value = packet.frame_info.get_field_value(field_name)
+		str_value = str(value)
+		return str_value
+
+	def frame_time_relative(self, packet):
+		field_name = self.layer_name + '.' + 'time_relative'
+		value = packet.frame_info.get_field_value(field_name)
+		str_value = str(value)
+		return str_value
+
+	def frame_number(self, packet):
+		field_name = self.layer_name + '.' + 'number'
+		value = packet.frame_info.get_field_value(field_name)
+		str_value = str(value)
+		return str_value
+
+	def frame_len(self, packet):
+		field_name = self.layer_name + '.' + 'len'
+		value = packet.frame_info.get_field_value(field_name)
+		str_value = str(value)
+		return str_value
+
+	def frame_cap_len(self, packet):
+		field_name = self.layer_name + '.' + 'cap_len'
+		value = packet.frame_info.get_field_value(field_name)
+		str_value = str(value)
+		return str_value
+
+	def frame_marked(self, packet):
+		field_name = self.layer_name + '.' + 'marked'
+		value = packet.frame_info.get_field_value(field_name)
+		str_value = str(value)
+		return str_value
+
+	def frame_ignored(self, packet):
+		field_name = self.layer_name + '.' + 'ignored'
+		value = packet.frame_info.get_field_value(field_name)
+		str_value = str(value)
+		return str_value
+
+	def frame_protocols(self, packet):
+		field_name = self.layer_name + '.' + 'protocols'
+		value = packet.frame_info.get_field_value(field_name)
+		str_value = str(value)
+		return str_value
+
+	def display_frame(self, packet, option):
+		option = str(option)
+		if option == '1':
+			value = packet.frame_info.pretty_print()
+			str_value = str(value)
+			return str_value
+		elif option == '0':
+			frame_str = """
+======================================================================
+---------------------------- Layer: Frame ----------------------------
+01. Interface id: {0} (en{0})
+02. Encapsulation type: {1} (IEEE 802.11 plus radiotap radio header)
+03. Arrival Time: {2}
+04. Time shift for this packet: {3} seconds
+05. Epoch Time: {4} seconds
+06. Time delta from previous captured frame: {5} seconds
+07. Time delta from previous displayed frame: {6}seconds
+08. Time since reference or first frame: {7} seconds
+09. Frame Number: {8}
+10. Frame Length: {9} bytes ({10} bits)
+11. Capture Length: {11} bytes ({12} bits)
+12. Frame is marked: {13}
+13. Frame is ignored: {14}
+14. Protocols in frame: {15}
+----------------------------------------------------------------------
+======================================================================
+			""".format(Frame.frame_interface_id(self, packet),
+			           Frame.frame_encap_type(self, packet),
+			           Frame.frame_time(self, packet),
+			           Frame.frame_offset_shift(self, packet),
+			           Frame.frame_time_epoch(self, packet),
+			           Frame.frame_time_delta(self, packet),
+			           Frame.frame_time_delta_displayed(self, packet),
+			           Frame.frame_time_relative(self, packet),
+			           Frame.frame_number(self, packet),
+			           Frame.frame_len(self, packet), int(Frame.frame_len(self, packet)) * 8,
+			           Frame.frame_cap_len(self, packet), int(Frame.frame_cap_len(self, packet)) * 8,
+			           Frame.frame_marked(self, packet),
+			           Frame.frame_ignored(self, packet),
+			           Frame.frame_protocols(self, packet))
+			log_init.info(frame_str)
+		# return frame_str
+		else:
+			import sys
+			log_init('Something wrong with beacon frame display setting. Exiting...')
+			sys.exit()
+
+	def get_pkt_count_all(self):
+		import pyshark
+		cap = pyshark.FileCapture(self.capture_file_path,
+		                          only_summaries=False)
+		log_init.info('Calculating capture file packet count. This may take a while depends on capture size...')
+		pkt_count = len([packet for packet in cap])
+		log_init.info('Finished calculation for capture file packet count')
+		# There seems a bug that use only summary option will not include the 1st packet, so + 1 here
+		# pkt_count = pkt_count + 1
+		return pkt_count
+
+	def get_pkt_count_filter(self, filter_str):
+		"""
+		Get packet count with display filter
+		:param filter_str: filter string
+		:return: packet count with display filter
+		"""
+		import pyshark
+		cap = pyshark.FileCapture(self.capture_file_path,
+		                          only_summaries=False,
+		                          display_filter=filter_str)
+		log_init.info('Calculating capture file packet count. This may take a while depends on capture size...')
+		pkt_count = len([packet for packet in cap])
+		log_init.info('Finished calculation for capture file packet count')
+		# There seems a bug that use only summary option will not include the 1st packet, so + 1 here
+		# pkt_count = pkt_count + 1
+		return pkt_count
+
+
+class Radiotap(Frame):
+	def __init__(self, capture_file_path):
+		Frame.__init__(self, capture_file_path)
 
 		self.layer_name = 'radiotap'
 		self.present_name = 'present'
@@ -233,7 +403,7 @@ class Radiotap(MGT):
 		           Radiotap.radiotap_present_vendor_ns(self, packet),
 		           Radiotap.radiotap_present_ext(self, packet),
 		           self.present_name.upper())
-		log_beacon_radiotap.info(radiotap_present_str)
+		log_init.info(radiotap_present_str)
 
 	# return radiotap_present_str
 
@@ -321,7 +491,7 @@ class Radiotap(MGT):
 		           Radiotap.radiotap_flags_badfcs(self, packet),
 		           Radiotap.radiotap_flags_shortgi(self, packet),
 		           self.flags_name.upper())
-		log_beacon_radiotap.info(radiotap_flags_str)
+		log_init.info(radiotap_flags_str)
 
 	# return radiotap_flags_str
 
@@ -448,7 +618,7 @@ class Radiotap(MGT):
 		           Radiotap.radiotap_channel_flags_half(self, packet),
 		           Radiotap.radiotap_channel_flags_quarter(self, packet),
 		           self.channel_name.upper() + '.' + self.flags_name.upper())
-		log_beacon_radiotap.info(radiotap_channel_flags_str)
+		log_init.info(radiotap_channel_flags_str)
 
 	# return radiotap_channel_flags_str
 
@@ -501,38 +671,119 @@ class Radiotap(MGT):
 			                       Radiotap.radiotap_dbm_antnoise(self, packet),
 			                       Radiotap.radiotap_antenna(self, packet),
 			                       self.layer_name.upper())
-			log_beacon_radiotap.info(radiotap_str)
+			log_init.info(radiotap_str)
 			Radiotap.display_radiotap_present(self, packet)
 			Radiotap.display_radiotap_flags(self, packet)
 			Radiotap.display_radiotap_channel_flags(self, packet)
 		# return radiotap_str
 		else:
 			import sys
-			log_beacon_radiotap('Something wrong with beacon frame display setting. Exiting...')
+			log_init('Something wrong with beacon frame display setting. Exiting...')
 			sys.exit()
 
-# print(cap_list[0].highest_layer)
-# print(cap_list[0].captured_length)
-# print(cap_list[0].layers)
-# print(cap_list[0].sniff_time)
-# print(cap_list[0].frame_info)
-# print(cap_list[0].length)
-# print(cap_list[0].sniff_timestamp)
-# print(cap_list[0][cap_list[0].highest_layer].get_field_value)
-# print(cap_list[0][cap_list[0].highest_layer].DATA_LAYER)
-# print(cap_list[0][cap_list[0].highest_layer].layer_name)
-# print(cap_list[0][cap_list[0].highest_layer].get_field)
-# print(cap_list[0][cap_list[0].highest_layer].pretty_print)
-# # print(dir(cap))
-#
-# print(pkt_1['WLAN'].get_field_by_showname('Transmitter address'))
-# print(str(pkt_1['WLAN'].get_field_by_showname('Transmitter address')))
-# print(str(pkt_1['WLAN'].get_field('duration')))
-# print(str(pkt_1['WLAN'].get_field('ba.control.ackpolicy')))
-# print(str(pkt_1['WLAN'].get_field_value('duration')))
-# print(str(pkt_1['WLAN'].get_field_value('ba.control')))
-# print(str(pkt_1['WLAN'].get_field_value('ba.control.ackpolicy')))
-#
-# # for pkt in cap:
-# # 	print(pkt.layer)
-# # 	print(pkt.highest_layer)
+
+class WLANRadio(Radiotap):
+	def __init__(self, capture_file_path):
+		Frame.__init__(self, capture_file_path)
+
+		self.layer_name = 'wlan_radio'
+
+	def wlan_radio_phy(self, packet):
+		field_name = self.layer_name + '.' + 'phy'
+		value = packet[self.layer_name].get_field_value(field_name)
+		str_value = str(value)
+		return str_value
+
+	def wlan_radio_turbo_type_11a(self, packet):
+		field_name = self.layer_name + '.' + '11a_turbo_type'
+		value = packet[self.layer_name].get_field_value(field_name)
+		str_value = str(value)
+		return str_value
+
+	def wlan_radio_data_rate(self, packet):
+		field_name = self.layer_name + '.' + 'data_rate'
+		value = packet[self.layer_name].get_field_value(field_name)
+		str_value = str(value)
+		return str_value
+
+	def wlan_radio_channel(self, packet):
+		field_name = self.layer_name + '.' + 'channel'
+		value = packet[self.layer_name].get_field_value(field_name)
+		str_value = str(value)
+		return str_value
+
+	def wlan_radio_frequency(self, packet):
+		field_name = self.layer_name + '.' + 'frequency'
+		value = packet[self.layer_name].get_field_value(field_name)
+		str_value = str(value)
+		return str_value
+
+	def wlan_radio_signal_dbm(self, packet):
+		field_name = self.layer_name + '.' + 'signal_dbm'
+		value = packet[self.layer_name].get_field_value(field_name)
+		str_value = str(value)
+		return str_value
+
+	def wlan_radio_noise_dbm(self, packet):
+		field_name = self.layer_name + '.' + 'noise_dbm'
+		value = packet[self.layer_name].get_field_value(field_name)
+		str_value = str(value)
+		return str_value
+
+	def wlan_radio_timestamp(self, packet):
+		field_name = self.layer_name + '.' + 'timestamp'
+		value = packet[self.layer_name].get_field_value(field_name)
+		str_value = str(value)
+		return str_value
+
+	def wlan_radio_duration(self, packet):
+		field_name = self.layer_name + '.' + 'duration'
+		value = packet[self.layer_name].get_field_value(field_name)
+		str_value = str(value)
+		return str_value
+
+	def wlan_radio_preamble(self, packet):
+		field_name = self.layer_name + '.' + 'preamble'
+		value = packet[self.layer_name].get_field_value(field_name)
+		str_value = str(value)
+		return str_value
+
+	def display_wlan_radio(self, packet, option):
+		option = str(option)
+		if option == '1':
+			value = packet[self.layer_name].pretty_print()
+			str_value = str(value)
+			return str_value
+		elif option == '0':
+			wlan_radio_str = """
+======================================================================
+---------------------------- Layer: {10} ----------------------------
+01. PHY type: {0}
+02. Turbo type: {1}
+03. Data rate: {2} Mbps 
+04. Channel: {3} 
+05. Frequency:: {4} MHz
+06. Signal strength (dBm): {5} dBm
+07. Noise level (dBm): {6} dBm 
+08. TSF timestamp:: {7}
+09. Duration: {8} us 
+09. Preamble: {9} us 
+----------------------------------------------------------------------
+======================================================================
+						""".format(WLANRadio.wlan_radio_phy(self, packet),
+			                       WLANRadio.wlan_radio_turbo_type_11a(self, packet),
+			                       WLANRadio.wlan_radio_data_rate(self, packet),
+			                       WLANRadio.wlan_radio_channel(self, packet),
+			                       WLANRadio.wlan_radio_frequency(self, packet),
+			                       WLANRadio.wlan_radio_signal_dbm(self, packet),
+			                       WLANRadio.wlan_radio_noise_dbm(self, packet),
+			                       WLANRadio.wlan_radio_timestamp(self, packet),
+			                       WLANRadio.wlan_radio_duration(self, packet),
+			                       WLANRadio.wlan_radio_preamble(self, packet),
+			                       self.layer_name.upper())
+			log_init.info(wlan_radio_str)
+			# return wlan_radio_str
+		else:
+			import sys
+			log_init('Something wrong with beacon frame display setting. Exiting...')
+			sys.exit()

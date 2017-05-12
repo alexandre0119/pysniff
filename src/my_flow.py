@@ -4,28 +4,25 @@
 
 
 import os
+
 import pandas as pd
-import numpy as np
+
 # Import config file settings
-import src.my_config.config_basic as config_basic
+import src.my_config.config_basic as cfg_basic
 import src.my_config.config_beacon as config_beacon
-import src.my_config.config_probe_request as config_probe_request
-# Import class init
-import src.my_sniff.class_init as class_init
-import src.my_sniff.mgt.beacon.beacon as beacon
-import src.my_sniff.mgt.probe_request.probe_request as probe_request
 import src.my_misc.my_decorator as my_decorator  # Decorator
+# Import class init
+import src.my_sniff.frame as class_init
+import src.my_sniff.mgt.beacon.beacon as beacon
 # Import beacon frame layer
-import src.my_sniff.mgt.beacon.frame as frame
-import src.my_sniff.mgt.probe_request.frame as probe_request_frame
 from src.my_misc.my_logging import create_logger
 
 log_flow = create_logger(logger_name=__name__, fmt='%(message)s')
 
-pd.options.display.max_rows = config_basic.pd_display_max_row()
+pd.options.display.max_rows = cfg_basic.pd_display_max_row()
 pd.options.display.float_format = '{:20,.2f}'.format
 pd.set_option('display.float_format', lambda x: '%f' % x)
-pd.set_option('precision', config_basic.pd_precision())
+pd.set_option('precision', cfg_basic.pd_precision())
 
 
 def main_flow():
@@ -34,10 +31,9 @@ def main_flow():
 	start_time = my_decorator.main_flow_starter(0)[0]
 	# start_time_formatted = my_decorator.main_flow_starter(0)[1]
 
-	capture_dir = config_basic.capture_path()
-	capture_file = config_basic.capture_file_name()
+	capture_file_path = cfg_basic.capture_file_path()
 	log_path = config_beacon.log_path()
-	init = class_init.Init(capture_dir, capture_file)
+	init = class_init.Frame(capture_file_path)
 
 	capture = init.capture_file_path
 

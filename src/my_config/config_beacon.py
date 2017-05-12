@@ -47,7 +47,7 @@ def log_path():
 	config_basic = load_config_basic()
 
 	log_subfolder = str(config_basic['Directory'].get('log_folder')) + '_' + filename_timestamp()
-	log_subpath = os.path.join(cfg_basic.log_path(), log_subfolder)
+	log_subpath = os.path.join(cfg_basic.log_dir_path(), log_subfolder)
 
 	if not os.path.exists(log_subpath):
 		os.makedirs(log_subpath)

@@ -7,13 +7,10 @@ import pandas as pd
 import src.my_config.config_basic as cfg_basic
 import src.my_config.config_beacon as cfg_beacon
 # Import beacon frame layer
-import src.my_sniff.mgt.beacon.frame as frame
-# Import beacon radiotap layer
-import src.my_sniff.mgt.beacon.radiotap as radiotap
-# Import beacon WLAN radio layer
-import src.my_sniff.mgt.beacon.wlan_radio as wlan_radio
+# import src.my_sniff.mgt.beacon.frame as frame
+import src.my_sniff.frame as frame
 # Import Beacon WLAN layer
-import src.my_sniff.mgt.beacon.wlan as wlan
+import src.my_sniff.mgt.mgt as mgt
 # Import Beacon WLAN MGT layer
 import src.my_sniff.mgt.beacon.wlan_mgt_fixed as fixed
 import src.my_sniff.mgt.beacon.wlan_mgt_tag_ssid as ssid
@@ -34,31 +31,30 @@ from src.my_misc.my_logging import create_logger
 
 log_beacon = create_logger(logger_name=__name__, fmt='%(message)s')
 
-capture_dir = cfg_basic.capture_path()  # capture file directory
-capture_file = cfg_basic.capture_file_name()  # capture file name
+capture_file_path = cfg_basic.capture_file_path()
 # Init class: Beacon frame
-frame_init = frame.Frame(capture_dir, capture_file)
+frame_init = frame.Frame(capture_file_path)
 # Init class: Beacon Radiotap
-radiotap_init = radiotap.Radiotap(capture_dir, capture_file)
+radiotap_init = frame.Radiotap(capture_file_path)
 # Init class: Beacon WLAN Radio
-wlan_radio_init = wlan_radio.WLANRadio(capture_dir, capture_file)
+wlan_radio_init = frame.WLANRadio(capture_file_path)
 # Init class: Beacon WLAN
-wlan_init = wlan.WLAN(capture_dir, capture_file)
+wlan_init = mgt.WLAN(capture_file_path)
 # Init class: Beacon WLAN MGT layer
-fixed_init = fixed.WLANMGTFixed(capture_dir, capture_file)
-ssid_init = ssid.WLANMGTTagSSID(capture_dir, capture_file)
-supported_rates_init = supported_rates.WLANMGTTagSupportedRates(capture_dir, capture_file)
-current_channel_init = current_channel.WLANMGTTagCurrentChannel(capture_dir, capture_file)
-tim_init = tim.WLANMGTTagTIM(capture_dir, capture_file)
-rsn_init = rsn.WLANMGTTagRSN(capture_dir, capture_file)
-ht_cap_init = ht_cap.WLANMGTTagHTCap(capture_dir, capture_file)
-ht_info_init = ht_info.WLANMGTTagHTInfo(capture_dir, capture_file)
-channel_report_init = channel_report.WLANMGTTagChannelReport(capture_dir, capture_file)
-extcap_init = extcap.WLANMGTTagExtCap(capture_dir, capture_file)
-vht_cap_init = vht_cap.WLANMGTTagVHTCap(capture_dir, capture_file)
-vht_op_init = vht_op.WLANMGTTagVHTOp(capture_dir, capture_file)
-oui_init = oui.WLANMGTTagOUI(capture_dir, capture_file)
-wfa_init = wfa.WLANMGTTagWFA(capture_dir, capture_file)
+fixed_init = fixed.WLANMGTFixed(capture_file_path)
+ssid_init = ssid.WLANMGTTagSSID(capture_file_path)
+supported_rates_init = supported_rates.WLANMGTTagSupportedRates(capture_file_path)
+current_channel_init = current_channel.WLANMGTTagCurrentChannel(capture_file_path)
+tim_init = tim.WLANMGTTagTIM(capture_file_path)
+rsn_init = rsn.WLANMGTTagRSN(capture_file_path)
+ht_cap_init = ht_cap.WLANMGTTagHTCap(capture_file_path)
+ht_info_init = ht_info.WLANMGTTagHTInfo(capture_file_path)
+channel_report_init = channel_report.WLANMGTTagChannelReport(capture_file_path)
+extcap_init = extcap.WLANMGTTagExtCap(capture_file_path)
+vht_cap_init = vht_cap.WLANMGTTagVHTCap(capture_file_path)
+vht_op_init = vht_op.WLANMGTTagVHTOp(capture_file_path)
+oui_init = oui.WLANMGTTagOUI(capture_file_path)
+wfa_init = wfa.WLANMGTTagWFA(capture_file_path)
 
 
 def fields_frame():

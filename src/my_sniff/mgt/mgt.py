@@ -2,16 +2,19 @@
 # -*- coding: utf-8 -*-
 # Author: Alex Wang
 
+from src.my_sniff.frame import WLANRadio
 import src.my_misc.hex2bin as hex2bin
-from src.my_sniff.mgt.mgt_basic import MGT
 from src.my_misc.my_logging import create_logger
-log_beacon_wlan = create_logger(logger_name=__name__, fmt='%(message)s')
+log_mgt = create_logger(logger_name=__name__, fmt='%(message)s')
 
 
-class WLAN(MGT):
-	def __init__(self, capture_dir, capture_name):
-		MGT.__init__(self, capture_dir, capture_name)
-
+class WLAN(WLANRadio):
+	def __init__(self, capture_file_path):
+		"""
+		Management (MGT) class
+		:param capture_file_path: sniffer capture file path
+		"""
+		WLANRadio.__init__(self, capture_file_path)
 		self.layer_name = 'wlan'
 		self.fc = 'fc'
 
@@ -121,7 +124,7 @@ class WLAN(MGT):
 		           WLAN.wlan_fc_type(self, packet),
 		           WLAN.wlan_fc_subtype(self, packet),
 		           self.fc.upper())
-		log_beacon_wlan.info(wlan_fc_str)
+		log_mgt.info(wlan_fc_str)
 	# return wlan_fc_str
 
 	def display_wlan_flags(self, packet):
@@ -150,7 +153,7 @@ fc.order: {10}
 		           WLAN.wlan_fc_moredata(self, packet),
 		           WLAN.wlan_fc_protected(self, packet),
 		           self.fc.upper())
-		log_beacon_wlan.info(wlan_flags_str)
+		log_mgt.info(wlan_flags_str)
 
 	# return radiotap_flags_str
 
@@ -289,9 +292,9 @@ fc.order: {10}
 # 			                       WLANRadio.duration(self, packet),
 # 			                       WLANRadio.preamble(self, packet),
 # 			                       self.layer_name.upper())
-# 			log_beacon_wlan.info(wlan_radio_str)
+# 			log_mgt.info(wlan_radio_str)
 # 			# return wlan_radio_str
 		else:
 			import sys
-			log_beacon_wlan('Something wrong with beacon frame display setting. Exiting...')
+			log_mgt('Something wrong with beacon frame display setting. Exiting...')
 			sys.exit()

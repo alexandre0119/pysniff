@@ -3,15 +3,15 @@
 # Author: Alex Wang
 
 # import src.my_misc.hex2bin as hex2bin
-from src.my_sniff.mgt.mgt_basic import MGT
+from src.my_sniff.mgt.mgt import WLAN
 from src.my_misc.my_logging import create_logger
 
 log_beacon_wlan_mgt_tag_rsn = create_logger(logger_name=__name__, fmt='%(message)s')
 
 
-class WLANMGTTagRSN(MGT):
-	def __init__(self, capture_dir, capture_name):
-		MGT.__init__(self, capture_dir, capture_name)
+class WLANMGTTagRSN(WLAN):
+	def __init__(self, capture_file_path):
+		WLAN.__init__(self, capture_file_path)
 
 		self.layer_name = 'wlan_mgt'
 
