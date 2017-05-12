@@ -5,17 +5,17 @@
 import sys
 import logging
 import os
-import src.my_config.config_beacon as config_beacon
+import src.my_config.config_basic as cfg_basic
 
 
-def log_path():
-	root_path = config_beacon.root_path()
-	log_name = 'log_this.txt'
+def log_file_name():
+	root_path = cfg_basic.log_path()
+	log_name = cfg_basic.log_file()
 	log_file = os.path.join(root_path, log_name)
 	return log_file
 
 
-def create_logger(logger_name=__name__, log_file=log_path(), log_level='DEBUG',
+def create_logger(logger_name=__name__, log_file=log_file_name(), log_level='DEBUG',
                   fmt='[%(asctime)s] %(levelname)s --- \n%(message)s',
                   fmt_date='%Y-%m-%d %H:%M:%S',
                   file_mode='a'):

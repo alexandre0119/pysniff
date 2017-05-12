@@ -34,7 +34,7 @@ from src.my_misc.my_logging import create_logger
 
 log_beacon = create_logger(logger_name=__name__, fmt='%(message)s')
 
-capture_dir = cfg_basic.capture_dir()  # capture file directory
+capture_dir = cfg_basic.capture_path()  # capture file directory
 capture_file = cfg_basic.capture_file()  # capture file name
 # Init class: Beacon frame
 frame_init = frame.Frame(capture_dir, capture_file)

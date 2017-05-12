@@ -18,7 +18,7 @@ from src.my_misc.my_logging import create_logger
 log_counter = create_logger(logger_name=__name__, fmt='%(message)s')
 
 
-capture_dir = config_basic.capture_dir()  # capture file directory
+capture_dir = config_basic.capture_path()  # capture file directory
 capture_file = config_basic.capture_file()  # capture file name
 # Init class frame
 beacon_frame_0 = beacon_frame.Frame(capture_dir, capture_file)

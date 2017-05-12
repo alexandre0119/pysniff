@@ -34,56 +34,37 @@ def main_flow():
 	start_time = my_decorator.main_flow_starter(0)[0]
 	# start_time_formatted = my_decorator.main_flow_starter(0)[1]
 
-	capture_dir = config_basic.capture_dir()
+	capture_dir = config_basic.capture_path()
 	capture_file = config_basic.capture_file()
 	log_path = config_beacon.log_path()
 	init = class_init.Init(capture_dir, capture_file)
 
 	capture = init.capture_file_path
-	import pyshark
-	cap = pyshark.FileCapture(capture, only_summaries=False)
 
-	test_beacon = frame.Frame(capture_dir, capture_file)
-	test_pr = probe_request_frame.Frame(capture_dir, capture_file)
-	aaaa = test_beacon.frame_encap_type(cap[1])
-	bbbb = test_pr.test(cap[1])
-	print(aaaa)
-	print(bbbb)
-	for i in bbbb:
-		print(i)
-	# import pandas
-	# bbbbb = pandas.DataFrame(bbbb.to_list())
-	# print(bbbbb)
+	beacon_df = beacon.beacon_df(capture, config_beacon.bssid(),
+	                             '1',
+	                             os.path.join(log_path, config_beacon.save_file_name('_Data', '.csv')))
 
-	# pr_sa = config_probe_request.sa()
-	# save_file_path = os.path.join(log_path, config_beacon.save_file_name('_Data', '.csv'))
-	# test = probe_request.pr_df(capture, pr_sa, '1', save_file_path)
-	# print(test)
-	#
-	# beacon_df = beacon.beacon_df(capture, config_beacon.bssid(),
-	#                              '1',
-	#                              os.path.join(log_path, config_beacon.save_file_name('_Data', '.csv')))
-	#
-	# beacon_result = beacon.check_beacon_df(capture, config_beacon.bssid(),
-	#                                        '0',
-	#                                        os.path.join(log_path, config_beacon.save_file_name('_Check', '.csv')))
-	# result_pass = pd.DataFrame(beacon_result[1])
-	# result_fail = pd.DataFrame(beacon_result[2])
-	# result_skip = pd.DataFrame(beacon_result[3])
-	#
-	# str_summary = '\n===========================================================' \
-	#               '\n------------------------- Summary -------------------------\n\n' \
-	#               '\n------------------------- Pass list -------------------------\n' \
-	#               '{0}' \
-	#               '\n------------------------- Fail list -------------------------\n' \
-	#               '{1}' \
-	#               '\n------------------------- Skip list -------------------------\n' \
-	#               '{2}' \
-	#               '\n\n---------------------------------------------------------' \
-	#               '\n===========================================================\n'.format(result_pass,
-	#                                                                                        result_fail,
-	#                                                                                        result_skip)
-	# log_flow.info(str_summary)
+	beacon_result = beacon.check_beacon_df(capture, config_beacon.bssid(),
+	                                       '0',
+	                                       os.path.join(log_path, config_beacon.save_file_name('_Check', '.csv')))
+	result_pass = pd.DataFrame(beacon_result[1])
+	result_fail = pd.DataFrame(beacon_result[2])
+	result_skip = pd.DataFrame(beacon_result[3])
+
+	str_summary = '\n===========================================================' \
+	              '\n------------------------- Summary -------------------------\n\n' \
+	              '\n------------------------- Pass list -------------------------\n' \
+	              '{0}' \
+	              '\n------------------------- Fail list -------------------------\n' \
+	              '{1}' \
+	              '\n------------------------- Skip list -------------------------\n' \
+	              '{2}' \
+	              '\n\n---------------------------------------------------------' \
+	              '\n===========================================================\n'.format(result_pass,
+	                                                                                       result_fail,
+	                                                                                       result_skip)
+	log_flow.info(str_summary)
 	#
 	# objects_value = [len(result_pass), len(result_fail), len(result_skip)]
 	# objects_title = ['Pass: {0}'.format(objects_value[0]),

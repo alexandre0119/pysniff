@@ -2,16 +2,18 @@
 # -*- coding: utf-8 -*-
 # Author: Alex Wang
 
+"""
+Process config.ini file, get value for each field in config.ini file for easy usage
+"""
+
 import configparser
-
-
 # from src.my_misc.my_logging import create_logger
-# log = create_logger()
+# log_cfg = create_logger()
 
 
 def load_config():
 	"""
-	Load config.ini file and return instance
+	config.ini file
 	:return: config instance
 	"""
 	config = configparser.ConfigParser()
@@ -20,49 +22,102 @@ def load_config():
 	return config
 
 
-def program_dir():
+def program_path():
 	"""
-	Load capture file directory from config.ini file
-	:return: capture directory
+	Entire program path
+	:return: program path
 	"""
 	config = load_config()
-	capture_path = str(config['Directory'].get('Program_Path'))
-	return capture_path
+	path = str(config['Directory'].get('program_path'))
+	print('Program Path is \n\t{0}'.format(path))
+	return path
 
 
 def capture_folder():
 	"""
-	Load capture file directory from config.ini file
-	:return: capture directory
+	capture file folder
+	:return: capture file folder
 	"""
 	config = load_config()
-	capture_path = str(config['Directory'].get('Capture_Folder'))
-	return capture_path
+	folder = str(config['Directory'].get('capture_folder'))
+	return folder
 
 
-def capture_dir():
+def log_folder():
+	"""
+	Log folder
+	:return: log file folder
+	"""
+	config = load_config()
+	folder = str(config['Directory'].get('log_folder'))
+	return folder
+
+
+def capture_path():
+	"""
+	Capture file path
+	:return: capture file path
+	"""
 	import os
-	capture_path = os.path.join(program_dir(), capture_folder())
-	return capture_path
+	path = os.path.join(program_path(), capture_folder())
+	return path
+
+
+def log_path():
+	"""
+	Log file path
+	:return: log file path
+	"""
+	import os
+	path = os.path.join(program_path(), log_folder())
+	return path
 
 
 def capture_file():
 	"""
-	Load capture file name from config.ini file
+	Capture file name
 	:return: capture file name
 	"""
 	config = load_config()
-	capture_file_name = str(config['File'].get('Capture_File'))
-	return capture_file_name
+	file_name = str(config['File'].get('capture_file'))
+	return file_name
+
+
+def log_file():
+	"""
+	Log file name
+	:return: log file name
+	"""
+	config = load_config()
+	file_name = str(config['File'].get('log_file'))
+	return file_name
 
 
 def pd_display_max_row():
+	"""
+	Pandas display max row number
+	:return: max row number
+	"""
 	config = load_config()
-	max_row = int(str(config['Pandas'].get('Display_MaxRow')))
-	return max_row
+	number = int(str(config['Pandas'].get('display_max_row')))
+	return number
+
+
+def pd_display_max_col():
+	"""
+	Pandas display max col number
+	:return: max col number
+	"""
+	config = load_config()
+	number = int(str(config['Pandas'].get('display_max_col')))
+	return number
 
 
 def pd_precision():
+	"""
+	Pandas set precision
+	:return: precision digit number
+	"""
 	config = load_config()
-	precision = int(str(config['Pandas'].get('Precision')))
+	precision = int(str(config['Pandas'].get('precision')))
 	return precision

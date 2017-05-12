@@ -3,10 +3,11 @@
 # Author: Alex Wang
 
 import configparser
+import src.my_config.config_basic as cfg_basic
 
 
 # from src.my_misc.my_logging import create_logger
-# log = create_logger()
+# log_cfg = create_logger()
 
 
 def config_file_path():
@@ -40,28 +41,13 @@ def load_config_basic():
 	return config_basic
 
 
-def root_path():
-	import os
-	config_beacon = load_config_beacon()
-	config_basic = load_config_basic()
-
-	root_path_str = str(config_basic['Directory'].get('Program_Path'))
-	log_folder = str(config_beacon['Directory'].get('Log_Save_Folder'))
-	log_path_str = os.path.join(root_path_str, log_folder)
-
-	if not os.path.exists(log_path_str):
-		os.makedirs(log_path_str)
-
-	return log_path_str
-
-
 def log_path():
 	import os
 	from src.my_misc.my_time import filename_timestamp
-	config_beacon = load_config_beacon()
+	config_basic = load_config_basic()
 
-	log_subfolder = str(config_beacon['Directory'].get('Log_Save_Folder')) + '_' + filename_timestamp()
-	log_subpath = os.path.join(root_path(), log_subfolder)
+	log_subfolder = str(config_basic['Directory'].get('log_folder')) + '_' + filename_timestamp()
+	log_subpath = os.path.join(cfg_basic.log_path(), log_subfolder)
 
 	if not os.path.exists(log_subpath):
 		os.makedirs(log_subpath)
