@@ -3,8 +3,6 @@
 # Author: Alex Wang
 
 import configparser
-import src.my_config.config_basic as cfg_basic
-
 
 # from src.my_misc.my_logging import create_logger
 # log_cfg = create_logger()
@@ -41,33 +39,19 @@ def load_config_basic():
 	return config_basic
 
 
-def log_path():
-	import os
-	from src.my_misc.my_time import filename_timestamp
-	config_basic = load_config_basic()
-
-	log_subfolder = str(config_basic['Directory'].get('log_folder')) + '_' + filename_timestamp()
-	log_subpath = os.path.join(cfg_basic.log_dir_path(), log_subfolder)
-
-	if not os.path.exists(log_subpath):
-		os.makedirs(log_subpath)
-
-	return log_subpath
-
-
 def save_file_name(name_str, file_format):
 	config_beacon = load_config_beacon()
 
-	file_prefix = str(config_beacon['Directory'].get('Log_File_Name_Prefix'))
-	bssid_str = '-'.join(str(config_beacon['Address'].get('bssid')).split(':'))
-	file_name = file_prefix + '_' + bssid_str + '_' + name_str + file_format
+	file_prefix = str(config_beacon['Directory'].get('log_file_name_prefix'))
+	id_str = '-'.join(str(config_beacon['Address'].get('sa')).split(':'))
+	file_name = file_prefix + '_' + id_str + '_' + name_str + file_format
 
 	return file_name
 
 
-def bssid():
+def sa():
 	config_beacon = load_config_beacon()
-	bssid_value = str(config_beacon['Address'].get('bssid'))
+	bssid_value = str(config_beacon['Address'].get('sa'))
 	return bssid_value
 
 
@@ -297,21 +281,21 @@ def wlan_da():
 def wlan_ta():
 	config_beacon = load_config_beacon()
 	enable = str(config_beacon['WLAN'].get('ta_enable'))
-	value = bssid()
+	value = sa()
 	return enable, value
 
 
 def wlan_sa():
 	config_beacon = load_config_beacon()
 	enable = str(config_beacon['WLAN'].get('sa_enable'))
-	value = bssid()
+	value = sa()
 	return enable, value
 
 
 def wlan_bssid():
 	config_beacon = load_config_beacon()
 	enable = str(config_beacon['WLAN'].get('bssid_enable'))
-	value = bssid()
+	value = sa()
 	return enable, value
 
 

@@ -97,6 +97,20 @@ def log_file_path():
 	return path
 
 
+def log_folder_timestamp():
+	import os
+	from src.my_misc.my_time import filename_timestamp
+	config_basic = load_config()
+
+	log_subfolder = str(config_basic['Directory'].get('log_folder')) + '_' + filename_timestamp()
+	log_subpath = os.path.join(log_dir_path(), log_subfolder)
+
+	if not os.path.exists(log_subpath):
+		os.makedirs(log_subpath)
+
+	return log_subpath
+
+
 def pytest_capture_dir_path():
 	"""
 	Pytest capture file directory path
@@ -157,3 +171,21 @@ def pd_precision():
 	config = load_config()
 	precision = int(str(config['Pandas'].get('precision')))
 	return precision
+
+
+def enable_beacon():
+	config = load_config()
+	enable = str(config['Frame_Management'].get('enable_beacon'))
+	return enable
+
+
+def enable_probe_req():
+	config = load_config()
+	enable = str(config['Frame_Management'].get('enable_probe_req'))
+	return enable
+
+
+def enable_probe_res():
+	config = load_config()
+	enable = str(config['Frame_Management'].get('enable_probe_res'))
+	return enable

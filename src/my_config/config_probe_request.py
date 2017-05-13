@@ -4,7 +4,6 @@
 
 import configparser
 
-
 # from src.my_misc.my_logging import create_logger
 # log = create_logger()
 
@@ -40,41 +39,12 @@ def load_config_basic():
 	return config_basic
 
 
-def root_path():
-	import os
-	config_probe_request = load_config_probe_request()
-	config_basic = load_config_basic()
-
-	root_path_str = str(config_basic['Directory'].get('Program_Path'))
-	log_folder = str(config_probe_request['Directory'].get('Log_Save_Folder'))
-	log_path_str = os.path.join(root_path_str, log_folder)
-
-	if not os.path.exists(log_path_str):
-		os.makedirs(log_path_str)
-
-	return log_path_str
-
-
-def log_path():
-	import os
-	from src.my_misc.my_time import filename_timestamp
-	config_probe_request = load_config_probe_request()
-
-	log_subfolder = str(config_probe_request['Directory'].get('Log_Save_Folder')) + '_' + filename_timestamp()
-	log_subpath = os.path.join(root_path(), log_subfolder)
-
-	if not os.path.exists(log_subpath):
-		os.makedirs(log_subpath)
-
-	return log_subpath
-
-
 def save_file_name(name_str, file_format):
 	config_probe_request = load_config_probe_request()
 
-	file_prefix = str(config_probe_request['Directory'].get('Log_File_Name_Prefix'))
-	bssid_str = '-'.join(str(config_probe_request['Address'].get('bssid')).split(':'))
-	file_name = file_prefix + '_' + bssid_str + '_' + name_str + file_format
+	file_prefix = str(config_probe_request['Directory'].get('log_file_name_prefix'))
+	id_str = '-'.join(str(config_probe_request['Address'].get('sa')).split(':'))
+	file_name = file_prefix + '_' + id_str + '_' + name_str + file_format
 
 	return file_name
 
@@ -130,4 +100,116 @@ def frame_protocols():
 	config_probe_request = load_config_probe_request()
 	enable = str(config_probe_request['Frame'].get('protocols_enable'))
 	value = str(config_probe_request['Frame'].get('protocols_value'))
+	return enable, value
+
+
+def radiotap_version():
+	config_beacon = load_config_probe_request()
+	enable = str(config_beacon['Radiotap'].get('version_enable'))
+	value = str(config_beacon['Radiotap'].get('version_value'))
+	return enable, value
+
+
+def radiotap_pad():
+	config_beacon = load_config_probe_request()
+	enable = str(config_beacon['Radiotap'].get('pad_enable'))
+	value = str(config_beacon['Radiotap'].get('pad_value'))
+	return enable, value
+
+
+def radiotap_length():
+	config_beacon = load_config_probe_request()
+	enable = str(config_beacon['Radiotap'].get('length_enable'))
+	value = str(config_beacon['Radiotap'].get('length_value'))
+	return enable, value
+
+
+def radiotap_present_word():
+	config_beacon = load_config_probe_request()
+	enable = str(config_beacon['Radiotap'].get('present_word_enable'))
+	value = str(config_beacon['Radiotap'].get('present_word_value'))
+	return enable, value
+
+
+def radiotap_flags():
+	config_beacon = load_config_probe_request()
+	enable = str(config_beacon['Radiotap'].get('flags_enable'))
+	value = str(config_beacon['Radiotap'].get('flags_value'))
+	return enable, value
+
+
+def radiotap_datarate():
+	config_beacon = load_config_probe_request()
+	enable = str(config_beacon['Radiotap'].get('datarate_enable'))
+	value = str(config_beacon['Radiotap'].get('datarate_value'))
+	return enable, value
+
+
+def radiotap_channel_freq():
+	config_beacon = load_config_probe_request()
+	enable = str(config_beacon['Radiotap'].get('channel_freq_enable'))
+	value = str(config_beacon['Radiotap'].get('channel_freq_value'))
+	return enable, value
+
+
+def radiotap_channel_flags():
+	config_beacon = load_config_probe_request()
+	enable = str(config_beacon['Radiotap'].get('channel_flags_enable'))
+	value = str(config_beacon['Radiotap'].get('channel_flags_value'))
+	return enable, value
+
+
+def radiotap_antenna():
+	config_beacon = load_config_probe_request()
+	enable = str(config_beacon['Radiotap'].get('antenna_enable'))
+	value = str(config_beacon['Radiotap'].get('antenna_value'))
+	return enable, value
+
+
+def wlan_radio_phy():
+	config_beacon = load_config_probe_request()
+	enable = str(config_beacon['WLAN_Radio'].get('phy_enable'))
+	value = str(config_beacon['WLAN_Radio'].get('phy_value'))
+	return enable, value
+
+
+def wlan_radio_turbo_type_11a():
+	config_beacon = load_config_probe_request()
+	enable = str(config_beacon['WLAN_Radio'].get('turbo_type_11a_enable'))
+	value = str(config_beacon['WLAN_Radio'].get('turbo_type_11a_value'))
+	return enable, value
+
+
+def wlan_radio_data_rate():
+	config_beacon = load_config_probe_request()
+	enable = str(config_beacon['WLAN_Radio'].get('data_rate_enable'))
+	value = str(config_beacon['WLAN_Radio'].get('data_rate_value'))
+	return enable, value
+
+
+def wlan_radio_channel():
+	config_beacon = load_config_probe_request()
+	enable = str(config_beacon['WLAN_Radio'].get('channel_enable'))
+	value = str(config_beacon['WLAN_Radio'].get('channel_value'))
+	return enable, value
+
+
+def wlan_radio_frequency():
+	config_beacon = load_config_probe_request()
+	enable = str(config_beacon['WLAN_Radio'].get('frequency_enable'))
+	value = str(config_beacon['WLAN_Radio'].get('frequency_value'))
+	return enable, value
+
+
+def wlan_radio_duration():
+	config_beacon = load_config_probe_request()
+	enable = str(config_beacon['WLAN_Radio'].get('duration_enable'))
+	value = str(config_beacon['WLAN_Radio'].get('duration_value'))
+	return enable, value
+
+
+def wlan_radio_preamble():
+	config_beacon = load_config_probe_request()
+	enable = str(config_beacon['WLAN_Radio'].get('preamble_enable'))
+	value = str(config_beacon['WLAN_Radio'].get('preamble_value'))
 	return enable, value

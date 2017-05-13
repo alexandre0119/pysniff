@@ -2,14 +2,12 @@
 # -*- coding: utf-8 -*-
 # Author: Alex Wang
 
-import pandas as pd
 # Import config file setting
 import src.my_config.config_basic as cfg_basic
 import src.my_config.config_beacon as cfg_beacon
-# Import beacon frame layer
-# import src.my_sniff.mgt.beacon.frame as frame
+# Import frame layer
 import src.my_sniff.frame as frame
-# Import Beacon WLAN layer
+# Import WLAN layer
 import src.my_sniff.mgt.mgt as mgt
 # Import Beacon WLAN MGT layer
 import src.my_sniff.mgt.beacon.wlan_mgt_fixed as fixed
@@ -29,7 +27,7 @@ import src.my_sniff.mgt.beacon.wlan_mgt_tag_wfa as wfa
 # Set logger
 from src.my_misc.my_logging import create_logger
 
-log_beacon = create_logger(logger_name=__name__, fmt='%(message)s')
+logger_0 = create_logger(logger_name=__name__, fmt='%(message)s')
 
 capture_file_path = cfg_basic.capture_file_path()
 # Init class: Beacon frame
@@ -838,37 +836,70 @@ def values(packet):
 	return values_list
 
 
-def beacon_df(capture, bssid, csv_enable, save_file_path):
-	pd.options.display.max_rows = cfg_basic.pd_display_max_row()
-	pd.set_option('precision', cfg_basic.pd_precision())
+def beacon_df(capture, sa, csv_enable, data_csv_path):
+	"""
+	Get packet fields value into DataFrame and CSV
+	:param capture: capture file
+	:param sa: source address
+	:param csv_enable: 0: disable write into csv; 1: enable write into csv
+	:param data_csv_path: csv file save path
+	:return: beacon fields value DataFrame
+	"""
+	# Set pandas display and float number options
+	import sys
+	import pandas
+	pandas.set_option("display.max_rows", cfg_basic.pd_display_max_row())
+	pandas.set_option("display.max_columns", cfg_basic.pd_display_max_col())
+	pandas.set_option('precision', cfg_basic.pd_precision())
 
-	beacon_count = 0
-	beacon_info_list = []
+	count = 0  # init counter to 0
+	all_data_list = []  # init data list
 
-	bssid_str = bssid
-	filter_str = cfg_beacon.type_value()[1] + ' and wlan.bssid == ' + bssid_str
-	log_beacon.info('Filter based on: {0}'.format(filter_str))
+	# Set Wireshark display filter
+	filter_str = cfg_beacon.type_value()[1] + ' and wlan.sa == ' + str(sa)
+	logger_0.info('Filter based on: \n\t{0}\n'.format(filter_str))
 
+	# Pyshark file capture with display filter
 	import pyshark
-	cap_beacon = pyshark.FileCapture(capture, only_summaries=False, display_filter=filter_str)
+	cap = pyshark.FileCapture(capture, only_summaries=False, display_filter=filter_str)
 
-	for i_cap_beacon in cap_beacon:
-		beacon_content_list = [beacon_count] + values(i_cap_beacon)
-		beacon_info_list.append(beacon_content_list)
-		beacon_count += 1
+	# loop each packet in capture file
+	for i_cap in cap:
+		# counter + get packet values for all fields
+		data_list = [count] + values(i_cap)
+		# append each packet field values to all data list
+		all_data_list.append(data_list)
+		# increase counter
+		count += 1
 
-	df = pd.DataFrame(beacon_info_list)
+	# convert all data list to DataFrame
+	df = pandas.DataFrame(all_data_list)
 
+	if df.empty:
+		logger_0.info('DataFrame is empty!')
+		return df
+
+	# add counter column
 	col_list = ['count']
+	# counter col + all fields name as DataFrame columns
 	col_list.extend(fields()[0])
 	df.columns = col_list
+	# assign count col as index
 	df.index = df['count']
+	# give index col a name
 	df.index.name = 'Index'
 
-	csv_enable_str = str(csv_enable)
-	if csv_enable_str == '1':
-		df.to_csv(save_file_path)
+	# write into csv or not
+	if str(csv_enable) == '1':
+		logger_0.info('Write get values into DataFrame.')
+		df.to_csv(data_csv_path)
+	elif str(csv_enable) == '0':
+		logger_0.info('Skip write get values into DataFrame.')
+	else:
+		logger_0.info('Something wrong with "csv_enable" setting, pls check. Exiting...')
+		sys.exit()
 
+	# Return DataFrame
 	return df
 
 
@@ -895,7 +926,7 @@ def check_beacon_df_warp_1(enable, df, row, row_index, col, ref_data):
 		index = row_index
 		get_value = row[col]
 		ref_value = ref_data
-		log_beacon.info('\tGet value: {0}\n\tRef value: {1}'.format(get_value, ref_value))
+		logger_0.info('\tGet value: {0}\n\tRef value: {1}'.format(get_value, ref_value))
 		if get_value == ref_value:
 			pass_list.append([index, col, check_beacon_df_warp_0('p', ref_value, get_value)])
 			df.loc[index, col] = check_beacon_df_warp_0('p', ref_value, get_value)
@@ -924,7 +955,7 @@ def check_beacon_df_warp_3(df, row, row_index, pass_list_all, fail_list_all, ski
 	# fields_all = fields_frame() + fields_radiotap() + fields_wlan_radio() + fields_wlan()
 	fields_to_check = fields()[1]
 	for i_field in fields_to_check:
-		log_beacon.info('\nCheck data for row[{0}], col[{1}]:'.format(row_index, i_field))
+		logger_0.info('\nCheck data for row[{0}], col[{1}]:'.format(row_index, i_field))
 		col = i_field
 		enable = getattr(cfg_beacon, i_field)()[0]
 		ref_data = getattr(cfg_beacon, i_field)()[1]
@@ -933,9 +964,8 @@ def check_beacon_df_warp_3(df, row, row_index, pass_list_all, fail_list_all, ski
 	return df, pass_list_all, fail_list_all, skip_list_all
 
 
-def check_beacon_df(capture, bssid, csv_enable, save_file_path):
-	df = beacon_df(capture, bssid, csv_enable, save_file_path)
-	df_copy = df.copy()
+def check_beacon_df(capture, sa, csv_enable, data_csv_path, check_csv_path):
+	df = beacon_df(capture, sa, csv_enable, data_csv_path)
 
 	pass_list_all = []
 	fail_list_all = []
@@ -943,9 +973,9 @@ def check_beacon_df(capture, bssid, csv_enable, save_file_path):
 
 	# Loop for DF rows: index: index number, row: row data content
 	for row_index, row in df.iterrows():
-		check_beacon_df_warp_3(df_copy, row, row_index,
+		check_beacon_df_warp_3(df, row, row_index,
 		                       pass_list_all, fail_list_all, skip_list_all)
 
-	df_copy.to_csv(save_file_path)
+		df.to_csv(check_csv_path)
 
-	return df_copy, pass_list_all, fail_list_all, skip_list_all
+	return df, pass_list_all, fail_list_all, skip_list_all
