@@ -14,7 +14,10 @@
       <w>radiotab</w>
       <w>radiotap</w>
       <w>rxbitmask</w>
+      <w>subfolder</w>
+      <w>subpath</w>
       <w>txop</w>
+      <w>wsdf</w>
     </words>
   </dictionary>
 </component>

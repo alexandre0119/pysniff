@@ -6,7 +6,7 @@
 import os
 
 import pandas as pd
-
+import src.my_sniff.data_process as dp
 # Import config file settings
 import src.my_config.config_basic as cfg_basic
 import src.my_config.config_beacon as config_beacon
@@ -37,7 +37,7 @@ def main_flow():
 
 	capture = init.capture_file_path
 
-	if cfg_basic.enable_beacon() == '1':
+	if cfg_basic.beacon_enable() == '1':
 		log_flow.info('Beacon check enabled.')
 		# beacon_df = beacon.beacon_df(capture, config_beacon.bssid(),
 		#                              '1',
@@ -45,10 +45,16 @@ def main_flow():
 		# if beacon_df.empty:
 		# 	log_flow.info('Beacon DF is empty!')
 
-		beacon_result = beacon.check_beacon_df(capture, config_beacon.sa(),
-		                                       '1',
-		                                       os.path.join(log_path, config_beacon.save_file_name('Data', '.csv')),
-		                                       os.path.join(log_path, config_beacon.save_file_name('Check', '.csv')))
+		filter_str = cfg_basic.beacon_type_value()[1] + ' and wlan.sa == ' + config_beacon.sa()
+		beacon_result = dp.check_df(capture,
+		                            config_beacon,
+		                            filter_str,
+		                            beacon.values,
+		                            beacon.fields(),
+		                            '1',
+		                            os.path.join(log_path, config_beacon.save_file_name('Data', '.csv')),
+		                            os.path.join(log_path, config_beacon.save_file_name('Check', '.csv'))
+		                            )
 		result_pass = pd.DataFrame(beacon_result[1])
 		result_fail = pd.DataFrame(beacon_result[2])
 		result_skip = pd.DataFrame(beacon_result[3])
@@ -66,49 +72,49 @@ def main_flow():
 		                                                                                       result_fail,
 		                                                                                       result_skip)
 		log_flow.info(str_summary)
-		#
-		# objects_value = [len(result_pass), len(result_fail), len(result_skip)]
-		# objects_title = ['Pass: {0}'.format(objects_value[0]),
-		#                  'Fail: {0}'.format(objects_value[1]),
-		#                  'Skip: {0}'.format(objects_value[2])]
-		#
-		# my_matplotlib.pie_chart(objects_title, objects_value,
-		#                         'Check Item Summary',
-		#                         'Status',
-		#                         'Checked fields count',
-		#                         os.path.join(log_path, config_beacon.save_file_name('_summary', '.png')))
-		#
-		# beacon_df['frame_time_delta_displayed'] = beacon_df['frame_time_delta_displayed'].drop(beacon_df['frame_time_delta_displayed'].index[0])
-		# beacon_df['wlan_seq'] = beacon_df['wlan_seq'].drop(beacon_df['wlan_seq'].index[0])
-		# beacon_df['count'] = beacon_df['count'].drop(beacon_df['count'].index[0])
-		#
-		# beacon_df['frame_time_delta_displayed'] = pd.to_numeric(beacon_df['frame_time_delta_displayed'], errors='coerce')
-		# beacon_df['wlan_seq'] = pd.to_numeric(beacon_df['wlan_seq'], errors='coerce')
-		# # describe_0 = beacon_df['frame_time_delta_displayed'].describe(percentiles=None).round(5)
-		# describe_0 = 'Mean: {0}; Std: {1}; Min: {2}; Max: {3}'.format(np.round(beacon_df['frame_time_delta_displayed'].mean(), decimals=3),
-		#                                                               np.round(beacon_df['frame_time_delta_displayed'].std(), decimals=3),
-		#                                                               np.round(beacon_df['frame_time_delta_displayed'].min(), decimals=3),
-		#                                                               np.round(beacon_df['frame_time_delta_displayed'].max(), decimals=3))
-		#
-		# describe_1 = 'Mean: {0}; Std: {1}; Min: {2}; Max: {3}'.format(np.round(beacon_df['wlan_seq'].mean(), decimals=3),
-		#                                                               np.round(beacon_df['wlan_seq'].std(), decimals=3),
-		#                                                               np.round(beacon_df['wlan_seq'].min(), decimals=3),
-		#                                                               np.round(beacon_df['wlan_seq'].max(), decimals=3))
-		# print(describe_0)
-		# print(describe_1)
-		# my_matplotlib.line_chart(beacon_df['count'].tolist(),
-		#                          beacon_df['frame_time_delta_displayed'].tolist(),
-		#                          'Time Delta Displayed',
-		#                          describe_0,
-		#                          'Time Delta (s)',
-		#                          os.path.join(log_path, config_beacon.save_file_name('_time_delta_displayed', '.png')))
-		#
-		# my_matplotlib.line_chart(beacon_df['count'].tolist(),
-		#                          beacon_df['wlan_seq'].tolist(),
-		#                          'WLAN Seq',
-		#                          describe_1,
-		#                          'WLAN Seq',
-		#                          os.path.join(log_path, config_beacon.save_file_name('_wlan_seq', '.png')))
+	#
+	# objects_value = [len(result_pass), len(result_fail), len(result_skip)]
+	# objects_title = ['Pass: {0}'.format(objects_value[0]),
+	#                  'Fail: {0}'.format(objects_value[1]),
+	#                  'Skip: {0}'.format(objects_value[2])]
+	#
+	# my_matplotlib.pie_chart(objects_title, objects_value,
+	#                         'Check Item Summary',
+	#                         'Status',
+	#                         'Checked fields count',
+	#                         os.path.join(log_path, config_beacon.save_file_name('_summary', '.png')))
+	#
+	# beacon_df['frame_time_delta_displayed'] = beacon_df['frame_time_delta_displayed'].drop(beacon_df['frame_time_delta_displayed'].index[0])
+	# beacon_df['wlan_seq'] = beacon_df['wlan_seq'].drop(beacon_df['wlan_seq'].index[0])
+	# beacon_df['count'] = beacon_df['count'].drop(beacon_df['count'].index[0])
+	#
+	# beacon_df['frame_time_delta_displayed'] = pd.to_numeric(beacon_df['frame_time_delta_displayed'], errors='coerce')
+	# beacon_df['wlan_seq'] = pd.to_numeric(beacon_df['wlan_seq'], errors='coerce')
+	# # describe_0 = beacon_df['frame_time_delta_displayed'].describe(percentiles=None).round(5)
+	# describe_0 = 'Mean: {0}; Std: {1}; Min: {2}; Max: {3}'.format(np.round(beacon_df['frame_time_delta_displayed'].mean(), decimals=3),
+	#                                                               np.round(beacon_df['frame_time_delta_displayed'].std(), decimals=3),
+	#                                                               np.round(beacon_df['frame_time_delta_displayed'].min(), decimals=3),
+	#                                                               np.round(beacon_df['frame_time_delta_displayed'].max(), decimals=3))
+	#
+	# describe_1 = 'Mean: {0}; Std: {1}; Min: {2}; Max: {3}'.format(np.round(beacon_df['wlan_seq'].mean(), decimals=3),
+	#                                                               np.round(beacon_df['wlan_seq'].std(), decimals=3),
+	#                                                               np.round(beacon_df['wlan_seq'].min(), decimals=3),
+	#                                                               np.round(beacon_df['wlan_seq'].max(), decimals=3))
+	# print(describe_0)
+	# print(describe_1)
+	# my_matplotlib.line_chart(beacon_df['count'].tolist(),
+	#                          beacon_df['frame_time_delta_displayed'].tolist(),
+	#                          'Time Delta Displayed',
+	#                          describe_0,
+	#                          'Time Delta (s)',
+	#                          os.path.join(log_path, config_beacon.save_file_name('_time_delta_displayed', '.png')))
+	#
+	# my_matplotlib.line_chart(beacon_df['count'].tolist(),
+	#                          beacon_df['wlan_seq'].tolist(),
+	#                          'WLAN Seq',
+	#                          describe_1,
+	#                          'WLAN Seq',
+	#                          os.path.join(log_path, config_beacon.save_file_name('_wlan_seq', '.png')))
 	else:
 		log_flow.info('Skip Beacon check.')
 
