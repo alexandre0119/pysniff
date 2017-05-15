@@ -39,130 +39,89 @@ def main_flow():
 
 	capture = init.capture_file_path
 
+	# Beacon
+	packet_str = 'beacon'
 	if cfg_basic.beacon_enable() == '1':
-		logger_flow.info('Beacon check enabled.')
-		# beacon_df = beacon.beacon_df(capture, config_beacon.bssid(),
-		#                              '1',
-		#                              os.path.join(log_path, config_beacon.save_file_name('_Data', '.csv')))
-		# if beacon_df.empty:
-		# 	logger_flow.info('Beacon DF is empty!')
+		my_decorator.packet_check_start(packet_str)
+		packet_cfg_file = config_beacon
+		packet_data_file = beacon
 
-		filter_str = cfg_basic.beacon_type_value()[1] + ' and wlan.sa == ' + config_beacon.sa()
+		filter_str = getattr(cfg_basic, packet_str + '_type_value')()[1] \
+		             + ' and wlan.sa == ' + packet_cfg_file.sa()
 		results = dp.check_df(capture,
-		                      config_beacon,
+		                      packet_cfg_file,
 		                      filter_str,
-		                      beacon.values,
-		                      beacon.fields(),
+		                      packet_data_file.values,
+		                      packet_data_file.fields(),
 		                      '1',
-		                      os.path.join(log_path, config_beacon.save_file_name('Data', '.csv')),
-		                      os.path.join(log_path, config_beacon.save_file_name('Check', '.csv'))
+		                      os.path.join(log_path, packet_cfg_file.save_file_name('Data', '.csv')),
+		                      os.path.join(log_path, packet_cfg_file.save_file_name('Check', '.csv'))
 		                      )
-		result_pass = pd.DataFrame(results[1])
-		result_fail = pd.DataFrame(results[2])
-		result_skip = pd.DataFrame(results[3])
 
-		str_summary = '\n===========================================================' \
-		              '\n------------------------- Summary -------------------------\n\n' \
-		              '\n------------------------- Pass list -------------------------\n' \
-		              '{0}' \
-		              '\n------------------------- Fail list -------------------------\n' \
-		              '{1}' \
-		              '\n------------------------- Skip list -------------------------\n' \
-		              '{2}' \
-		              '\n\n---------------------------------------------------------' \
-		              '\n===========================================================\n'.format(result_pass,
-		                                                                                       result_fail,
-		                                                                                       result_skip)
-		logger_flow.info(str_summary)
-	else:
-		logger_flow.info('Skip Beacon...')
-
-	if cfg_basic.probe_req_enable() == '1':
-		logger_flow.info('Probe Request check enabled.')
-		# beacon_df = beacon.beacon_df(capture, config_beacon.bssid(),
-		#                              '1',
-		#                              os.path.join(log_path, config_beacon.save_file_name('_Data', '.csv')))
-		# if beacon_df.empty:
-		# 	logger_flow.info('Beacon DF is empty!')
-
-		filter_str = cfg_basic.probe_req_type_value()[1] + ' and wlan.sa == ' + config_probe_request.sa()
-		results = dp.check_df(capture,
-		                      config_probe_request,
-		                      filter_str,
-		                      probe_request.values,
-		                      probe_request.fields(),
-		                      '1',
-		                      os.path.join(log_path, config_probe_request.save_file_name('Data', '.csv')),
-		                      os.path.join(log_path, config_probe_request.save_file_name('Check', '.csv'))
-		                      )
 		if results[0].empty:
-			logger_flow.info('Probe request does not find any.')
-		result_pass = pd.DataFrame(results[1])
-		result_fail = pd.DataFrame(results[2])
-		result_skip = pd.DataFrame(results[3])
-
-		str_summary = '\n===========================================================' \
-		              '\n------------------------- Summary -------------------------\n\n' \
-		              '\n------------------------- Pass list -------------------------\n' \
-		              '{0}' \
-		              '\n------------------------- Fail list -------------------------\n' \
-		              '{1}' \
-		              '\n------------------------- Skip list -------------------------\n' \
-		              '{2}' \
-		              '\n\n---------------------------------------------------------' \
-		              '\n===========================================================\n'.format(result_pass,
-		                                                                                       result_fail,
-		                                                                                       result_skip)
-		logger_flow.info(str_summary)
+			my_decorator.packet_check_empty(packet_str)
+		else:
+			my_decorator.packet_summary(pd.DataFrame(results[1]),
+			                            pd.DataFrame(results[2]),
+			                            pd.DataFrame(results[3]))
 	else:
-		logger_flow.info('SKip probe request...')
+		my_decorator.packet_check_skip(packet_str)
 
-	if cfg_basic.probe_res_enable() == '0':
-		pass
-	# objects_value = [len(result_pass), len(result_fail), len(result_skip)]
-	# objects_title = ['Pass: {0}'.format(objects_value[0]),
-	#                  'Fail: {0}'.format(objects_value[1]),
-	#                  'Skip: {0}'.format(objects_value[2])]
-	#
-	# my_matplotlib.pie_chart(objects_title, objects_value,
-	#                         'Check Item Summary',
-	#                         'Status',
-	#                         'Checked fields count',
-	#                         os.path.join(log_path, config_beacon.save_file_name('_summary', '.png')))
-	#
-	# beacon_df['frame_time_delta_displayed'] = beacon_df['frame_time_delta_displayed'].drop(beacon_df['frame_time_delta_displayed'].index[0])
-	# beacon_df['wlan_seq'] = beacon_df['wlan_seq'].drop(beacon_df['wlan_seq'].index[0])
-	# beacon_df['count'] = beacon_df['count'].drop(beacon_df['count'].index[0])
-	#
-	# beacon_df['frame_time_delta_displayed'] = pd.to_numeric(beacon_df['frame_time_delta_displayed'], errors='coerce')
-	# beacon_df['wlan_seq'] = pd.to_numeric(beacon_df['wlan_seq'], errors='coerce')
-	# # describe_0 = beacon_df['frame_time_delta_displayed'].describe(percentiles=None).round(5)
-	# describe_0 = 'Mean: {0}; Std: {1}; Min: {2}; Max: {3}'.format(np.round(beacon_df['frame_time_delta_displayed'].mean(), decimals=3),
-	#                                                               np.round(beacon_df['frame_time_delta_displayed'].std(), decimals=3),
-	#                                                               np.round(beacon_df['frame_time_delta_displayed'].min(), decimals=3),
-	#                                                               np.round(beacon_df['frame_time_delta_displayed'].max(), decimals=3))
-	#
-	# describe_1 = 'Mean: {0}; Std: {1}; Min: {2}; Max: {3}'.format(np.round(beacon_df['wlan_seq'].mean(), decimals=3),
-	#                                                               np.round(beacon_df['wlan_seq'].std(), decimals=3),
-	#                                                               np.round(beacon_df['wlan_seq'].min(), decimals=3),
-	#                                                               np.round(beacon_df['wlan_seq'].max(), decimals=3))
-	# print(describe_0)
-	# print(describe_1)
-	# my_matplotlib.line_chart(beacon_df['count'].tolist(),
-	#                          beacon_df['frame_time_delta_displayed'].tolist(),
-	#                          'Time Delta Displayed',
-	#                          describe_0,
-	#                          'Time Delta (s)',
-	#                          os.path.join(log_path, config_beacon.save_file_name('_time_delta_displayed', '.png')))
-	#
-	# my_matplotlib.line_chart(beacon_df['count'].tolist(),
-	#                          beacon_df['wlan_seq'].tolist(),
-	#                          'WLAN Seq',
-	#                          describe_1,
-	#                          'WLAN Seq',
-	#                          os.path.join(log_path, config_beacon.save_file_name('_wlan_seq', '.png')))
+	# Probe request
+	packet_str = 'probe_request'
+	if cfg_basic.probe_request_enable() == '1':
+		my_decorator.packet_check_start(packet_str)
+		packet_cfg_file = config_probe_request
+		packet_data_file = probe_request
+
+		filter_str = getattr(cfg_basic, packet_str + '_type_value')()[1] \
+		             + ' and wlan.sa == ' + packet_cfg_file.sa()
+		results = dp.check_df(capture,
+		                      packet_cfg_file,
+		                      filter_str,
+		                      packet_data_file.values,
+		                      packet_data_file.fields(),
+		                      '1',
+		                      os.path.join(log_path, packet_cfg_file.save_file_name('Data', '.csv')),
+		                      os.path.join(log_path, packet_cfg_file.save_file_name('Check', '.csv'))
+		                      )
+
+		if results[0].empty:
+			my_decorator.packet_check_empty(packet_str)
+		else:
+			my_decorator.packet_summary(pd.DataFrame(results[1]),
+			                            pd.DataFrame(results[2]),
+			                            pd.DataFrame(results[3]))
 	else:
-		logger_flow.info('Skip Beacon check.')
+		my_decorator.packet_check_skip(packet_str)
+
+	# Probe response
+	packet_str = 'probe_response'
+	if cfg_basic.probe_response_enable() == '1':
+		my_decorator.packet_check_start(packet_str)
+		packet_cfg_file = config_probe_request
+		packet_data_file = probe_request
+
+		filter_str = getattr(cfg_basic, packet_str + '_type_value')()[1] \
+		             + ' and wlan.sa == ' + packet_cfg_file.sa()
+		results = dp.check_df(capture,
+		                      packet_cfg_file,
+		                      filter_str,
+		                      packet_data_file.values,
+		                      packet_data_file.fields(),
+		                      '1',
+		                      os.path.join(log_path, packet_cfg_file.save_file_name('Data', '.csv')),
+		                      os.path.join(log_path, packet_cfg_file.save_file_name('Check', '.csv'))
+		                      )
+
+		if results[0].empty:
+			my_decorator.packet_check_empty(packet_str)
+		else:
+			my_decorator.packet_summary(pd.DataFrame(results[1]),
+			                            pd.DataFrame(results[2]),
+			                            pd.DataFrame(results[3]))
+	else:
+		my_decorator.packet_check_skip(packet_str)
 
 	# ender: 1: logging; 0[0]: not formatted time; 0[1] formatted time
 	my_decorator.main_flow_ender(1)

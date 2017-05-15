@@ -4,8 +4,8 @@
 
 import configparser
 
-# from src.my_misc.my_logging import create_logger
-# log = create_logger()
+from src.my_misc.my_logging import create_logger
+logger_0 = create_logger()
 
 
 def load_config_packet():
@@ -37,7 +37,7 @@ def save_file_name(name_str, file_format):
 	file_prefix = str(config_packet['Directory'].get('log_file_name_prefix'))
 	id_str = '-'.join(str(config_packet['Address'].get('sa')).split(':'))
 	file_name = file_prefix + '_' + id_str + '_' + name_str + file_format
-
+	logger_0.info('Save file name set to\n\t{0}\n'.format(file_name))
 	return file_name
 
 
@@ -55,8 +55,8 @@ def receiver_addr():
 
 def type_value():
 	config_packet = load_config_packet()
-	type_subtype_json = str(config_packet['Type'].get('subtype_pro_req_json'))
-	type_subtype_wsdf = str(config_packet['Type'].get('subtype_pro_req_WSDF'))
+	type_subtype_json = str(config_packet['Type'].get('subtype_probe_request_json'))
+	type_subtype_wsdf = str(config_packet['Type'].get('subtype_probe_request_WSDF'))
 	return type_subtype_json, type_subtype_wsdf
 
 

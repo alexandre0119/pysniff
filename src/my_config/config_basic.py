@@ -186,27 +186,27 @@ def beacon_type_value():
 	return type_subtype_json, type_subtype_wsdf
 
 
-def probe_req_enable():
+def probe_request_enable():
 	config = load_config()
-	enable = str(config['Frame_Management'].get('enable_probe_req'))
+	enable = str(config['Frame_Management'].get('enable_probe_request'))
 	return enable
 
 
-def probe_req_type_value():
+def probe_request_type_value():
 	config = load_config()
-	type_subtype_json = str(config['Frame_Management'].get('subtype_pro_req_json'))
-	type_subtype_wsdf = str(config['Frame_Management'].get('subtype_pro_req_WSDF'))
+	type_subtype_json = str(config['Frame_Management'].get('subtype_probe_request_json'))
+	type_subtype_wsdf = str(config['Frame_Management'].get('subtype_probe_request_WSDF'))
 	return type_subtype_json, type_subtype_wsdf
 
 
-def probe_res_enable():
+def probe_response_enable():
 	config = load_config()
-	enable = str(config['Frame_Management'].get('enable_probe_res'))
+	enable = str(config['Frame_Management'].get('enable_probe_response'))
 	return enable
 
 
-def probe_res_type_value():
+def probe_response_type_value():
 	config = load_config()
-	type_subtype_json = str(config['Frame_Management'].get('subtype_pro_res_json'))
-	type_subtype_wsdf = str(config['Frame_Management'].get('subtype_pro_res_WSDF'))
+	type_subtype_json = str(config['Frame_Management'].get('subtype_probe_response_json'))
+	type_subtype_wsdf = str(config['Frame_Management'].get('subtype_probe_response_WSDF'))
 	return type_subtype_json, type_subtype_wsdf
