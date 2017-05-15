@@ -10,14 +10,16 @@ import src.my_sniff.data_process as dp
 # Import config file settings
 import src.my_config.config_basic as cfg_basic
 import src.my_config.config_beacon as config_beacon
+import src.my_config.config_probe_request as config_probe_request
 import src.my_misc.my_decorator as my_decorator  # Decorator
 # Import class init
 import src.my_sniff.frame as class_init
 import src.my_sniff.mgt.beacon.beacon as beacon
+import src.my_sniff.mgt.probe_request.probe_request as probe_request
 # Import beacon frame layer
 from src.my_misc.my_logging import create_logger
 
-log_flow = create_logger(logger_name=__name__, fmt='%(message)s')
+logger_flow = create_logger(logger_name=__name__, fmt='%(message)s')
 
 pd.options.display.max_rows = cfg_basic.pd_display_max_row()
 pd.options.display.float_format = '{:20,.2f}'.format
@@ -38,26 +40,26 @@ def main_flow():
 	capture = init.capture_file_path
 
 	if cfg_basic.beacon_enable() == '1':
-		log_flow.info('Beacon check enabled.')
+		logger_flow.info('Beacon check enabled.')
 		# beacon_df = beacon.beacon_df(capture, config_beacon.bssid(),
 		#                              '1',
 		#                              os.path.join(log_path, config_beacon.save_file_name('_Data', '.csv')))
 		# if beacon_df.empty:
-		# 	log_flow.info('Beacon DF is empty!')
+		# 	logger_flow.info('Beacon DF is empty!')
 
 		filter_str = cfg_basic.beacon_type_value()[1] + ' and wlan.sa == ' + config_beacon.sa()
-		beacon_result = dp.check_df(capture,
-		                            config_beacon,
-		                            filter_str,
-		                            beacon.values,
-		                            beacon.fields(),
-		                            '1',
-		                            os.path.join(log_path, config_beacon.save_file_name('Data', '.csv')),
-		                            os.path.join(log_path, config_beacon.save_file_name('Check', '.csv'))
-		                            )
-		result_pass = pd.DataFrame(beacon_result[1])
-		result_fail = pd.DataFrame(beacon_result[2])
-		result_skip = pd.DataFrame(beacon_result[3])
+		results = dp.check_df(capture,
+		                      config_beacon,
+		                      filter_str,
+		                      beacon.values,
+		                      beacon.fields(),
+		                      '1',
+		                      os.path.join(log_path, config_beacon.save_file_name('Data', '.csv')),
+		                      os.path.join(log_path, config_beacon.save_file_name('Check', '.csv'))
+		                      )
+		result_pass = pd.DataFrame(results[1])
+		result_fail = pd.DataFrame(results[2])
+		result_skip = pd.DataFrame(results[3])
 
 		str_summary = '\n===========================================================' \
 		              '\n------------------------- Summary -------------------------\n\n' \
@@ -71,8 +73,52 @@ def main_flow():
 		              '\n===========================================================\n'.format(result_pass,
 		                                                                                       result_fail,
 		                                                                                       result_skip)
-		log_flow.info(str_summary)
-	#
+		logger_flow.info(str_summary)
+	else:
+		logger_flow.info('Skip Beacon...')
+
+	if cfg_basic.probe_req_enable() == '1':
+		logger_flow.info('Probe Request check enabled.')
+		# beacon_df = beacon.beacon_df(capture, config_beacon.bssid(),
+		#                              '1',
+		#                              os.path.join(log_path, config_beacon.save_file_name('_Data', '.csv')))
+		# if beacon_df.empty:
+		# 	logger_flow.info('Beacon DF is empty!')
+
+		filter_str = cfg_basic.probe_req_type_value()[1] + ' and wlan.sa == ' + config_probe_request.sa()
+		results = dp.check_df(capture,
+		                      config_probe_request,
+		                      filter_str,
+		                      probe_request.values,
+		                      probe_request.fields(),
+		                      '1',
+		                      os.path.join(log_path, config_probe_request.save_file_name('Data', '.csv')),
+		                      os.path.join(log_path, config_probe_request.save_file_name('Check', '.csv'))
+		                      )
+		if results[0].empty:
+			logger_flow.info('Probe request does not find any.')
+		result_pass = pd.DataFrame(results[1])
+		result_fail = pd.DataFrame(results[2])
+		result_skip = pd.DataFrame(results[3])
+
+		str_summary = '\n===========================================================' \
+		              '\n------------------------- Summary -------------------------\n\n' \
+		              '\n------------------------- Pass list -------------------------\n' \
+		              '{0}' \
+		              '\n------------------------- Fail list -------------------------\n' \
+		              '{1}' \
+		              '\n------------------------- Skip list -------------------------\n' \
+		              '{2}' \
+		              '\n\n---------------------------------------------------------' \
+		              '\n===========================================================\n'.format(result_pass,
+		                                                                                       result_fail,
+		                                                                                       result_skip)
+		logger_flow.info(str_summary)
+	else:
+		logger_flow.info('SKip probe request...')
+
+	if cfg_basic.probe_res_enable() == '0':
+		pass
 	# objects_value = [len(result_pass), len(result_fail), len(result_skip)]
 	# objects_title = ['Pass: {0}'.format(objects_value[0]),
 	#                  'Fail: {0}'.format(objects_value[1]),
@@ -116,7 +162,7 @@ def main_flow():
 	#                          'WLAN Seq',
 	#                          os.path.join(log_path, config_beacon.save_file_name('_wlan_seq', '.png')))
 	else:
-		log_flow.info('Skip Beacon check.')
+		logger_flow.info('Skip Beacon check.')
 
 	# ender: 1: logging; 0[0]: not formatted time; 0[1] formatted time
 	my_decorator.main_flow_ender(1)

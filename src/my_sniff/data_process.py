@@ -41,7 +41,7 @@ def data_df(capture, filter_str, value_list, field_list, csv_enable, data_csv_pa
 	df = pandas.DataFrame(all_data_list)
 
 	if df.empty:
-		logger_data.info('DataFrame is empty!')
+		logger_data.info('DataFrame is empty! Maybe display filter below not match any packet.\n\t{0}'.format(filter_str))
 		return df
 
 	# add counter column
