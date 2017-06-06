@@ -11,11 +11,13 @@ import src.my_sniff.data_process as dp
 import src.my_config.config_basic as cfg_basic
 import src.my_config.config_beacon as config_beacon
 import src.my_config.config_probe_request as config_probe_request
+import src.my_config.config_probe_response as config_probe_response
 import src.my_misc.my_decorator as my_decorator  # Decorator
 # Import class init
 import src.my_sniff.frame as class_init
 import src.my_sniff.mgt.beacon.beacon as beacon
 import src.my_sniff.mgt.probe_request.probe_request as probe_request
+import src.my_sniff.mgt.probe_response.probe_response as probe_response
 # Import beacon frame layer
 from src.my_misc.my_logging import create_logger
 
@@ -99,8 +101,8 @@ def main_flow():
 	packet_str = 'probe_response'
 	if cfg_basic.probe_response_enable() == '1':
 		my_decorator.packet_check_start(packet_str)
-		packet_cfg_file = config_probe_request
-		packet_data_file = probe_request
+		packet_cfg_file = config_probe_response
+		packet_data_file = probe_response
 
 		filter_str = getattr(cfg_basic, packet_str + '_type_value')()[1] \
 		             + ' and wlan.sa == ' + packet_cfg_file.sa()
