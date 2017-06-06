@@ -55,8 +55,8 @@ def receiver_addr():
 
 def type_value():
 	config_packet = load_config_packet()
-	type_subtype_json = str(config_packet['Type'].get('subtype_probe_request_json'))
-	type_subtype_wsdf = str(config_packet['Type'].get('subtype_probe_request_WSDF'))
+	type_subtype_json = str(config_packet['Type'].get('subtype_json'))
+	type_subtype_wsdf = str(config_packet['Type'].get('subtype_wsdf'))
 	return type_subtype_json, type_subtype_wsdf
 
 

@@ -111,24 +111,26 @@ def main_flow_run_time(start_time, end_time, enable_print=1):
 		return delta_time
 
 
-def packet_summary(data_pass, data_fail, data_skip):
+def packet_summary(pkt_str, data_pass, data_fail, data_skip):
 	"""
 	Packet summary for pass, fail and skip cases
-	:param data_pass: 
-	:param data_fail: 
+	:param pkt_str:
+	:param data_pass:
+	:param data_fail:
 	:param data_skip: 
 	:return: printed string
 	"""
-	final_str = '\n===========================================================' \
-	              '\n------------------------- Summary -------------------------\n\n' \
-	              '\n------------------------- Pass list -------------------------\n' \
-	              '{0}' \
-	              '\n------------------------- Fail list -------------------------\n' \
-	              '{1}' \
-	              '\n------------------------- Skip list -------------------------\n' \
-	              '{2}' \
-	              '\n\n---------------------------------------------------------' \
-	              '\n===========================================================\n'.format(data_pass,
+	final_str = '\n=============================================================' \
+	            '\n---- Summary: {0} ----\n' \
+	            '\n------------------------- Pass list -------------------------\n' \
+	            '{1}' \
+	            '\n------------------------- Fail list -------------------------\n' \
+	            '{2}' \
+	            '\n------------------------- Skip list -------------------------\n' \
+	            '{3}' \
+	            '\n-------------------------------------------------------------' \
+	            '\n=============================================================\n'.format(pkt_str,
+	                                                                                       data_pass,
 	                                                                                       data_fail,
 	                                                                                       data_skip)
 	logger_decorator.info(final_str)
@@ -136,37 +138,23 @@ def packet_summary(data_pass, data_fail, data_skip):
 
 
 def packet_check_start(pkt_str):
-	"""
-	Packet check start print
-	:param check_packet_type: packet type, i.e. 'beacon' etc.
-	:return: printed string
-	"""
-	final_str = '\n------------------------- Start check: {0} -------------------------\n'.format(pkt_str)
+	final_str = '\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'\
+	            '\n---- Start check: {0} ----\n'.format(pkt_str)
 	logger_decorator.info(final_str)
 	return final_str
 
 
 def packet_check_empty(pkt_str):
-	"""
-	Packet check empty print
-	:param check_packet_type: packet type, i.e. 'beacon' etc.
-	:return: printed string
-	"""
 	final_str = '\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n'\
-	            '!!!!!!!!!!!!!!!!!!!!!!!!! Not found any {0}\n' \
+	            '---- Not found any {0} ----\n' \
 	            '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n'.format(pkt_str)
 	logger_decorator.info(final_str)
 	return final_str
 
 
 def packet_check_skip(pkt_str):
-	"""
-	Packet check skip print
-	:param check_packet_type: packet type, i.e. 'beacon' etc.
-	:return: printed string
-	"""
 	final_str = '\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n'\
-	            '!!!!!!!!!!!!!!!!!!!!!!!!! Skip {0}\n' \
+	            '---- Skip {0} ----\n' \
 	            '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n'.format(pkt_str)
 	logger_decorator.info(final_str)
 	return final_str

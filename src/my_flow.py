@@ -48,8 +48,7 @@ def main_flow():
 		packet_cfg_file = config_beacon
 		packet_data_file = beacon
 
-		filter_str = getattr(cfg_basic, packet_str + '_type_value')()[1] \
-		             + ' and wlan.sa == ' + packet_cfg_file.sa()
+		filter_str = packet_cfg_file.type_value()[1] + ' and wlan.sa == ' + packet_cfg_file.sa()
 		results = dp.check_df(capture,
 		                      packet_cfg_file,
 		                      filter_str,
@@ -76,8 +75,7 @@ def main_flow():
 		packet_cfg_file = config_probe_request
 		packet_data_file = probe_request
 
-		filter_str = getattr(cfg_basic, packet_str + '_type_value')()[1] \
-		             + ' and wlan.sa == ' + packet_cfg_file.sa()
+		filter_str = packet_cfg_file.type_value()[1] + ' and wlan.sa == ' + packet_cfg_file.sa()
 		results = dp.check_df(capture,
 		                      packet_cfg_file,
 		                      filter_str,
@@ -104,8 +102,7 @@ def main_flow():
 		packet_cfg_file = config_probe_response
 		packet_data_file = probe_response
 
-		filter_str = getattr(cfg_basic, packet_str + '_type_value')()[1] \
-		             + ' and wlan.sa == ' + packet_cfg_file.sa()
+		filter_str = packet_cfg_file.type_value()[1] + ' and wlan.sa == ' + packet_cfg_file.sa()
 		results = dp.check_df(capture,
 		                      packet_cfg_file,
 		                      filter_str,
@@ -119,7 +116,8 @@ def main_flow():
 		if results[0].empty:
 			my_decorator.packet_check_empty(packet_str)
 		else:
-			my_decorator.packet_summary(pd.DataFrame(results[1]),
+			my_decorator.packet_summary(packet_str,
+			                            pd.DataFrame(results[1]),
 			                            pd.DataFrame(results[2]),
 			                            pd.DataFrame(results[3]))
 	else:
