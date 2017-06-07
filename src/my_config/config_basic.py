@@ -179,24 +179,10 @@ def beacon_enable():
 	return enable
 
 
-def beacon_type_value():
-	config = load_config()
-	type_subtype_json = str(config['Frame_Management'].get('subtype_beacon_json'))
-	type_subtype_wsdf = str(config['Frame_Management'].get('subtype_beacon_WSDF'))
-	return type_subtype_json, type_subtype_wsdf
-
-
 def probe_request_enable():
 	config = load_config()
 	enable = str(config['Frame_Management'].get('enable_probe_request'))
 	return enable
-
-
-def probe_request_type_value():
-	config = load_config()
-	type_subtype_json = str(config['Frame_Management'].get('subtype_probe_request_json'))
-	type_subtype_wsdf = str(config['Frame_Management'].get('subtype_probe_request_WSDF'))
-	return type_subtype_json, type_subtype_wsdf
 
 
 def probe_response_enable():
@@ -205,8 +191,13 @@ def probe_response_enable():
 	return enable
 
 
-def probe_response_type_value():
+def association_request_enable():
 	config = load_config()
-	type_subtype_json = str(config['Frame_Management'].get('subtype_probe_response_json'))
-	type_subtype_wsdf = str(config['Frame_Management'].get('subtype_probe_response_WSDF'))
-	return type_subtype_json, type_subtype_wsdf
+	enable = str(config['Frame_Management'].get('enable_association_request'))
+	return enable
+
+
+def association_response_enable():
+	config = load_config()
+	enable = str(config['Frame_Management'].get('enable_association_response'))
+	return enable

@@ -12,12 +12,17 @@ import src.my_config.config_basic as cfg_basic
 import src.my_config.config_beacon as config_beacon
 import src.my_config.config_probe_request as config_probe_request
 import src.my_config.config_probe_response as config_probe_response
-import src.my_misc.my_decorator as my_decorator  # Decorator
+import src.my_config.config_association_request as config_association_request
+import src.my_config.config_association_response as config_association_response
+# Decorator
+import src.my_misc.my_decorator as my_decorator
 # Import class init
 import src.my_sniff.frame as class_init
 import src.my_sniff.mgt.beacon.beacon as beacon
 import src.my_sniff.mgt.probe_request.probe_request as probe_request
 import src.my_sniff.mgt.probe_response.probe_response as probe_response
+import src.my_sniff.mgt.association_request.association_request as association_request
+import src.my_sniff.mgt.association_response.association_response as association_response
 # Import beacon frame layer
 from src.my_misc.my_logging import create_logger
 
@@ -62,7 +67,8 @@ def main_flow():
 		if results[0].empty:
 			my_decorator.packet_check_empty(packet_str)
 		else:
-			my_decorator.packet_summary(pd.DataFrame(results[1]),
+			my_decorator.packet_summary(packet_str,
+			                            pd.DataFrame(results[1]),
 			                            pd.DataFrame(results[2]),
 			                            pd.DataFrame(results[3]))
 	else:
@@ -89,7 +95,8 @@ def main_flow():
 		if results[0].empty:
 			my_decorator.packet_check_empty(packet_str)
 		else:
-			my_decorator.packet_summary(pd.DataFrame(results[1]),
+			my_decorator.packet_summary(packet_str,
+			                            pd.DataFrame(results[1]),
 			                            pd.DataFrame(results[2]),
 			                            pd.DataFrame(results[3]))
 	else:
@@ -101,6 +108,62 @@ def main_flow():
 		my_decorator.packet_check_start(packet_str)
 		packet_cfg_file = config_probe_response
 		packet_data_file = probe_response
+
+		filter_str = packet_cfg_file.type_value()[1] + ' and wlan.sa == ' + packet_cfg_file.sa()
+		results = dp.check_df(capture,
+		                      packet_cfg_file,
+		                      filter_str,
+		                      packet_data_file.values,
+		                      packet_data_file.fields(),
+		                      '1',
+		                      os.path.join(log_path, packet_cfg_file.save_file_name('Data', '.csv')),
+		                      os.path.join(log_path, packet_cfg_file.save_file_name('Check', '.csv'))
+		                      )
+
+		if results[0].empty:
+			my_decorator.packet_check_empty(packet_str)
+		else:
+			my_decorator.packet_summary(packet_str,
+			                            pd.DataFrame(results[1]),
+			                            pd.DataFrame(results[2]),
+			                            pd.DataFrame(results[3]))
+	else:
+		my_decorator.packet_check_skip(packet_str)
+
+	# Association Request
+	packet_str = 'association_request'
+	if cfg_basic.association_request_enable() == '1':
+		my_decorator.packet_check_start(packet_str)
+		packet_cfg_file = config_association_request
+		packet_data_file = association_request
+
+		filter_str = packet_cfg_file.type_value()[1] + ' and wlan.sa == ' + packet_cfg_file.sa()
+		results = dp.check_df(capture,
+		                      packet_cfg_file,
+		                      filter_str,
+		                      packet_data_file.values,
+		                      packet_data_file.fields(),
+		                      '1',
+		                      os.path.join(log_path, packet_cfg_file.save_file_name('Data', '.csv')),
+		                      os.path.join(log_path, packet_cfg_file.save_file_name('Check', '.csv'))
+		                      )
+
+		if results[0].empty:
+			my_decorator.packet_check_empty(packet_str)
+		else:
+			my_decorator.packet_summary(packet_str,
+			                            pd.DataFrame(results[1]),
+			                            pd.DataFrame(results[2]),
+			                            pd.DataFrame(results[3]))
+	else:
+		my_decorator.packet_check_skip(packet_str)
+
+	# Association Response
+	packet_str = 'association_response'
+	if cfg_basic.association_response_enable() == '1':
+		my_decorator.packet_check_start(packet_str)
+		packet_cfg_file = config_association_response
+		packet_data_file = association_response
 
 		filter_str = packet_cfg_file.type_value()[1] + ' and wlan.sa == ' + packet_cfg_file.sa()
 		results = dp.check_df(capture,

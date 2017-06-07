@@ -138,8 +138,9 @@ def packet_summary(pkt_str, data_pass, data_fail, data_skip):
 
 
 def packet_check_start(pkt_str):
-	final_str = '\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'\
-	            '\n---- Start check: {0} ----\n'.format(pkt_str)
+	final_str = '\n=============================================================' \
+	            '\n---- Start check: {0} ----' \
+	            '\n-------------------------------------------------------------\n'.format(pkt_str)
 	logger_decorator.info(final_str)
 	return final_str
 
