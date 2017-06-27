@@ -9,3 +9,6 @@ src/my_sniff/__pycache__/
 src/my_sniff/mgt/__pycache__/
 src/my_sniff/mgt/beacon/__pycache__/
 src/my_sniff/mgt/probe_request/__pycache__/
+src/my_sniff/mgt/association_request/__pycache__/
+src/my_sniff/mgt/association_response/__pycache__/
+src/my_sniff/mgt/probe_response/__pycache__/

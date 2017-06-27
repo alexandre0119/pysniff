@@ -35,13 +35,19 @@ pd.set_option('precision', cfg_basic.pd_precision())
 
 
 def main_flow():
-	# starter: 1: enable logging; 0[0]: return not formatted time; 0[1]: return formatted time
+	# Start decorator:
+	# 1: enable logging;
+	# 0[0]: return not formatted time;
+	# 0[1]: return formatted time
 	my_decorator.main_flow_starter(1)
 	start_time = my_decorator.main_flow_starter(0)[0]
 	# start_time_formatted = my_decorator.main_flow_starter(0)[1]
 
+	# Set sniffer capture file path
 	capture_file_path = cfg_basic.capture_file_path()
+	# Set log folder with time stamp
 	log_path = cfg_basic.log_folder_timestamp()
+	# Frame layer init
 	init = class_init.Frame(capture_file_path)
 
 	capture = init.capture_file_path
@@ -186,11 +192,15 @@ def main_flow():
 	else:
 		my_decorator.packet_check_skip(packet_str)
 
-	# ender: 1: logging; 0[0]: not formatted time; 0[1] formatted time
+	# End decorator:
+	# 1: logging;
+	# 0[0]: not formatted time; 0[1] formatted time
 	my_decorator.main_flow_ender(1)
 	end_time = my_decorator.main_flow_ender(0)[0]
 	# end_time_formatted = my_decorator.main_flow_ender(0)[1]
 
-	# run_time: 1: logging; 0: get time
+	# Run time:
+	# 1: logging;
+	# 0: get time
 	# delta_time = my_decorator.main_flow_run_time(start_time, end_time, 0)
 	my_decorator.main_flow_run_time(start_time, end_time, 1)
