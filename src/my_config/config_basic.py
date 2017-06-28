@@ -7,7 +7,7 @@ Process config.ini file, get value for each field in config.ini file for easy us
 """
 
 import configparser
-# from src.my_misc.my_logging import create_logger
+# from src.test_my_misc.my_logging import create_logger
 # log_cfg = create_logger()
 
 

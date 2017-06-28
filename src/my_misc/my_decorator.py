@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # Author: Alex Wang
+
 # Time related
 import src.my_misc.my_time as my_time
 
@@ -48,41 +49,39 @@ def check_result_header_footer():
 	return decorator
 
 
-def main_flow_starter(enable_print=1):
+def main_flow_starter(enable_print=1, time_now=my_time.now()):
 	"""
-	Main flow starter
+	Main flow starter - Pytest'ed
 	:param enable_print: 1 to enable logging/print
+	:param time_now: current time
 	:return: not formatted and formatted time when enable is non 1
 	"""
 	start_str = '\n{1}\n{2}\nProgram starts @ {0}\n{2}\n'
 	if enable_print == 1:
-		start_time = my_time.now()
-		final_str = start_str.format(my_time.now_formatted(start_time), '=' * 80, '-' * 80)
+		final_str = start_str.format(my_time.now_formatted(time_now), '=' * 80, '-' * 80)
 		logger_decorator.info(final_str)
+		return None
 	else:
-		start_time = my_time.now()
-		return start_time, my_time.now_formatted(start_time)
+		return time_now, my_time.now_formatted(time_now)
 
 
-def main_flow_ender(enable_print=1):
+def main_flow_ender(enable_print=1, time_now=my_time.now()):
 	"""
-	Main flow ender
+	Main flow ender - Pytest'ed
 	:param enable_print: 1 to enable logging/print
 	:return: not formatted and formatted time when enable is non 1
 	"""
 	end_str = '\n{2}\nProgram ends @ {0}\n{2}\n{1}\n'
 	if enable_print == 1:
-		end_time = my_time.now()
-		final_str = end_str.format(my_time.now_formatted(end_time), '=' * 80, '-' * 80)
+		final_str = end_str.format(my_time.now_formatted(time_now), '=' * 80, '-' * 80)
 		logger_decorator.info(final_str)
 	else:
-		end_time = my_time.now()
-		return end_time, my_time.now_formatted(end_time)
+		return time_now, my_time.now_formatted(time_now)
 
 
 def main_flow_run_time(start_time, end_time, enable_print=1):
 	"""
-	Main flow run time
+	Main flow run time - Pytest'ed
 	:param start_time: start time
 	:param end_time: end time
 	:param enable_print: 1 to enable logging/print
@@ -91,8 +90,9 @@ def main_flow_run_time(start_time, end_time, enable_print=1):
 	run_time_str = '\n{1}\n{2}\nProgram total running time: {0}\n{2}\n{1}\n'
 	if enable_print == 1:
 		delta_time = my_time.time_delta(start_time, end_time)
-		final_str = run_time_str.format(delta_time, '=' * 80, '-' * 80 )
+		final_str = run_time_str.format(delta_time, '=' * 80, '-' * 80)
 		logger_decorator.info(final_str)
+		return None
 	else:
 		delta_time = my_time.time_delta(start_time, end_time)
 		return delta_time

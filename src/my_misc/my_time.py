@@ -25,8 +25,8 @@ def time_zone():
 	Get current time zone using datetime
 	:return: current time zone as str
 	"""
-	time_zone_info = datetime.datetime.now(datetime.timezone.utc).astimezone().tzinfo
-	return str(time_zone_info)
+	time_zone_info = str(datetime.datetime.now(datetime.timezone.utc).astimezone().tzinfo)
+	return time_zone_info
 
 
 def now_formatted(now_time):
@@ -34,8 +34,8 @@ def now_formatted(now_time):
 	Get current date and time formatted using datetime
 	:return: current date and time formatted
 	"""
-	format = "%H:%M:%S %m-%d-%Y %A"
-	now_formatted_info = now_time.strftime(format) + ' ' + time_zone()
+	time_format = "%H:%M:%S %m-%d-%Y %A"
+	now_formatted_info = now_time.strftime(time_format) + ' ' + time_zone()
 	return now_formatted_info
 
 

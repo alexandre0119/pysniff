@@ -10,3 +10,4 @@ if __name__ == '__main__':
 
 # python run.py
 # pytest -s -v --junitxml=logs.xml
+# pytest -v --junitxml=logs.xml

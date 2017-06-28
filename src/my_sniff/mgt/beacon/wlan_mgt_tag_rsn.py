@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # Author: Alex Wang
 
-# import src.my_misc.hex2bin as hex2bin
+# import src.test_my_misc.hex2bin as hex2bin
 from src.my_sniff.mgt.mgt import WLAN
 from src.my_misc.my_logging import create_logger
 

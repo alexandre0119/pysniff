@@ -4,10 +4,12 @@
       <w>bmapctl</w>
       <w>bssid</w>
       <w>dtim</w>
+      <w>ender</w>
       <w>extcap</w>
       <w>malform</w>
       <w>multicast</w>
       <w>pcapng</w>
+      <w>pytest</w>
       <w>ssid</w>
       <w>wlan</w>
     </words>

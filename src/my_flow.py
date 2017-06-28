@@ -7,6 +7,7 @@ import os
 
 import pandas as pd
 import src.my_sniff.data_process as dp
+import src.my_misc.my_time as my_time
 # Import config file settings
 import src.my_config.config_basic as cfg_basic
 import src.my_config.config_beacon as config_beacon
@@ -39,8 +40,8 @@ def main_flow():
 	# 1: enable logging;
 	# 0[0]: return not formatted time;
 	# 0[1]: return formatted time
-	my_decorator.main_flow_starter(1)
-	start_time = my_decorator.main_flow_starter(0)[0]
+	my_decorator.main_flow_starter(1, my_time.now())
+	start_time = my_decorator.main_flow_starter(0, my_time.now())[0]
 	# start_time_formatted = my_decorator.main_flow_starter(0)[1]
 
 	# Set sniffer capture file path
@@ -195,8 +196,8 @@ def main_flow():
 	# End decorator:
 	# 1: logging;
 	# 0[0]: not formatted time; 0[1] formatted time
-	my_decorator.main_flow_ender(1)
-	end_time = my_decorator.main_flow_ender(0)[0]
+	my_decorator.main_flow_ender(1, my_time.now())
+	end_time = my_decorator.main_flow_ender(0, my_time.now())[0]
 	# end_time_formatted = my_decorator.main_flow_ender(0)[1]
 
 	# Run time:
