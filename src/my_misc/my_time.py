@@ -8,7 +8,7 @@ import datetime
 
 def now():
 	"""
-	Get current date and time using datetime
+	Get current date and time using datetime - Pytest'ed
 	:return: current date and time not formatted
 	"""
 	now_info = datetime.datetime.now()
@@ -17,7 +17,7 @@ def now():
 
 def filename_timestamp():
 	"""
-	Format current time to be used in folder name
+	Format current time to be used in folder name - Pytest'ed
 	:return: formatted current time
 	"""
 	time_str = time.strftime("%Y%m%d-%H%M%S")
@@ -26,7 +26,7 @@ def filename_timestamp():
 
 def time_zone():
 	"""
-	Get current time zone using datetime
+	Get current time zone using datetime - Pytest'ed
 	:return: current time zone as str
 	"""
 	time_zone_info = str(datetime.datetime.now(datetime.timezone.utc).astimezone().tzinfo)
@@ -35,7 +35,7 @@ def time_zone():
 
 def now_formatted(now_time):
 	"""
-	Get current date and time formatted using datetime
+	Get current date and time formatted using datetime - Pytest'ed
 	:param now_time: current time
 	:return: formatted current time
 	"""
@@ -46,7 +46,7 @@ def now_formatted(now_time):
 
 def sleep(t):
 	"""
-	sleep for t second(s)
+	sleep for t second(s) - Pytest'ed
 	:param t: time for sleep in second
 	:return: t
 	"""
@@ -56,7 +56,7 @@ def sleep(t):
 
 def time_delta(start_time, end_time):
 	"""
-	Get time duration between start time and end time
+	Get time duration between start time and end time - Pytest'ed
 	:param start_time: start time
 	:param end_time: end time
 	:return: delta from start time to end time

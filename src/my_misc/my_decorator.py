@@ -56,9 +56,12 @@ def main_flow_starter(enable_print=1, time_now=my_time.now()):
 	:param time_now: current time
 	:return: not formatted and formatted time when enable is non 1
 	"""
-	start_str = '\n{1}\n{2}\nProgram starts @ {0}\n{2}\n'
+	format_map = {'time': my_time.now_formatted(time_now),
+	              '=': '=' * 90,
+	              '-': '-' * 90}
+	start_str = '\n{=}\n{-}\nProgram starts @ {time}\n{-}\n'
 	if enable_print == 1:
-		final_str = start_str.format(my_time.now_formatted(time_now), '=' * 80, '-' * 80)
+		final_str = start_str.format(**format_map)
 		logger_decorator.info(final_str)
 		return None
 	else:
@@ -69,11 +72,15 @@ def main_flow_ender(enable_print=1, time_now=my_time.now()):
 	"""
 	Main flow ender - Pytest'ed
 	:param enable_print: 1 to enable logging/print
+	:param time_now: current time
 	:return: not formatted and formatted time when enable is non 1
 	"""
-	end_str = '\n{2}\nProgram ends @ {0}\n{2}\n{1}\n'
+	format_map = {'time': my_time.now_formatted(time_now),
+	              '=': '=' * 90,
+	              '-': '-' * 90}
+	end_str = '\n{-}\nProgram ends @ {time}\n{-}\n{=}\n'
 	if enable_print == 1:
-		final_str = end_str.format(my_time.now_formatted(time_now), '=' * 80, '-' * 80)
+		final_str = end_str.format(**format_map)
 		logger_decorator.info(final_str)
 	else:
 		return time_now, my_time.now_formatted(time_now)
@@ -87,62 +94,65 @@ def main_flow_run_time(start_time, end_time, enable_print=1):
 	:param enable_print: 1 to enable logging/print
 	:return: time value when enable is non 1
 	"""
-	run_time_str = '\n{1}\n{2}\nProgram total running time: {0}\n{2}\n{1}\n'
+	delta_time = my_time.time_delta(start_time, end_time)
+	format_map = {'time': delta_time,
+	              '=': '=' * 100,
+	              '-': '-' * 100}
+	run_time_str = '\n{=}\n{-}\nProgram total running time: {time}\n{-}\n{=}\n'
 	if enable_print == 1:
-		delta_time = my_time.time_delta(start_time, end_time)
-		final_str = run_time_str.format(delta_time, '=' * 80, '-' * 80)
+		final_str = run_time_str.format(**format_map)
 		logger_decorator.info(final_str)
 		return None
 	else:
-		delta_time = my_time.time_delta(start_time, end_time)
 		return delta_time
 
 
 def packet_summary(pkt_str, data_pass, data_fail, data_skip):
 	"""
-	Packet summary for pass, fail and skip cases
+	Packet summary for pass, fail and skip cases - Pytest'ed
 	:param pkt_str:
 	:param data_pass:
 	:param data_fail:
 	:param data_skip: 
 	:return: printed string
 	"""
-	final_str = '\n=============================================================' \
-	            '\n---- Summary: {0} ----\n' \
-	            '\n------------------------- Pass list -------------------------\n' \
-	            '{1}' \
-	            '\n------------------------- Fail list -------------------------\n' \
-	            '{2}' \
-	            '\n------------------------- Skip list -------------------------\n' \
-	            '{3}' \
-	            '\n-------------------------------------------------------------' \
-	            '\n=============================================================\n'.format(pkt_str,
-	                                                                                       data_pass,
-	                                                                                       data_fail,
-	                                                                                       data_skip)
+	format_map = {'pkt_str': pkt_str,
+	              'data_pass': data_pass,
+	              'data_fail': data_fail,
+	              'data_skip': data_skip,
+	              '=': '=' * 70,
+	              '-': '-' * 70}
+	final_str = '\n{=}\n-------- SUMMARY: {pkt_str} --------\n' \
+	            '\n------------------------- PASS -------------------------\n' \
+	            '{data_pass}' \
+	            '\n------------------------- FAIL -------------------------\n' \
+	            '{data_fail}' \
+	            '\n------------------------- SKIP -------------------------\n' \
+	            '{data_skip}\n{-}\n{=}\n'.format(**format_map)
 	logger_decorator.info(final_str)
-	return final_str
+	return None
 
 
 def packet_check_start(pkt_str):
-	final_str = '\n=============================================================' \
-	            '\n---- Start check: {0} ----' \
-	            '\n-------------------------------------------------------------\n'.format(pkt_str)
+	format_map = {'pkt_str': pkt_str,
+	              '=': '=' * 70,
+	              '-': '-' * 70}
+	final_str = '\n{=}\n-------- Start check: {pkt_str} --------\n{-}\n'.format(**format_map)
 	logger_decorator.info(final_str)
-	return final_str
+	return None
 
 
 def packet_check_empty(pkt_str):
-	final_str = '\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n' \
-	            '---- Not found any {0} ----\n' \
-	            '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n'.format(pkt_str)
+	format_map = {'pkt_str': pkt_str,
+	              'sign': '!' * 70}
+	final_str = '\n{sign}\n-------- Not found any {pkt_str} --------\n{sign}\n'.format(**format_map)
 	logger_decorator.info(final_str)
-	return final_str
+	return None
 
 
 def packet_check_skip(pkt_str):
-	final_str = '\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n' \
-	            '---- Skip {0} ----\n' \
-	            '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n'.format(pkt_str)
+	format_map = {'pkt_str': pkt_str,
+	              'sign': '!' * 70}
+	final_str = '\n{sign}\n-------- Skip {pkt_str} --------\n{sign}\n'.format(**format_map)
 	logger_decorator.info(final_str)
-	return final_str
+	return None
