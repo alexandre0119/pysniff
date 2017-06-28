@@ -12,3 +12,7 @@ src/my_sniff/mgt/probe_request/__pycache__/
 src/my_sniff/mgt/association_request/__pycache__/
 src/my_sniff/mgt/association_response/__pycache__/
 src/my_sniff/mgt/probe_response/__pycache__/
+.cache/
+logs.xml
+src/my_pytest/__pycache__/
+src/my_pytest/test_my_misc/__pycache__/
