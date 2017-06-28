@@ -16,6 +16,10 @@ def now():
 
 
 def filename_timestamp():
+	"""
+	Format current time to be used in folder name
+	:return: formatted current time
+	"""
 	time_str = time.strftime("%Y%m%d-%H%M%S")
 	return time_str
 
@@ -32,7 +36,8 @@ def time_zone():
 def now_formatted(now_time):
 	"""
 	Get current date and time formatted using datetime
-	:return: current date and time formatted
+	:param now_time: current time
+	:return: formatted current time
 	"""
 	time_format = "%H:%M:%S %m-%d-%Y %A"
 	now_formatted_info = now_time.strftime(time_format) + ' ' + time_zone()
@@ -46,14 +51,7 @@ def sleep(t):
 	:return: t
 	"""
 	time.sleep(t)
-	return t
-
-
-def strfdelta(t_delta, fmt):
-	d = {"days": t_delta.days}
-	d["hours"], rem = divmod(t_delta.seconds, 3600)
-	d["minutes"], d["seconds"] = divmod(rem, 60)
-	return fmt.format(**d)
+	return None
 
 
 def time_delta(start_time, end_time):
@@ -64,7 +62,11 @@ def time_delta(start_time, end_time):
 	:return: delta from start time to end time
 	"""
 	delta = end_time - start_time
-	delta_formatted = strfdelta(delta, "{hours}:{minutes}:{seconds} {days} days")
+	str_format = '{hours}:{minutes}:{seconds} {days} days'
+	d = {"days": delta.days}
+	d["hours"], rem = divmod(delta.seconds, 3600)
+	d["minutes"], d["seconds"] = divmod(rem, 60)
+	delta_formatted = str_format.format(**d)
 	return delta_formatted
 
 # # Examples
