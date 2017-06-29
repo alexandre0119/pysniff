@@ -134,6 +134,11 @@ def packet_summary(pkt_str, data_pass, data_fail, data_skip):
 
 
 def packet_check_start(pkt_str):
+	"""
+	Print packet check start - Pytest'ed
+	:param pkt_str: packet name string
+	:return: None
+	"""
 	format_map = {'pkt_str': pkt_str,
 	              '=': '=' * 70,
 	              '-': '-' * 70}
@@ -143,6 +148,11 @@ def packet_check_start(pkt_str):
 
 
 def packet_check_empty(pkt_str):
+	"""
+	Print info if no packet found - Pytest'ed
+	:param pkt_str: packet name string
+	:return: None
+	"""
 	format_map = {'pkt_str': pkt_str,
 	              'sign': '!' * 70}
 	final_str = '\n{sign}\n-------- Not found any {pkt_str} --------\n{sign}\n'.format(**format_map)
@@ -151,6 +161,11 @@ def packet_check_empty(pkt_str):
 
 
 def packet_check_skip(pkt_str):
+	"""
+	Print info if packet is skipped - Pytest'ed
+	:param pkt_str: packet name string
+	:return: None
+	"""
 	format_map = {'pkt_str': pkt_str,
 	              'sign': '!' * 70}
 	final_str = '\n{sign}\n-------- Skip {pkt_str} --------\n{sign}\n'.format(**format_map)

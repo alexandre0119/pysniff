@@ -7,35 +7,35 @@ Process config.ini file, get value for each field in config.ini file for easy us
 """
 
 import configparser
-# from src.test_my_misc.my_logging import create_logger
+# my_logging.py module imports this config_basic.py module, so it seems fail to import logging as module
+# from src.my_misc.my_logging import create_logger
 # log_cfg = create_logger()
 
 
 def load_config():
 	"""
-	config.ini file
-	:return: config instance
+	config.ini file - Pytest'ed
+	:return: config object
 	"""
 	config = configparser.ConfigParser()
-	config_file_name = 'config.ini'
-	config.read(config_file_name)
+	config.read('config.ini')
 	return config
 
 
 def program_path():
 	"""
-	Entire program path
+	Program root path - Pytest'ed
 	:return: program path
 	"""
 	config = load_config()
 	path = str(config['Directory'].get('program_path'))
-	print('Program Path is \n\t{0}'.format(path))
+	print('Program root path is \n\t{0}'.format(path))
 	return path
 
 
-def capture_dir_path():
+def capture_dir():
 	"""
-	Capture file directory path
+	Capture file directory path - Pytest'ed
 	:return: capture file directory path
 	"""
 	import os
@@ -47,7 +47,7 @@ def capture_dir_path():
 
 def capture_file_name():
 	"""
-	Capture file name
+	Capture file name - Pytest'ed
 	:return: capture file name
 	"""
 	config = load_config()
@@ -57,29 +57,38 @@ def capture_file_name():
 
 def capture_file_path():
 	"""
-	Capture file path
+	Capture file path - Pytest'ed
 	:return: capture file path
 	"""
 	import os
-	path = os.path.join(capture_dir_path(), capture_file_name())
+	path = os.path.join(capture_dir(), capture_file_name())
+	print('Capture file is \n\t{0}'.format(path))
 	return path
 
 
-def log_dir_path():
+def log_folder_name():
 	"""
-	Log file directory path
+	Log folder name - Pytest'ed
+	:return: log folder name
+	"""
+	config = load_config()
+	folder = str(config['Directory'].get('log_folder'))
+	return folder
+
+
+def log_dir():
+	"""
+	Log file directory path - Pytest'ed
 	:return: log file directory path
 	"""
 	import os
-	config = load_config()
-	folder = str(config['Directory'].get('log_folder'))
-	path = os.path.join(program_path(), folder)
+	path = os.path.join(program_path(), log_folder_name())
 	return path
 
 
-def log_file_name():
+def logging_file_name():
 	"""
-	Log file name
+	Log file name - Pytest'ed
 	:return: log file name
 	"""
 	config = load_config()
@@ -87,23 +96,26 @@ def log_file_name():
 	return file_name
 
 
-def log_file_path():
+def logging_file_path():
 	"""
-	Log file path
+	Log file path - Pytest'ed
 	:return: Log file path
 	"""
 	import os
-	path = os.path.join(log_dir_path(), log_file_name())
+	path = os.path.join(log_dir(), logging_file_name())
 	return path
 
 
-def log_folder_timestamp():
+def log_folder_with_timestamp():
+	"""
+	Create log file folder with timestamp - Pytest'ed
+	:return: log file with timestamp path
+	"""
 	import os
 	from src.my_misc.my_time import filename_timestamp
-	config_basic = load_config()
 
-	log_subfolder = str(config_basic['Directory'].get('log_folder')) + '_' + filename_timestamp()
-	log_subpath = os.path.join(log_dir_path(), log_subfolder)
+	log_subfolder = log_folder_name() + '_' + filename_timestamp()
+	log_subpath = os.path.join(log_dir(), log_subfolder)
 
 	if not os.path.exists(log_subpath):
 		os.makedirs(log_subpath)

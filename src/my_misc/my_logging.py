@@ -9,7 +9,7 @@ import src.my_config.config_basic as cfg_basic
 
 
 def log_file_name():
-	log_file = cfg_basic.log_file_path()
+	log_file = cfg_basic.logging_file_path()
 	return log_file
 
 

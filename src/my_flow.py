@@ -47,7 +47,7 @@ def main_flow():
 	# Set sniffer capture file path
 	capture_file_path = cfg_basic.capture_file_path()
 	# Set log folder with time stamp
-	log_path = cfg_basic.log_folder_timestamp()
+	log_path = cfg_basic.log_folder_with_timestamp()
 	# Frame layer init
 	init = class_init.Frame(capture_file_path)
 

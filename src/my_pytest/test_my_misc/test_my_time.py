@@ -27,7 +27,7 @@ def test_now_formatted():
 
 
 def test_sleep():
-	assert my_time.sleep(1) is None
+	assert my_time.sleep(0) is None
 
 
 def test_time_delta():
