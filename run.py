@@ -2,10 +2,10 @@
 # -*- coding: utf-8 -*-
 # Author: Alex Wang
 
-import src.my_flow as my_flow
+import src.alex_flow as alex_flow
 
 if __name__ == '__main__':
-	my_flow.main_flow()
+	alex_flow.main_flow()
 
 
 # python run.py
