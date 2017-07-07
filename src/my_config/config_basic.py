@@ -125,7 +125,7 @@ def log_folder_with_timestamp():
 
 def pytest_capture_dir_path():
 	"""
-	Pytest capture file directory path
+	Pytest capture file directory path - Pytest'ed
 	:return: Pytest capture file directory path
 	"""
 	import os
@@ -135,23 +135,26 @@ def pytest_capture_dir_path():
 	return path
 
 
-def pytest_capture_file_name():
+def pytest_capture_sample_name(packet_type):
 	"""
 	Pytest capture file name
+	:param packet_type: packet type name string
 	:return: Pytest capture file name
 	"""
 	config = load_config()
-	file_name = str(config['Pytest'].get('capture_file'))
+	capture_sample = str(packet_type) + '_sample'
+	file_name = str(config['Pytest'].get(capture_sample))
 	return file_name
 
 
-def pytest_capture_file_path():
+def pytest_capture_file_path(packet_type):
 	"""
 	Pytest capture file path
+	:param packet_type: packet type name string
 	:return: Pytest capture file path
 	"""
 	import os
-	path = os.path.join(pytest_capture_dir_path(), pytest_capture_file_name())
+	path = os.path.join(pytest_capture_dir_path(), pytest_capture_sample_name(packet_type))
 	return path
 
 

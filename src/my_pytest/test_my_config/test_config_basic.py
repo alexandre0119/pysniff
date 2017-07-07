@@ -91,3 +91,20 @@ def test_log_folder_with_timestamp():
 	log_subpath = os.path.join(log_path, log_subfolder)
 
 	assert config_basic.log_folder_with_timestamp() == log_subpath
+
+
+def test_pytest_capture_dir_path():
+	import os
+	config = load_config()
+
+	folder = str(config['Pytest'].get('capture_folder'))
+	root_path = str(config['Directory'].get('program_path'))
+	capture_path = os.path.join(root_path, folder)
+
+	assert config_basic.pytest_capture_dir_path() == capture_path
+
+
+def test_pytest_capture_sample_name():
+	config = load_config()
+	capture_sample = 'beacon_sample'
+	assert config_basic.pytest_capture_sample_name('beacon') == str(config['Pytest'].get(capture_sample))
