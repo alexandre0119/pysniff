@@ -8,24 +8,24 @@ import os
 import time
 
 
-def load_config():
+def load_config_basic():
 	config = configparser.ConfigParser()
 	config.read('cfg_basic.ini')
 	return config
 
 
 def test_load_config():
-	config = load_config()
-	assert cfg_basic.load_config() == config
+	config = load_config_basic()
+	assert cfg_basic.load_cfg_basic() == config
 
 
 def test_program_path():
-	config = load_config()
+	config = load_config_basic()
 	assert cfg_basic.program_path() == str(config['Directory'].get('program_path'))
 
 
 def test_capture_dir():
-	config = load_config()
+	config = load_config_basic()
 	program_path = str(config['Directory'].get('program_path'))
 	capture_folder = str(config['Directory'].get('capture_folder'))
 	capture_path = os.path.join(program_path, capture_folder)
@@ -33,12 +33,12 @@ def test_capture_dir():
 
 
 def test_capture_file_name():
-	config = load_config()
+	config = load_config_basic()
 	assert cfg_basic.capture_file_name() == str(config['File'].get('capture_file'))
 
 
 def test_capture_file_path():
-	config = load_config()
+	config = load_config_basic()
 	program_path = str(config['Directory'].get('program_path'))
 	capture_folder = str(config['Directory'].get('capture_folder'))
 	path = os.path.join(program_path, capture_folder)
@@ -47,12 +47,12 @@ def test_capture_file_path():
 
 
 def test_log_folder_name():
-	config = load_config()
+	config = load_config_basic()
 	assert cfg_basic.log_folder_name() == str(config['Directory'].get('log_folder'))
 
 
 def test_log_dir():
-	config = load_config()
+	config = load_config_basic()
 	folder = str(config['Directory'].get('log_folder'))
 	root_path = str(config['Directory'].get('program_path'))
 	path = os.path.join(root_path, folder)
@@ -60,13 +60,13 @@ def test_log_dir():
 
 
 def test_log_file_name():
-	config = load_config()
+	config = load_config_basic()
 	file_name = str(config['File'].get('log_file'))
 	assert cfg_basic.logging_file_name() == file_name
 
 
 def test_log_file_path():
-	config = load_config()
+	config = load_config_basic()
 	folder = str(config['Directory'].get('log_folder'))
 	root_path = str(config['Directory'].get('program_path'))
 	path = os.path.join(root_path, folder)
@@ -75,7 +75,7 @@ def test_log_file_path():
 
 
 def test_log_folder_with_timestamp():
-	config = load_config()
+	config = load_config_basic()
 
 	folder = str(config['Directory'].get('log_folder'))
 	time_str = time.strftime("%Y%m%d-%H%M%S")
@@ -90,7 +90,7 @@ def test_log_folder_with_timestamp():
 
 
 def test_pytest_capture_dir_path():
-	config = load_config()
+	config = load_config_basic()
 
 	folder = str(config['Pytest'].get('capture_folder'))
 	root_path = str(config['Directory'].get('program_path'))
@@ -100,14 +100,14 @@ def test_pytest_capture_dir_path():
 
 
 def test_pytest_capture_sample_name():
-	config = load_config()
+	config = load_config_basic()
 	capture_sample = 'beacon_sample'
 	capture_sample_config = str(config['Pytest'].get(capture_sample))
 	assert cfg_basic.pytest_capture_sample_name('beacon') == capture_sample_config
 
 
 def test_pytest_capture_file_path():
-	config = load_config()
+	config = load_config_basic()
 	folder = str(config['Pytest'].get('capture_folder'))
 	root_path = str(config['Directory'].get('program_path'))
 
@@ -117,51 +117,51 @@ def test_pytest_capture_file_path():
 	folder_path = os.path.join(root_path, folder)
 	sample_path = os.path.join(folder_path, capture_sample_config)
 	assert cfg_basic.pytest_capture_file_path('beacon') == sample_path
-	
+
 
 def test_pd_display_max_row():
-	config = load_config()
+	config = load_config_basic()
 	max_row = int(str(config['Pandas'].get('display_max_row')))
 	assert cfg_basic.pd_display_max_row() == max_row
 
 
 def test_pd_display_max_col():
-	config = load_config()
+	config = load_config_basic()
 	max_col = int(str(config['Pandas'].get('display_max_col')))
 	assert cfg_basic.pd_display_max_col() == max_col
 
 
 def test_pd_precision():
-	config = load_config()
+	config = load_config_basic()
 	precision = int(str(config['Pandas'].get('precision')))
 	assert cfg_basic.pd_precision() == precision
 
 
 def test_beacon_enable():
-	config = load_config()
+	config = load_config_basic()
 	enable = str(config['Frame_Management'].get('enable_beacon'))
 	assert cfg_basic.beacon_enable() == enable
 
 
 def test_probe_request_enable():
-	config = load_config()
+	config = load_config_basic()
 	enable = str(config['Frame_Management'].get('enable_probe_request'))
 	assert cfg_basic.probe_request_enable() == enable
 
 
 def test_probe_response_enable():
-	config = load_config()
+	config = load_config_basic()
 	enable = str(config['Frame_Management'].get('enable_probe_response'))
 	assert cfg_basic.probe_response_enable() == enable
 
 
 def test_association_request_enable():
-	config = load_config()
+	config = load_config_basic()
 	enable = str(config['Frame_Management'].get('enable_association_request'))
 	assert cfg_basic.association_request_enable() == enable
 
 
 def test_association_response_enable():
-	config = load_config()
+	config = load_config_basic()
 	enable = str(config['Frame_Management'].get('enable_association_response'))
 	assert cfg_basic.association_response_enable() == enable
