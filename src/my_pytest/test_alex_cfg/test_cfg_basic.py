@@ -9,6 +9,10 @@ import time
 
 
 def load_cfg_basic_test():
+	"""
+	cfg_basic.ini file
+	:return: config object
+	"""
 	cfg_basic_test = configparser.ConfigParser()
 	cfg_basic_test.read('cfg_basic.ini')
 	return cfg_basic_test

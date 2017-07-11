@@ -29,20 +29,37 @@ from src.alex_misc.alex_logging import create_logger
 
 logger_flow = create_logger(logger_name=__name__, fmt='%(message)s')
 
+
+################################################################
+# Pandas setting
+################################################################
+# Display max row
 pd.options.display.max_rows = cfg_basic.pd_display_max_row()
+# Display max column
+pd.options.display.max_columns = cfg_basic.pd_display_max_col()
+# Float number format
 pd.options.display.float_format = '{:20,.2f}'.format
 pd.set_option('display.float_format', lambda x: '%f' % x)
+# Float number precision
 pd.set_option('precision', cfg_basic.pd_precision())
+################################################################
+# End: Pandas setting
+################################################################
 
 
 def main_flow():
-	# Start decorator:
+	################################################################
+	# Start decorator
+	################################################################
 	# 1: enable logging;
 	# 0[0]: return not formatted time;
 	# 0[1]: return formatted time
 	my_decorator.main_flow_starter(1, my_time.now())
 	start_time = my_decorator.main_flow_starter(0, my_time.now())[0]
 	# start_time_formatted = my_decorator.main_flow_starter(0)[1]
+	################################################################
+	# End: Start decorator
+	################################################################
 
 	# Set sniffer capture file path
 	capture_file_path = cfg_basic.capture_file_path()
@@ -53,14 +70,16 @@ def main_flow():
 	# Wireshark capture file
 	capture = frame_init.capture_file_path
 
+	################################################################
 	# Beacon
+	################################################################
 	packet_str = 'beacon'
 	if cfg_basic.beacon_enable() == '1':
 		my_decorator.packet_check_start(packet_str)
 		packet_cfg_file = config_beacon
 		packet_data_file = beacon
 
-		filter_str = packet_cfg_file.type_value()[1] + ' and wlan.sa == ' + packet_cfg_file.sa()
+		filter_str = packet_cfg_file.type_value()[1] + ' and wlan.sa == ' + packet_cfg_file.src_addr()
 		results = dp.check_df(capture,
 		                      packet_cfg_file,
 		                      filter_str,
@@ -80,6 +99,9 @@ def main_flow():
 			                            pd.DataFrame(results[3]))
 	else:
 		my_decorator.packet_check_skip(packet_str)
+	################################################################
+	# End: Beacon
+	################################################################
 
 	# Probe request
 	packet_str = 'probe_request'
@@ -193,7 +215,9 @@ def main_flow():
 	else:
 		my_decorator.packet_check_skip(packet_str)
 
-	# End decorator:
+	################################################################
+	# End decorator
+	################################################################
 	# 1: logging;
 	# 0[0]: not formatted time; 0[1] formatted time
 	my_decorator.main_flow_ender(1, my_time.now())
@@ -205,3 +229,6 @@ def main_flow():
 	# 0: get time
 	# delta_time = my_decorator.main_flow_run_time(start_time, end_time, 0)
 	my_decorator.main_flow_run_time(start_time, end_time, 1)
+	################################################################
+	# End: End decorator
+	################################################################
