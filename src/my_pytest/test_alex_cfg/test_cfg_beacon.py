@@ -197,3 +197,147 @@ def test_wlan_radio_turbo_type_11a():
 	value = str(cfg_pkt_test['WLAN_Radio'].get('turbo_type_11a_value'))
 	assert cfg_beacon.wlan_radio_turbo_type_11a()[0] == enable
 	assert cfg_beacon.wlan_radio_turbo_type_11a()[1] == value
+
+
+def test_wlan_radio_frequency():
+	cfg_pkt_test = load_cfg_pkt_test()
+	enable = str(cfg_pkt_test['WLAN_Radio'].get('frequency_enable'))
+	value = str(cfg_pkt_test['WLAN_Radio'].get('frequency_value'))
+	assert cfg_beacon.wlan_radio_frequency()[0] == enable
+	assert cfg_beacon.wlan_radio_frequency()[1] == value
+
+
+def test_wlan_radio_duration():
+	cfg_pkt_test = load_cfg_pkt_test()
+	enable = str(cfg_pkt_test['WLAN_Radio'].get('duration_enable'))
+	value = str(cfg_pkt_test['WLAN_Radio'].get('duration_value'))
+	assert cfg_beacon.wlan_radio_duration()[0] == enable
+	assert cfg_beacon.wlan_radio_duration()[1] == value
+
+
+def test_wlan_radio_preamble():
+	cfg_pkt_test = load_cfg_pkt_test()
+	enable = str(cfg_pkt_test['WLAN_Radio'].get('preamble_enable'))
+	value = str(cfg_pkt_test['WLAN_Radio'].get('preamble_value'))
+	assert cfg_beacon.wlan_radio_preamble()[0] == enable
+	assert cfg_beacon.wlan_radio_preamble()[1] == value
+
+
+def test_wlan_fc_type_subtype():
+	cfg_pkt_test = load_cfg_pkt_test()
+	enable = str(cfg_pkt_test['WLAN'].get('fc_type_subtype_enable'))
+	value = str(cfg_pkt_test['WLAN'].get('fc_type_subtype_value'))
+	assert cfg_beacon.wlan_fc_type_subtype()[0] == enable
+	assert cfg_beacon.wlan_fc_type_subtype()[1] == value
+
+
+def test_wlan_fc_tree():
+	cfg_pkt_test = load_cfg_pkt_test()
+	enable = str(cfg_pkt_test['WLAN'].get('fc_tree_enable'))
+	value = str(cfg_pkt_test['WLAN'].get('fc_tree_value'))
+	assert cfg_beacon.wlan_fc_tree()[0] == enable
+	assert cfg_beacon.wlan_fc_tree()[1] == value
+
+
+def test_wlan_fc_version():
+	cfg_pkt_test = load_cfg_pkt_test()
+	enable = str(cfg_pkt_test['WLAN'].get('fc_version_enable'))
+	value = str(cfg_pkt_test['WLAN'].get('fc_version_value'))
+	assert cfg_beacon.wlan_fc_version()[0] == enable
+	assert cfg_beacon.wlan_fc_version()[1] == value
+
+
+def test_wlan_fc_type():
+	cfg_pkt_test = load_cfg_pkt_test()
+	enable = str(cfg_pkt_test['WLAN'].get('fc_type_enable'))
+	value = str(cfg_pkt_test['WLAN'].get('fc_type_value'))
+	assert cfg_beacon.wlan_fc_type()[0] == enable
+	assert cfg_beacon.wlan_fc_type()[1] == value
+
+
+def test_wlan_fc_subtype():
+	cfg_pkt_test = load_cfg_pkt_test()
+	enable = str(cfg_pkt_test['WLAN'].get('fc_subtype_enable'))
+	value = str(cfg_pkt_test['WLAN'].get('fc_subtype_value'))
+	assert cfg_beacon.wlan_fc_subtype()[0] == enable
+	assert cfg_beacon.wlan_fc_subtype()[1] == value
+
+
+def test_wlan_flags():
+	cfg_pkt_test = load_cfg_pkt_test()
+	enable = str(cfg_pkt_test['WLAN'].get('flags_enable'))
+	value = str(cfg_pkt_test['WLAN'].get('flags_value'))
+	assert cfg_beacon.wlan_flags()[0] == enable
+	assert cfg_beacon.wlan_flags()[1] == value
+
+
+def test_wlan_duration():
+	cfg_pkt_test = load_cfg_pkt_test()
+	enable = str(cfg_pkt_test['WLAN'].get('duration_enable'))
+	value = str(cfg_pkt_test['WLAN'].get('duration_value'))
+	assert cfg_beacon.wlan_duration()[0] == enable
+	assert cfg_beacon.wlan_duration()[1] == value
+
+
+def test_wlan_ra():
+	cfg_pkt_test = load_cfg_pkt_test()
+	enable = str(cfg_pkt_test['WLAN'].get('ra_enable'))
+	value = str(cfg_pkt_test['Address'].get('receiver_addr'))
+	assert cfg_beacon.wlan_ra()[0] == enable
+	assert cfg_beacon.wlan_ra()[1] == value
+
+
+def test_wlan_da():
+	cfg_pkt_test = load_cfg_pkt_test()
+	enable = str(cfg_pkt_test['WLAN'].get('da_enable'))
+	value = str(cfg_pkt_test['Address'].get('receiver_addr'))
+	assert cfg_beacon.wlan_da()[0] == enable
+	assert cfg_beacon.wlan_da()[1] == value
+
+
+def test_wlan_ta():
+	cfg_pkt_test = load_cfg_pkt_test()
+	enable = str(cfg_pkt_test['WLAN'].get('ta_enable'))
+	value = str(cfg_pkt_test['Address'].get('source_addr'))
+	assert cfg_beacon.wlan_ta()[0] == enable
+	assert cfg_beacon.wlan_ta()[1] == value
+
+
+def test_wlan_sa():
+	cfg_pkt_test = load_cfg_pkt_test()
+	enable = str(cfg_pkt_test['WLAN'].get('sa_enable'))
+	value = str(cfg_pkt_test['Address'].get('source_addr'))
+	assert cfg_beacon.wlan_sa()[0] == enable
+	assert cfg_beacon.wlan_sa()[1] == value
+
+
+def test_wlan_bssid():
+	cfg_pkt_test = load_cfg_pkt_test()
+	enable = str(cfg_pkt_test['WLAN'].get('bssid_enable'))
+	value = str(cfg_pkt_test['Address'].get('source_addr'))
+	assert cfg_beacon.wlan_bssid()[0] == enable
+	assert cfg_beacon.wlan_bssid()[1] == value
+
+
+def test_wlan_addr():
+	cfg_pkt_test = load_cfg_pkt_test()
+	enable = str(cfg_pkt_test['WLAN'].get('addr_enable'))
+	value = str(cfg_pkt_test['Address'].get('receiver_addr'))
+	assert cfg_beacon.wlan_addr()[0] == enable
+	assert cfg_beacon.wlan_addr()[1] == value
+
+
+def test_wlan_frag():
+	cfg_pkt_test = load_cfg_pkt_test()
+	enable = str(cfg_pkt_test['WLAN'].get('frag_enable'))
+	value = str(cfg_pkt_test['WLAN'].get('frag_value'))
+	assert cfg_beacon.wlan_frag()[0] == enable
+	assert cfg_beacon.wlan_frag()[1] == value
+
+
+def test_wlan_fcs_status():
+	cfg_pkt_test = load_cfg_pkt_test()
+	enable = str(cfg_pkt_test['WLAN'].get('fcs_status_enable'))
+	value = str(cfg_pkt_test['WLAN'].get('fcs_status_value'))
+	assert cfg_beacon.wlan_fcs_status()[0] == enable
+	assert cfg_beacon.wlan_fcs_status()[1] == value

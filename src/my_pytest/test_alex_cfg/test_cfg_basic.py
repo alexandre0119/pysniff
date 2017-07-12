@@ -120,7 +120,14 @@ def test_pytest_capture_file_path():
 
 	folder_path = os.path.join(root_path, folder)
 	sample_path = os.path.join(folder_path, capture_sample_config)
-	assert cfg_basic.pytest_capture_file_path('beacon') == sample_path
+	assert cfg_basic.pytest_capture_sample_path('beacon') == sample_path
+
+
+def test_pytest_capture_sample_src_addr():
+	cfg_basic_test = load_cfg_basic_test()
+	sa = 'beacon_sample_sa'
+	capture_sample_config = str(cfg_basic_test['Pytest'].get(sa))
+	assert cfg_basic.pytest_capture_sample_src_addr('beacon') == capture_sample_config
 
 
 def test_pd_display_max_row():

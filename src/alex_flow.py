@@ -73,13 +73,21 @@ def main_flow():
 	################################################################
 	# Beacon
 	################################################################
+	# Packet name string used in this section
 	packet_str = 'beacon'
+	# Check enable flag: '1' to check
 	if cfg_basic.beacon_enable() == '1':
+		# Packet check start decorator
 		my_decorator.packet_check_start(packet_str)
+		# Packet configuration: enable and reference value
 		packet_cfg_file = config_beacon
+		# Packet data
 		packet_data_file = beacon
-
+		# Wireshark filter string
+		# For example: wlan.fc.type_subtype == 0x08 and wlan.sa == 00:50:43:22:17:70
 		filter_str = packet_cfg_file.type_value()[1] + ' and wlan.sa == ' + packet_cfg_file.src_addr()
+
+		#
 		results = dp.check_df(capture,
 		                      packet_cfg_file,
 		                      filter_str,
@@ -97,6 +105,7 @@ def main_flow():
 			                            pd.DataFrame(results[1]),
 			                            pd.DataFrame(results[2]),
 			                            pd.DataFrame(results[3]))
+	# Check enable flag: '0' to skip
 	else:
 		my_decorator.packet_check_skip(packet_str)
 	################################################################

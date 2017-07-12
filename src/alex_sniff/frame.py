@@ -12,7 +12,7 @@ log_frame = create_logger(logger_name=__name__, fmt='%(message)s')
 class Frame(object):
 	def __init__(self, capture_file_path):
 		"""
-		Frame layer
+		Frame layer - Pytest'ed
 		:param capture_file_path: sniffer capture file path
 		"""
 		self.layer_name = 'frame'
@@ -20,7 +20,7 @@ class Frame(object):
 
 	def frame_interface_id(self, packet):
 		"""
-		Interface ID, i.e. 0 = en0
+		Interface ID, i.e. 0 = en0 - Pytest'ed
 		:param packet: packet
 		:return: interface ID
 		"""

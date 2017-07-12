@@ -11,6 +11,16 @@ logger_data = create_logger(logger_name=__name__, fmt='%(message)s')
 
 
 def data_df(capture, filter_str, value_list, field_list, csv_enable, data_csv_path):
+	"""
+	???
+	:param capture: Wireshark capture file
+	:param filter_str: wireshark display filter string
+	:param value_list:
+	:param field_list:
+	:param csv_enable:
+	:param data_csv_path:
+	:return:
+	"""
 	# Set pandas display and float number options
 	import sys
 	import pandas

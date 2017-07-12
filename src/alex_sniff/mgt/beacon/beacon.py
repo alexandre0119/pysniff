@@ -55,7 +55,11 @@ wfa_init = wfa.WLANMGTTagWFA(capture_file_path)
 
 
 def fields_frame():
-	# Frame fields
+	"""
+	Define frame layer field names
+	:return: [0] field name list; [1] field to check list
+	"""
+	# Frame all field names
 	fields_list = ['frame_interface_id',
 	               'frame_encap_type',
 	               'frame_time',
@@ -71,6 +75,8 @@ def fields_frame():
 	               'frame_ignored',
 	               'frame_protocols']
 
+	# Frame field to check list
+	# Field in this list will have related func in cfg_beacon.py file for enable flag and ref value
 	fields_list_check = ['frame_interface_id',
 	                     'frame_encap_type',
 	                     'frame_len',
@@ -80,6 +86,12 @@ def fields_frame():
 
 
 def values_frame(packet, layer):
+	"""
+	Get frame layer value from packet
+	:param packet: packet
+	:param layer: frame layer
+	:return: List: value of each field in frame layer for packet
+	"""
 	value_list = []
 
 	for i_field in fields_frame()[0]:

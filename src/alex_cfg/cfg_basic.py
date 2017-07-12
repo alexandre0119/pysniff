@@ -147,15 +147,28 @@ def pytest_capture_sample_name(packet_type):
 	return file_name
 
 
-def pytest_capture_file_path(packet_type):
+def pytest_capture_sample_path(packet_type):
 	"""
 	Pytest capture file path - Pytest'ed
 	:param packet_type: packet type name string
 	:return: Pytest capture file path
 	"""
 	import os
-	path = os.path.join(pytest_capture_dir_path(), pytest_capture_sample_name(packet_type))
+	sample_path = os.path.join(pytest_capture_dir_path(), pytest_capture_sample_name(packet_type))
+	path = os.path.join(program_path(), sample_path)
 	return path
+
+
+def pytest_capture_sample_src_addr(packet_type):
+	"""
+	Pytest capture sample file source addr - Pytest'ed
+	:param packet_type: packet type name string
+	:return: pytest capture sample file source addr
+	"""
+	config = load_cfg_basic()
+	capture_sample_sa = str(packet_type) + '_sample_sa'
+	file_sa = str(config['Pytest'].get(capture_sample_sa))
+	return file_sa
 
 
 def pd_display_max_row():

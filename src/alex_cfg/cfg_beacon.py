@@ -254,6 +254,10 @@ def wlan_radio_turbo_type_11a():
 
 
 def wlan_radio_data_rate():
+	"""
+	Enable and Reference value:  WLAN Radio - data rate - Pytest'ed
+	:return: [0] enable flag; [1] reference value: WLAN Radio - data rate
+	"""
 	cfg_pkt = load_cfg_pkt()
 	enable = str(cfg_pkt['WLAN_Radio'].get('data_rate_enable'))
 	value = str(cfg_pkt['WLAN_Radio'].get('data_rate_value'))
@@ -261,6 +265,10 @@ def wlan_radio_data_rate():
 
 
 def wlan_radio_channel():
+	"""
+	Enable and Reference value:  WLAN Radio - channel - Pytest'ed
+	:return: [0] enable flag; [1] reference value: WLAN Radio - channel
+	"""
 	cfg_pkt = load_cfg_pkt()
 	enable = str(cfg_pkt['WLAN_Radio'].get('channel_enable'))
 	value = str(cfg_pkt['WLAN_Radio'].get('channel_value'))
@@ -268,6 +276,10 @@ def wlan_radio_channel():
 
 
 def wlan_radio_frequency():
+	"""
+	Enable and Reference value:  WLAN Radio - frequency - Pytest'ed
+	:return: [0] enable flag; [1] reference value: WLAN Radio - frequency
+	"""
 	cfg_pkt = load_cfg_pkt()
 	enable = str(cfg_pkt['WLAN_Radio'].get('frequency_enable'))
 	value = str(cfg_pkt['WLAN_Radio'].get('frequency_value'))
@@ -275,6 +287,10 @@ def wlan_radio_frequency():
 
 
 def wlan_radio_duration():
+	"""
+	Enable and Reference value:  WLAN Radio - duration - Pytest'ed
+	:return: [0] enable flag; [1] reference value: WLAN Radio - duration
+	"""
 	cfg_pkt = load_cfg_pkt()
 	enable = str(cfg_pkt['WLAN_Radio'].get('duration_enable'))
 	value = str(cfg_pkt['WLAN_Radio'].get('duration_value'))
@@ -282,6 +298,10 @@ def wlan_radio_duration():
 
 
 def wlan_radio_preamble():
+	"""
+	Enable and Reference value:  WLAN Radio - preamble - Pytest'ed
+	:return: [0] enable flag; [1] reference value: WLAN Radio - preamble
+	"""
 	cfg_pkt = load_cfg_pkt()
 	enable = str(cfg_pkt['WLAN_Radio'].get('preamble_enable'))
 	value = str(cfg_pkt['WLAN_Radio'].get('preamble_value'))
@@ -289,6 +309,10 @@ def wlan_radio_preamble():
 
 
 def wlan_fc_type_subtype():
+	"""
+	Enable and Reference value:  WLAN - type_subtype - Pytest'ed
+	:return: [0] enable flag; [1] reference value: WLAN Radio - type_subtype
+	"""
 	cfg_pkt = load_cfg_pkt()
 	enable = str(cfg_pkt['WLAN'].get('fc_type_subtype_enable'))
 	value = str(cfg_pkt['WLAN'].get('fc_type_subtype_value'))
@@ -296,6 +320,10 @@ def wlan_fc_type_subtype():
 
 
 def wlan_fc_tree():
+	"""
+	Enable and Reference value:  WLAN - fc_tree - Pytest'ed
+	:return: [0] enable flag; [1] reference value: WLAN Radio - fc_tree
+	"""
 	cfg_pkt = load_cfg_pkt()
 	enable = str(cfg_pkt['WLAN'].get('fc_tree_enable'))
 	value = str(cfg_pkt['WLAN'].get('fc_tree_value'))
@@ -303,6 +331,10 @@ def wlan_fc_tree():
 
 
 def wlan_fc_version():
+	"""
+	Enable and Reference value:  WLAN - fc_version - Pytest'ed
+	:return: [0] enable flag; [1] reference value: WLAN Radio - fc_version
+	"""
 	cfg_pkt = load_cfg_pkt()
 	enable = str(cfg_pkt['WLAN'].get('fc_version_enable'))
 	value = str(cfg_pkt['WLAN'].get('fc_version_value'))
@@ -310,6 +342,10 @@ def wlan_fc_version():
 
 
 def wlan_fc_type():
+	"""
+	Enable and Reference value:  WLAN - fc_type - Pytest'ed
+	:return: [0] enable flag; [1] reference value: WLAN Radio - fc_type
+	"""
 	cfg_pkt = load_cfg_pkt()
 	enable = str(cfg_pkt['WLAN'].get('fc_type_enable'))
 	value = str(cfg_pkt['WLAN'].get('fc_type_value'))
@@ -317,6 +353,10 @@ def wlan_fc_type():
 
 
 def wlan_fc_subtype():
+	"""
+	Enable and Reference value:  WLAN - fc_subtype - Pytest'ed
+	:return: [0] enable flag; [1] reference value: WLAN Radio - fc_subtype
+	"""
 	cfg_pkt = load_cfg_pkt()
 	enable = str(cfg_pkt['WLAN'].get('fc_subtype_enable'))
 	value = str(cfg_pkt['WLAN'].get('fc_subtype_value'))
@@ -324,6 +364,10 @@ def wlan_fc_subtype():
 
 
 def wlan_flags():
+	"""
+	Enable and Reference value:  WLAN - flags - Pytest'ed
+	:return: [0] enable flag; [1] reference value: WLAN Radio - flags
+	"""
 	cfg_pkt = load_cfg_pkt()
 	enable = str(cfg_pkt['WLAN'].get('flags_enable'))
 	value = str(cfg_pkt['WLAN'].get('flags_value'))
@@ -331,6 +375,10 @@ def wlan_flags():
 
 
 def wlan_duration():
+	"""
+	Enable and Reference value:  WLAN - duration - Pytest'ed
+	:return: [0] enable flag; [1] reference value: WLAN Radio - duration
+	"""
 	cfg_pkt = load_cfg_pkt()
 	enable = str(cfg_pkt['WLAN'].get('duration_enable'))
 	value = str(cfg_pkt['WLAN'].get('duration_value'))
@@ -338,6 +386,10 @@ def wlan_duration():
 
 
 def wlan_ra():
+	"""
+	Enable and Reference value:  WLAN - receiver addr - Pytest'ed
+	:return: [0] enable flag; [1] reference value: WLAN Radio - receiver addr
+	"""
 	cfg_pkt = load_cfg_pkt()
 	enable = str(cfg_pkt['WLAN'].get('ra_enable'))
 	value = rx_addr()
@@ -345,6 +397,10 @@ def wlan_ra():
 
 
 def wlan_da():
+	"""
+	Enable and Reference value:  WLAN - destination addr - Pytest'ed
+	:return: [0] enable flag; [1] reference value: WLAN Radio - destination addr
+	"""
 	cfg_pkt = load_cfg_pkt()
 	enable = str(cfg_pkt['WLAN'].get('da_enable'))
 	value = rx_addr()
@@ -352,6 +408,10 @@ def wlan_da():
 
 
 def wlan_ta():
+	"""
+	Enable and Reference value:  WLAN - transmit addr - Pytest'ed
+	:return: [0] enable flag; [1] reference value: WLAN Radio - transmit addr
+	"""
 	cfg_pkt = load_cfg_pkt()
 	enable = str(cfg_pkt['WLAN'].get('ta_enable'))
 	value = src_addr()
@@ -359,6 +419,10 @@ def wlan_ta():
 
 
 def wlan_sa():
+	"""
+	Enable and Reference value:  WLAN - source addr - Pytest'ed
+	:return: [0] enable flag; [1] reference value: WLAN Radio - source addr
+	"""
 	cfg_pkt = load_cfg_pkt()
 	enable = str(cfg_pkt['WLAN'].get('sa_enable'))
 	value = src_addr()
@@ -366,6 +430,10 @@ def wlan_sa():
 
 
 def wlan_bssid():
+	"""
+	Enable and Reference value:  WLAN - bssid - Pytest'ed
+	:return: [0] enable flag; [1] reference value: WLAN Radio - bssid
+	"""
 	cfg_pkt = load_cfg_pkt()
 	enable = str(cfg_pkt['WLAN'].get('bssid_enable'))
 	value = src_addr()
@@ -373,6 +441,10 @@ def wlan_bssid():
 
 
 def wlan_addr():
+	"""
+	Enable and Reference value:  WLAN - addr - Pytest'ed
+	:return: [0] enable flag; [1] reference value: WLAN Radio - addr
+	"""
 	cfg_pkt = load_cfg_pkt()
 	enable = str(cfg_pkt['WLAN'].get('addr_enable'))
 	value = rx_addr()
@@ -380,6 +452,10 @@ def wlan_addr():
 
 
 def wlan_frag():
+	"""
+	Enable and Reference value:  WLAN - frag - Pytest'ed
+	:return: [0] enable flag; [1] reference value: WLAN Radio - frag
+	"""
 	cfg_pkt = load_cfg_pkt()
 	enable = str(cfg_pkt['WLAN'].get('frag_enable'))
 	value = str(cfg_pkt['WLAN'].get('frag_value'))
@@ -387,6 +463,10 @@ def wlan_frag():
 
 
 def wlan_fcs_status():
+	"""
+	Enable and Reference value:  WLAN - fcs_status - Pytest'ed
+	:return: [0] enable flag; [1] reference value: WLAN Radio - fcs_status
+	"""
 	cfg_pkt = load_cfg_pkt()
 	enable = str(cfg_pkt['WLAN'].get('fcs_status_enable'))
 	value = str(cfg_pkt['WLAN'].get('fcs_status_value'))
