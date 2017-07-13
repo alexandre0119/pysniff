@@ -341,3 +341,91 @@ def test_wlan_fcs_status():
 	value = str(cfg_pkt_test['WLAN'].get('fcs_status_value'))
 	assert cfg_beacon.wlan_fcs_status()[0] == enable
 	assert cfg_beacon.wlan_fcs_status()[1] == value
+
+
+def test_wlan_mgt_fixed_beacon():
+	cfg_pkt_test = load_cfg_pkt_test()
+	enable = str(cfg_pkt_test['WLAN_MGT'].get('fixed_beacon_enable'))
+	value = str(cfg_pkt_test['WLAN_MGT'].get('fixed_beacon_value'))
+	assert cfg_beacon.wlan_mgt_fixed_beacon()[0] == enable
+	assert cfg_beacon.wlan_mgt_fixed_beacon()[1] == value
+
+
+def test_wlan_mgt_fixed_capabilities():
+	cfg_pkt_test = load_cfg_pkt_test()
+	enable = str(cfg_pkt_test['WLAN_MGT'].get('fixed_capabilities_enable'))
+	value = str(cfg_pkt_test['WLAN_MGT'].get('fixed_capabilities_value'))
+	assert cfg_beacon.wlan_mgt_fixed_capabilities()[0] == enable
+	assert cfg_beacon.wlan_mgt_fixed_capabilities()[1] == value
+
+
+def test_wlan_mgt_ssid():
+	cfg_pkt_test = load_cfg_pkt_test()
+	enable = str(cfg_pkt_test['WLAN_MGT'].get('ssid_enable'))
+	value = str(cfg_pkt_test['WLAN_MGT'].get('ssid_value'))
+	assert cfg_beacon.wlan_mgt_ssid()[0] == enable
+	assert cfg_beacon.wlan_mgt_ssid()[1] == value
+
+
+def test_wlan_mgt_supported_rates():
+	cfg_pkt_test = load_cfg_pkt_test()
+	enable = str(cfg_pkt_test['WLAN_MGT'].get('supported_rates_enable'))
+	value = str(cfg_pkt_test['WLAN_MGT'].get('supported_rates_value'))
+	assert cfg_beacon.wlan_mgt_supported_rates()[0] == enable
+	assert cfg_beacon.wlan_mgt_supported_rates()[1] == value
+
+
+def test_wlan_mgt_ds_current_channel():
+	cfg_pkt_test = load_cfg_pkt_test()
+	enable = str(cfg_pkt_test['WLAN_MGT'].get('ds_current_channel_enable'))
+	value = str(cfg_pkt_test['WLAN_MGT'].get('ds_current_channel_value'))
+	assert cfg_beacon.wlan_mgt_ds_current_channel()[0] == enable
+	assert cfg_beacon.wlan_mgt_ds_current_channel()[1] == value
+
+
+def test_wlan_mgt_tim_dtim_count():
+	cfg_pkt_test = load_cfg_pkt_test()
+	enable = str(cfg_pkt_test['WLAN_MGT'].get('tim_dtim_count_enable'))
+	value = str(cfg_pkt_test['WLAN_MGT'].get('tim_dtim_count_value'))
+	assert cfg_beacon.wlan_mgt_tim_dtim_count()[0] == enable
+	assert cfg_beacon.wlan_mgt_tim_dtim_count()[1] == value
+
+
+def test_wlan_mgt_tim_dtim_periodt():
+	cfg_pkt_test = load_cfg_pkt_test()
+	enable = str(cfg_pkt_test['WLAN_MGT'].get('tim_dtim_period_enable'))
+	value = str(cfg_pkt_test['WLAN_MGT'].get('tim_dtim_period_value'))
+	assert cfg_beacon.wlan_mgt_tim_dtim_period()[0] == enable
+	assert cfg_beacon.wlan_mgt_tim_dtim_period()[1] == value
+
+
+def test_wlan_mgt_tim_bmapctl():
+	cfg_pkt_test = load_cfg_pkt_test()
+	enable = str(cfg_pkt_test['WLAN_MGT'].get('tim_bmapctl_enable'))
+	value = str(cfg_pkt_test['WLAN_MGT'].get('tim_bmapctl_value'))
+	assert cfg_beacon.wlan_mgt_tim_bmapctl()[0] == enable
+	assert cfg_beacon.wlan_mgt_tim_bmapctl()[1] == value
+
+
+def test_wlan_mgt_tim_partial_virtual_bitmap():
+	cfg_pkt_test = load_cfg_pkt_test()
+	enable = str(cfg_pkt_test['WLAN_MGT'].get('tim_partial_virtual_bitmap_enable'))
+	value = str(cfg_pkt_test['WLAN_MGT'].get('tim_partial_virtual_bitmap_value'))
+	assert cfg_beacon.wlan_mgt_tim_partial_virtual_bitmap()[0] == enable
+	assert cfg_beacon.wlan_mgt_tim_partial_virtual_bitmap()[1] == value
+
+
+def test_wlan_mgt_tim_aid():
+	cfg_pkt_test = load_cfg_pkt_test()
+	enable = str(cfg_pkt_test['WLAN_MGT'].get('tim_aid_enable'))
+	value = str(cfg_pkt_test['WLAN_MGT'].get('tim_aid_value'))
+	assert cfg_beacon.wlan_mgt_tim_aid()[0] == enable
+	assert cfg_beacon.wlan_mgt_tim_aid()[1] == value
+
+
+def test_wlan_mgt_rsn_version():
+	cfg_pkt_test = load_cfg_pkt_test()
+	enable = str(cfg_pkt_test['WLAN_MGT'].get('rsn_version_enable'))
+	value = str(cfg_pkt_test['WLAN_MGT'].get('rsn_version_value'))
+	assert cfg_beacon.wlan_mgt_rsn_version()[0] == enable
+	assert cfg_beacon.wlan_mgt_rsn_version()[1] == value

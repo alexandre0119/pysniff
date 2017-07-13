@@ -311,7 +311,7 @@ def wlan_radio_preamble():
 def wlan_fc_type_subtype():
 	"""
 	Enable and Reference value:  WLAN - type_subtype - Pytest'ed
-	:return: [0] enable flag; [1] reference value: WLAN Radio - type_subtype
+	:return: [0] enable flag; [1] reference value: WLAN - type_subtype
 	"""
 	cfg_pkt = load_cfg_pkt()
 	enable = str(cfg_pkt['WLAN'].get('fc_type_subtype_enable'))
@@ -322,7 +322,7 @@ def wlan_fc_type_subtype():
 def wlan_fc_tree():
 	"""
 	Enable and Reference value:  WLAN - fc_tree - Pytest'ed
-	:return: [0] enable flag; [1] reference value: WLAN Radio - fc_tree
+	:return: [0] enable flag; [1] reference value: WLAN - fc_tree
 	"""
 	cfg_pkt = load_cfg_pkt()
 	enable = str(cfg_pkt['WLAN'].get('fc_tree_enable'))
@@ -333,7 +333,7 @@ def wlan_fc_tree():
 def wlan_fc_version():
 	"""
 	Enable and Reference value:  WLAN - fc_version - Pytest'ed
-	:return: [0] enable flag; [1] reference value: WLAN Radio - fc_version
+	:return: [0] enable flag; [1] reference value: WLAN - fc_version
 	"""
 	cfg_pkt = load_cfg_pkt()
 	enable = str(cfg_pkt['WLAN'].get('fc_version_enable'))
@@ -344,7 +344,7 @@ def wlan_fc_version():
 def wlan_fc_type():
 	"""
 	Enable and Reference value:  WLAN - fc_type - Pytest'ed
-	:return: [0] enable flag; [1] reference value: WLAN Radio - fc_type
+	:return: [0] enable flag; [1] reference value: WLAN - fc_type
 	"""
 	cfg_pkt = load_cfg_pkt()
 	enable = str(cfg_pkt['WLAN'].get('fc_type_enable'))
@@ -355,7 +355,7 @@ def wlan_fc_type():
 def wlan_fc_subtype():
 	"""
 	Enable and Reference value:  WLAN - fc_subtype - Pytest'ed
-	:return: [0] enable flag; [1] reference value: WLAN Radio - fc_subtype
+	:return: [0] enable flag; [1] reference value: WLAN - fc_subtype
 	"""
 	cfg_pkt = load_cfg_pkt()
 	enable = str(cfg_pkt['WLAN'].get('fc_subtype_enable'))
@@ -366,7 +366,7 @@ def wlan_fc_subtype():
 def wlan_flags():
 	"""
 	Enable and Reference value:  WLAN - flags - Pytest'ed
-	:return: [0] enable flag; [1] reference value: WLAN Radio - flags
+	:return: [0] enable flag; [1] reference value: WLAN - flags
 	"""
 	cfg_pkt = load_cfg_pkt()
 	enable = str(cfg_pkt['WLAN'].get('flags_enable'))
@@ -377,7 +377,7 @@ def wlan_flags():
 def wlan_duration():
 	"""
 	Enable and Reference value:  WLAN - duration - Pytest'ed
-	:return: [0] enable flag; [1] reference value: WLAN Radio - duration
+	:return: [0] enable flag; [1] reference value: WLAN - duration
 	"""
 	cfg_pkt = load_cfg_pkt()
 	enable = str(cfg_pkt['WLAN'].get('duration_enable'))
@@ -388,7 +388,7 @@ def wlan_duration():
 def wlan_ra():
 	"""
 	Enable and Reference value:  WLAN - receiver addr - Pytest'ed
-	:return: [0] enable flag; [1] reference value: WLAN Radio - receiver addr
+	:return: [0] enable flag; [1] reference value: WLAN - receiver addr
 	"""
 	cfg_pkt = load_cfg_pkt()
 	enable = str(cfg_pkt['WLAN'].get('ra_enable'))
@@ -399,7 +399,7 @@ def wlan_ra():
 def wlan_da():
 	"""
 	Enable and Reference value:  WLAN - destination addr - Pytest'ed
-	:return: [0] enable flag; [1] reference value: WLAN Radio - destination addr
+	:return: [0] enable flag; [1] reference value: WLAN - destination addr
 	"""
 	cfg_pkt = load_cfg_pkt()
 	enable = str(cfg_pkt['WLAN'].get('da_enable'))
@@ -410,7 +410,7 @@ def wlan_da():
 def wlan_ta():
 	"""
 	Enable and Reference value:  WLAN - transmit addr - Pytest'ed
-	:return: [0] enable flag; [1] reference value: WLAN Radio - transmit addr
+	:return: [0] enable flag; [1] reference value: WLAN - transmit addr
 	"""
 	cfg_pkt = load_cfg_pkt()
 	enable = str(cfg_pkt['WLAN'].get('ta_enable'))
@@ -421,7 +421,7 @@ def wlan_ta():
 def wlan_sa():
 	"""
 	Enable and Reference value:  WLAN - source addr - Pytest'ed
-	:return: [0] enable flag; [1] reference value: WLAN Radio - source addr
+	:return: [0] enable flag; [1] reference value: WLAN - source addr
 	"""
 	cfg_pkt = load_cfg_pkt()
 	enable = str(cfg_pkt['WLAN'].get('sa_enable'))
@@ -432,7 +432,7 @@ def wlan_sa():
 def wlan_bssid():
 	"""
 	Enable and Reference value:  WLAN - bssid - Pytest'ed
-	:return: [0] enable flag; [1] reference value: WLAN Radio - bssid
+	:return: [0] enable flag; [1] reference value: WLAN - bssid
 	"""
 	cfg_pkt = load_cfg_pkt()
 	enable = str(cfg_pkt['WLAN'].get('bssid_enable'))
@@ -443,7 +443,7 @@ def wlan_bssid():
 def wlan_addr():
 	"""
 	Enable and Reference value:  WLAN - addr - Pytest'ed
-	:return: [0] enable flag; [1] reference value: WLAN Radio - addr
+	:return: [0] enable flag; [1] reference value: WLAN - addr
 	"""
 	cfg_pkt = load_cfg_pkt()
 	enable = str(cfg_pkt['WLAN'].get('addr_enable'))
@@ -454,7 +454,7 @@ def wlan_addr():
 def wlan_frag():
 	"""
 	Enable and Reference value:  WLAN - frag - Pytest'ed
-	:return: [0] enable flag; [1] reference value: WLAN Radio - frag
+	:return: [0] enable flag; [1] reference value: WLAN - frag
 	"""
 	cfg_pkt = load_cfg_pkt()
 	enable = str(cfg_pkt['WLAN'].get('frag_enable'))
@@ -465,7 +465,7 @@ def wlan_frag():
 def wlan_fcs_status():
 	"""
 	Enable and Reference value:  WLAN - fcs_status - Pytest'ed
-	:return: [0] enable flag; [1] reference value: WLAN Radio - fcs_status
+	:return: [0] enable flag; [1] reference value: WLAN - fcs_status
 	"""
 	cfg_pkt = load_cfg_pkt()
 	enable = str(cfg_pkt['WLAN'].get('fcs_status_enable'))
@@ -474,6 +474,10 @@ def wlan_fcs_status():
 
 
 def wlan_mgt_fixed_beacon():
+	"""
+	Enable and Reference value:  WLAN MGT - fixed_beacon - Pytest'ed
+	:return: [0] enable flag; [1] reference value: WLAN MGT - fixed_beacon
+	"""
 	cfg_pkt = load_cfg_pkt()
 	enable = str(cfg_pkt['WLAN_MGT'].get('fixed_beacon_enable'))
 	value = str(cfg_pkt['WLAN_MGT'].get('fixed_beacon_value'))
@@ -481,6 +485,10 @@ def wlan_mgt_fixed_beacon():
 
 
 def wlan_mgt_fixed_capabilities():
+	"""
+	Enable and Reference value:  WLAN MGT - fixed_capabilities - Pytest'ed
+	:return: [0] enable flag; [1] reference value: WLAN MGT - fixed_capabilities
+	"""
 	cfg_pkt = load_cfg_pkt()
 	enable = str(cfg_pkt['WLAN_MGT'].get('fixed_capabilities_enable'))
 	value = str(cfg_pkt['WLAN_MGT'].get('fixed_capabilities_value'))
@@ -488,6 +496,10 @@ def wlan_mgt_fixed_capabilities():
 
 
 def wlan_mgt_ssid():
+	"""
+	Enable and Reference value:  WLAN MGT - ssid - Pytest'ed
+	:return: [0] enable flag; [1] reference value: WLAN MGT - ssid
+	"""
 	cfg_pkt = load_cfg_pkt()
 	enable = str(cfg_pkt['WLAN_MGT'].get('ssid_enable'))
 	value = str(cfg_pkt['WLAN_MGT'].get('ssid_value'))
@@ -495,6 +507,10 @@ def wlan_mgt_ssid():
 
 
 def wlan_mgt_supported_rates():
+	"""
+	Enable and Reference value:  WLAN MGT - supported_rates - Pytest'ed
+	:return: [0] enable flag; [1] reference value: WLAN MGT - supported_rates
+	"""
 	cfg_pkt = load_cfg_pkt()
 	enable = str(cfg_pkt['WLAN_MGT'].get('supported_rates_enable'))
 	value = str(cfg_pkt['WLAN_MGT'].get('supported_rates_value'))
@@ -502,6 +518,10 @@ def wlan_mgt_supported_rates():
 
 
 def wlan_mgt_ds_current_channel():
+	"""
+	Enable and Reference value:  WLAN MGT - ds_current_channel - Pytest'ed
+	:return: [0] enable flag; [1] reference value: WLAN MGT - ds_current_channel
+	"""
 	cfg_pkt = load_cfg_pkt()
 	enable = str(cfg_pkt['WLAN_MGT'].get('ds_current_channel_enable'))
 	value = str(cfg_pkt['WLAN_MGT'].get('ds_current_channel_value'))
@@ -509,6 +529,10 @@ def wlan_mgt_ds_current_channel():
 
 
 def wlan_mgt_tim_dtim_count():
+	"""
+	Enable and Reference value:  WLAN MGT - tim_dtim_count - Pytest'ed
+	:return: [0] enable flag; [1] reference value: WLAN MGT - tim_dtim_count
+	"""
 	cfg_pkt = load_cfg_pkt()
 	enable = str(cfg_pkt['WLAN_MGT'].get('tim_dtim_count_enable'))
 	value = str(cfg_pkt['WLAN_MGT'].get('tim_dtim_count_value'))
@@ -516,6 +540,10 @@ def wlan_mgt_tim_dtim_count():
 
 
 def wlan_mgt_tim_dtim_period():
+	"""
+	Enable and Reference value:  WLAN MGT - tim_dtim_period - Pytest'ed
+	:return: [0] enable flag; [1] reference value: WLAN MGT - tim_dtim_period
+	"""
 	cfg_pkt = load_cfg_pkt()
 	enable = str(cfg_pkt['WLAN_MGT'].get('tim_dtim_period_enable'))
 	value = str(cfg_pkt['WLAN_MGT'].get('tim_dtim_period_value'))
@@ -523,6 +551,10 @@ def wlan_mgt_tim_dtim_period():
 
 
 def wlan_mgt_tim_bmapctl():
+	"""
+	Enable and Reference value:  WLAN MGT - tim_bmapctl - Pytest'ed
+	:return: [0] enable flag; [1] reference value: WLAN MGT - tim_bmapctl
+	"""
 	cfg_pkt = load_cfg_pkt()
 	enable = str(cfg_pkt['WLAN_MGT'].get('tim_bmapctl_enable'))
 	value = str(cfg_pkt['WLAN_MGT'].get('tim_bmapctl_value'))
@@ -530,6 +562,10 @@ def wlan_mgt_tim_bmapctl():
 
 
 def wlan_mgt_tim_partial_virtual_bitmap():
+	"""
+	Enable and Reference value:  WLAN MGT - tim_partial_virtual_bitmap - Pytest'ed
+	:return: [0] enable flag; [1] reference value: WLAN MGT - tim_partial_virtual_bitmap
+	"""
 	cfg_pkt = load_cfg_pkt()
 	enable = str(cfg_pkt['WLAN_MGT'].get('tim_partial_virtual_bitmap_enable'))
 	value = str(cfg_pkt['WLAN_MGT'].get('tim_partial_virtual_bitmap_value'))
@@ -537,6 +573,10 @@ def wlan_mgt_tim_partial_virtual_bitmap():
 
 
 def wlan_mgt_tim_aid():
+	"""
+	Enable and Reference value:  WLAN MGT - tim_aid - Pytest'ed
+	:return: [0] enable flag; [1] reference value: WLAN MGT - tim_aid
+	"""
 	cfg_pkt = load_cfg_pkt()
 	enable = str(cfg_pkt['WLAN_MGT'].get('tim_aid_enable'))
 	value = str(cfg_pkt['WLAN_MGT'].get('tim_aid_value'))
@@ -544,6 +584,10 @@ def wlan_mgt_tim_aid():
 
 
 def wlan_mgt_rsn_version():
+	"""
+	Enable and Reference value:  WLAN MGT - rsn_version - Pytest'ed
+	:return: [0] enable flag; [1] reference value: WLAN MGT - rsn_version
+	"""
 	cfg_pkt = load_cfg_pkt()
 	enable = str(cfg_pkt['WLAN_MGT'].get('rsn_version_enable'))
 	value = str(cfg_pkt['WLAN_MGT'].get('rsn_version_value'))
