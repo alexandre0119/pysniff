@@ -595,6 +595,10 @@ def wlan_mgt_rsn_version():
 
 
 def wlan_mgt_rsn_gcs():
+	"""
+	Enable and Reference value:  WLAN MGT - rsn_gcs - Pytest'ed
+	:return: [0] enable flag; [1] reference value: WLAN MGT - rsn_gcs
+	"""
 	cfg_pkt = load_cfg_pkt()
 	enable = str(cfg_pkt['WLAN_MGT'].get('rsn_gcs_enable'))
 	value = str(cfg_pkt['WLAN_MGT'].get('rsn_gcs_value'))

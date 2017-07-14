@@ -429,3 +429,11 @@ def test_wlan_mgt_rsn_version():
 	value = str(cfg_pkt_test['WLAN_MGT'].get('rsn_version_value'))
 	assert cfg_beacon.wlan_mgt_rsn_version()[0] == enable
 	assert cfg_beacon.wlan_mgt_rsn_version()[1] == value
+
+
+def test_wlan_mgt_rsn_gcs():
+	cfg_pkt_test = load_cfg_pkt_test()
+	enable = str(cfg_pkt_test['WLAN_MGT'].get('rsn_gcs_enable'))
+	value = str(cfg_pkt_test['WLAN_MGT'].get('rsn_gcs_value'))
+	assert cfg_beacon.wlan_mgt_rsn_gcs()[0] == enable
+	assert cfg_beacon.wlan_mgt_rsn_gcs()[1] == value
